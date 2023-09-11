@@ -5,8 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 4 March 2024                                            Siemens
-                                                        1 September 2023
+Expires: 14 March 2024                                           Siemens
+                                                             H. Birkholz
+                                                          Fraunhofer SIT
+                                                       11 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -67,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 March 2024.
+   This Internet-Draft will expire on 14 March 2024.
 
 Copyright Notice
 
@@ -573,9 +575,9 @@ ext-evidence EXTENSION ::= {
               Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
               T. Fossati, "Arm's Platform Security Architecture (PSA)
               Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-12, 5 July 2023,
+              draft-tschofenig-rats-psa-token-13, 1 September 2023,
               <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-12>.
+              rats-psa-token-13>.
 
    [RFC2986]  Nystrom, M. and B. Kaliski, "PKCS #10: Certification
               Request Syntax Specification Version 1.7", RFC 2986,
@@ -874,3 +876,11 @@ Authors' Addresses
    Hannes Tschofenig
    Siemens
    Email: Hannes.Tschofenig@gmx.net
+
+
+   Henk Birkholz
+   Fraunhofer SIT
+   Rheinstrasse 75
+   64295 Darmstadt
+   Germany
+   Email: henk.birkholz@sit.fraunhofer.de
