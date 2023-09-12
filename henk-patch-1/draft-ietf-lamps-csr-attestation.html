@@ -1278,25 +1278,24 @@ target environment being assessed via appraisal of Evidence. <a href="#architect
 in the RATS architecture map to a certificate requester and a CA/RA.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the time of writing, several standard and several proprietary attestation technologies
 are in use.
-This specification thereby is intended to be as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. This specification focuses on the transport of Evidence via CSR while making minimal assumptions about content or format of the transported Evidence.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">Conveyance of sets of certificates used for validation of
-Evidence. These certificates typically contain one or more certification paths
+This specification thereby is intended to as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. This specification focuses on (1) the conveyance of Evidence via CSR while making minimal assumptions about content or format of the transported Evidence and (2) the conveyance of sets of certificates used for validation of Evidence.
+The certificates typically contain one or more certification paths
 rooted in a device manufacture trust anchor and the leaf certificate being
-on the device in question; the latter is the Attestation Key that signs the Evidence statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This document specifies two ATTRIBUTE/Attribute definitions. The first
+on the device in question; the latter is the Attestation Key that signs the Evidence statement.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document specifies two ATTRIBUTE/Attribute definitions. The first
 Attribute may be used to carry a set of certificates or public keys that
 may be required to validate signed Evidence. The second Attribute carries a
-structure that may be used to convey Evidence.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">A CSR may contain one or more Evidence payloads, for example Evidence
+structure that may be used to convey Evidence.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">A CSR may contain one or more Evidence payloads, for example Evidence
 asserting the storage properties of a private key as well Evidence
 asserting firmware version and other general properties
-of the device, or Evidence signed via certification paths.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">With these attributes, additional
+of the device, or Evidence signed via certification paths.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">With these attributes, additional
 information about whether to issue a certificate and what information
 to populate into the certificate is available to an RA or CA. The scope of this document is, however,
 limited to the conveyance of Evidence within CSR. The exact format of the
 Evidence being conveyed is defined in various standard and proprietary
-specifications.<a href="#section-1-7" class="pilcrow">¶</a></p>
+specifications.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
