@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-05T00:42:34.987740+00:00",
+  "timestamp": "2023-09-12T00:42:00.244429+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -376,19 +376,21 @@
       "state": "OPEN",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "ounsworth"
+      ],
       "labels": [],
       "body": "Hannes is advocating to remove the EvidanceCerts attribute / extension and roll it into the single EvidenceStatement attribute / extension; something like:\r\n\r\n```\r\nEvidenceStatement ::= SEQUENCE\r\n  {\r\n    type   OBJECT IDENTIFIER,\r\n    value  <whatever>,\r\n    certs SEQUENCE OF CertificateChoice OPTIONAL\r\n  }\r\n```\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/8C0QEGQLn38neLZvpH4rBrOBltc/",
       "createdAt": "2023-08-22T15:24:34Z",
-      "updatedAt": "2023-08-28T16:48:55Z",
+      "updatedAt": "2023-09-11T15:48:43Z",
       "closedAt": null,
       "comments": [
         {
           "author": "ounsworth",
           "authorAssociation": "CONTRIBUTOR",
-          "body": "Mike to create a PR with Carl's suggestion.",
+          "body": "Mike to create a PR with Carl's suggestion.\r\nSee: https://github.com/lamps-wg/csr-attestation/blob/main/meetingNotes/2023-08-28.md",
           "createdAt": "2023-08-28T16:48:54Z",
-          "updatedAt": "2023-08-28T16:48:54Z"
+          "updatedAt": "2023-09-11T15:48:43Z"
         }
       ]
     },
@@ -420,9 +422,17 @@
       "labels": [],
       "body": "Ned says that TCG has already registered an OID for \"This is CMV\".\r\n\r\nhttps://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf\r\n\r\ntcg-dice-conceptual-message-wrapper OBJECT IDENTIFIER ::= {tcg-dice 9}",
       "createdAt": "2023-08-28T16:45:50Z",
-      "updatedAt": "2023-08-28T16:45:50Z",
+      "updatedAt": "2023-09-11T16:15:02Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Maybe add this to:\r\n\r\n``` \r\nEvidenceStatementSet EVIDENCE-STATEMENT ::= {\r\n   ... -- Empty for now --\r\n}\r\n```",
+          "createdAt": "2023-09-11T16:15:02Z",
+          "updatedAt": "2023-09-11T16:15:02Z"
+        }
+      ]
     },
     {
       "number": 36,
@@ -1714,24 +1724,26 @@
       "id": "PR_kwDOJ3IIN85Y7y-a",
       "title": "Introduction Update",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/32",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-08-28T13:15:37Z",
-      "updatedAt": "2023-08-28T13:15:37Z",
+      "updatedAt": "2023-09-11T15:51:48Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "a94fa67df71f57900ab108f9c4430ee8b2338119",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-2",
       "headRefOid": "51faf599db6154aa1fdab583fd8d95b75efd8cf2",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-09-11T15:51:45Z",
+      "mergedAt": "2023-09-11T15:51:45Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "abab212a6e39b3aec087cf1f9e18de923ebfd86f"
+      },
       "comments": [],
       "reviews": []
     },
@@ -1740,24 +1752,26 @@
       "id": "PR_kwDOJ3IIN85Y8YHS",
       "title": "Bugfix: Certification Authority",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/33",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-08-28T14:49:14Z",
-      "updatedAt": "2023-08-28T14:49:14Z",
+      "updatedAt": "2023-09-11T15:51:23Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "a94fa67df71f57900ab108f9c4430ee8b2338119",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-3",
       "headRefOid": "46694aeef6e36e8d7538ab0ab1fb10800c11043f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-09-11T15:51:18Z",
+      "mergedAt": "2023-09-11T15:51:18Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "cb1f4053279e9848b8f1d80df92086f8f7cc7227"
+      },
       "comments": [],
       "reviews": []
     },
@@ -1766,24 +1780,26 @@
       "id": "PR_kwDOJ3IIN85Y9ClM",
       "title": "Adding Henk as co-author",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/35",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-08-28T16:51:18Z",
-      "updatedAt": "2023-08-28T16:51:18Z",
+      "updatedAt": "2023-09-11T15:50:53Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "a94fa67df71f57900ab108f9c4430ee8b2338119",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-5",
       "headRefOid": "bbcfc3e46b6a68a309d8110a52014a6c8dd3a6b1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-09-11T15:50:49Z",
+      "mergedAt": "2023-09-11T15:50:49Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "a3e1298d95b5545128fd11c5ff9a251a903fba3e"
+      },
       "comments": [],
       "reviews": []
     },
@@ -1799,7 +1815,7 @@
       "labels": [],
       "body": "Spelling and formatting, minor changes to wording",
       "createdAt": "2023-09-04T12:52:55Z",
-      "updatedAt": "2023-09-04T15:16:07Z",
+      "updatedAt": "2023-09-11T15:55:19Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "9e9be1c62d7b7e363e9d5d35a4ee5a159825c918",
@@ -1824,6 +1840,13 @@
           "body": "Fair points, Henk. And I must confess, For the brackets, I have no clue :-)\r\n- Brackets seem to have been added by the auto-format function of my editor. \r\n- Line breaks sentences was something I removed to make Markdown exports more targeted if required, but nothing of major importance. If we want to do it differently fine as well, then we need to limit line lengths to 72 characters if I'm not mistaken.\r\n\r\nFormatting is less important to me, the spelling fixes are something that we should merge, I reckon.",
           "createdAt": "2023-09-04T15:16:06Z",
           "updatedAt": "2023-09-04T15:16:06Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Note-to-self: I'll need to pull this locally and go through the diffs one-by-one.",
+          "createdAt": "2023-09-11T15:55:18Z",
+          "updatedAt": "2023-09-11T15:55:18Z"
         }
       ],
       "reviews": []
