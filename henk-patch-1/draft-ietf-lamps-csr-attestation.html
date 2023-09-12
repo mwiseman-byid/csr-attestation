@@ -1267,35 +1267,35 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">When requesting a certificate from a Certification Authority (CA), a PKI end entity may wish to include evidence of the security properties of its environments in which the private keys are stored in that request.
-This evidence can be appraised by authoritative entities, such as a Registration Authority (RA) or a CA as part of validating an incoming certificate request against given certificate policies.
+<p id="section-1-1">When requesting a certificate from a Certification Authority (CA), a PKI end entity may wish to include Evidence of the security properties of its environments in which the private keys are stored in that request.
+This Evidence can be appraised by authoritative entities, such as a Registration Authority (RA) or a CA as part of validating an incoming certificate request against given certificate policies.
 This specification provides two newly defined attributes that allow for conveyance of remote attestation payload in Certificate Requests (CSR) in either PKCS#10 <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span> or Certificate Request Message Format (CRMF) <span>[<a href="#RFC4211" class="cite xref">RFC4211</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">As outlined in the RATS Architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>, an Attester (typically
-a device) produces a signed collection of Claims that constitutes evidence about its running environment.
-The term "attestation" is intentionally not defined in RFC 9334, but it is often taken to mean the activity of producing and appraising remote attestation evidence.
-A Relying Party may consult that evidence -- or an attestation result produced by a verifier that has appraised the evidence -- in making policy decisions about the trustworthiness of the
-target environment being attested. <a href="#architecture" class="auto internal xref">Section 3</a> overviews how the various roles
+a device) produces a signed collection of Claims that constitutes Evidence about its running environment.
+The term "attestation" is intentionally not defined in RFC 9334, but it is often taken to mean the activity of producing and appraising remote attestation Evidence.
+A Relying Party may consult that Evidence -- or an Attestation Result produced by a Verifier that has appraised the Evidence -- in making policy decisions about the trustworthiness of the
+target environment being assessed via appraisal of Evidence. <a href="#architecture" class="auto internal xref">Section 3</a> provides the basis to illustrate in this document how the various roles
 in the RATS architecture map to a certificate requester and a CA/RA.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the time of writing, several standard and several proprietary attestation technologies
 are in use.
-This specification thereby is intended to as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. This specification focuses on the transport of evidence via CSR while making minimal assumptions about content or format of the transported evidence.<a href="#section-1-3" class="pilcrow">¶</a></p>
+This specification thereby is intended to as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. This specification focuses on the transport of Evidence via CSR while making minimal assumptions about content or format of the transported Evidence.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Conveyance of sets of certificates used for validation of
-evidence. These certificates typically contain one or more certification paths
+Evidence. These certificates typically contain one or more certification paths
 rooted in a device manufacture trust anchor and the leaf certificate being
-on the device in question; the latter is the Attestation Key that signs the evidence statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
+on the device in question; the latter is the Attestation Key that signs the Evidence statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document specifies two ATTRIBUTE/Attribute definitions. The first
 Attribute may be used to carry a set of certificates or public keys that
-may be required to validate signed evidence. The second Attribute carries a
-structure that may be used to convey evidence.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">A CSR may contain one or more evidence payloads, for example evidence
-asserting the storage properties of a private key as well evidence
+may be required to validate signed Evidence. The second Attribute carries a
+structure that may be used to convey Evidence.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">A CSR may contain one or more Evidence payloads, for example Evidence
+asserting the storage properties of a private key as well Evidence
 asserting firmware version and other general properties
-of the device, or evidence signed via certification paths.<a href="#section-1-6" class="pilcrow">¶</a></p>
+of the device, or Evidence signed via certification paths.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">With these attributes, additional
 information about whether to issue a certificate and what information
 to populate into the certificate is available to an RA or CA. The scope of this document is, however,
-limited to the conveyance of evidence within CSR. The exact format of the
-evidence being conveyed is defined in various standard and proprietary
+limited to the conveyance of Evidence within CSR. The exact format of the
+Evidence being conveyed is defined in various standard and proprietary
 specifications.<a href="#section-1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
