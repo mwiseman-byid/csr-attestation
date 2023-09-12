@@ -5,8 +5,8 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 29 February 2024                                        Siemens
-                                                          28 August 2023
+Expires: 15 March 2024                                           Siemens
+                                                       12 September 2023
 
 
          Use of Attestation with Certification Signing Requests
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 February 2024.
+   This Internet-Draft will expire on 15 March 2024.
 
 Copyright Notice
 
@@ -478,8 +478,8 @@ Table of Contents
    keying material can be made.  For example, one implementation may
    perform a software measurement of the CSR library along with the
    crypto library implementation that has access to the keying material.
-   For the Verifier the provided Evidence must allow an assessment to be
-   made whether the key used to sign the CSR is stored in a secure
+   For the Verifier, the provided Evidence must allow an assessment to
+   be made whether the key used to sign the CSR is stored in a secure
    location and cannot be exported.
 
    Evidence communicated in the attributes and structures defined in
@@ -552,9 +552,9 @@ Table of Contents
               Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
               T. Fossati, "Arm's Platform Security Architecture (PSA)
               Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-12, 5 July 2023,
+              draft-tschofenig-rats-psa-token-13, 1 September 2023,
               <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-12>.
+              rats-psa-token-13>.
 
    [RFC2986]  Nystrom, M. and B. Kaliski, "PKCS #10: Certification
               Request Syntax Specification Version 1.7", RFC 2986,
