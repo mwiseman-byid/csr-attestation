@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-12T00:42:00.244429+00:00",
+  "timestamp": "2023-09-14T00:43:09.167414+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -420,9 +420,9 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "Ned says that TCG has already registered an OID for \"This is CMV\".\r\n\r\nhttps://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf\r\n\r\ntcg-dice-conceptual-message-wrapper OBJECT IDENTIFIER ::= {tcg-dice 9}",
+      "body": "Ned says that TCG has already registered an OID for \"This is CMW\".\r\n\r\nhttps://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf\r\n\r\ntcg-dice-conceptual-message-wrapper OBJECT IDENTIFIER ::= {tcg-dice 9}",
       "createdAt": "2023-08-28T16:45:50Z",
-      "updatedAt": "2023-09-11T16:15:02Z",
+      "updatedAt": "2023-09-12T14:14:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -446,9 +446,17 @@
       "labels": [],
       "body": "CertificateChoice ::=\r\n   CHOICE {\r\n      cert Certificate,\r\n      opaqueCert    [0] IMPLICIT OCTET STRING,\r\n      typedCert     [1] IMPLICIT TypedCert,\r\n      typedFlatCert [2] IMPLICIT TypedFlatCert,\r\n      ...\r\n   }\r\n\r\nTODO: look up the right syntax and run it through a compiler.",
       "createdAt": "2023-08-28T16:52:26Z",
-      "updatedAt": "2023-08-28T16:53:36Z",
+      "updatedAt": "2023-09-12T14:22:58Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Maybe it's better to use this syntax instead of CHOICE ? (borrowed from 5912)\r\n\r\n```\r\n   SMimeCaps SMIME-CAPS ::= {\r\n       sa-rsaSSA-PSS.&smimeCaps |\r\n       kta-rsaES-OAEP.&smimeCaps,\r\n       ...\r\n   }\r\n```",
+          "createdAt": "2023-09-12T14:22:58Z",
+          "updatedAt": "2023-09-12T14:22:58Z"
+        }
+      ]
     },
     {
       "number": 37,
@@ -465,6 +473,30 @@
       "updatedAt": "2023-08-28T17:24:30Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 41,
+      "id": "I_kwDOJ3IIN85w47U0",
+      "title": "Conflicts with establish remote attestation terminology and some lack of precision",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/41",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Especially in the Introduction, the current wording is sometimes ambiguous or conflicting and often not following RFC 4949 or RFC 9334. Also `attestation` is defined in https://www.ietf.org/archive/id/draft-ietf-rats-tpm-based-network-device-attest-14.html#name-terminology-2\r\n\r\nA few examples where the text is off: Evidence is verified or checked, a Target Environment is attested, at one point \"a attribute\" is defined, while it are two. Some phrasing can be made more fluid simply by restructuring sentences or making the language used more homogeneous.",
+      "createdAt": "2023-09-13T08:02:08Z",
+      "updatedAt": "2023-09-13T08:02:42Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Please find a proposal in #39",
+          "createdAt": "2023-09-13T08:02:41Z",
+          "updatedAt": "2023-09-13T08:02:41Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1052,21 +1084,21 @@
       "id": "PR_kwDOJ3IIN85YKcqE",
       "title": "Interaction between Attesting and Target Environment",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-08-17T14:14:50Z",
-      "updatedAt": "2023-08-28T16:29:42Z",
+      "updatedAt": "2023-09-12T18:46:19Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "485fc0c144d1b8999e738ce8c4e017557217bf83",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-4",
-      "headRefOid": "fe8cf7c5b49dff65bdf0b89851e9acd6fc394ebe",
-      "closedAt": null,
+      "headRefOid": "15c008f73b53f690c25879dfeaca1f7234109c48",
+      "closedAt": "2023-09-12T18:46:16Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -1489,6 +1521,26 @@
               "updatedAt": "2023-08-28T16:21:28Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85gsy5x",
+          "commit": {
+            "abbreviatedOid": "85e960b"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-12T14:10:10Z",
+          "updatedAt": "2023-09-12T14:10:10Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I'll retract this; I think it's a minor quibble.",
+              "createdAt": "2023-09-12T14:10:10Z",
+              "updatedAt": "2023-09-12T14:10:10Z"
+            }
+          ]
         }
       ]
     },
@@ -1815,13 +1867,13 @@
       "labels": [],
       "body": "Spelling and formatting, minor changes to wording",
       "createdAt": "2023-09-04T12:52:55Z",
-      "updatedAt": "2023-09-11T15:55:19Z",
+      "updatedAt": "2023-09-12T11:22:14Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "9e9be1c62d7b7e363e9d5d35a4ee5a159825c918",
       "headRepository": "meyer-chris/csr-attestation",
       "headRefName": "main",
-      "headRefOid": "f68997f2d289c849bed4af05b31fd8857f5e774f",
+      "headRefOid": "4197b75b711f4981bd0179334938f7151f2a0c28",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1849,6 +1901,157 @@
           "updatedAt": "2023-09-11T15:55:18Z"
         }
       ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85grL-z",
+          "commit": {
+            "abbreviatedOid": "f68997f"
+          },
+          "author": "jethrogb",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-12T10:33:50Z",
+          "updatedAt": "2023-09-12T10:33:50Z",
+          "comments": [
+            {
+              "originalPosition": 81,
+              "body": "```suggestion\r\nA client requesting a certificate from a Certification Authority (CA) may wish to offer believable claims about the protections afforded to the corresponding private key, such as whether the private key resides on a hardware security module or trusted platform module, and the protection capabilities provided by the hardware module. Including this evidence along with the certificate request can help to improve the assessment of the security posture for the private key, and suitability of the submitted key to the requested certificate profile. These evidence claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys).\r\n```",
+              "createdAt": "2023-09-12T10:33:50Z",
+              "updatedAt": "2023-09-12T10:33:50Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOJ3IIN85aJM98",
+      "title": "terminololgy and phrasing in Introduction",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/39",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Rather extensive overhaul. Please check!",
+      "createdAt": "2023-09-12T15:36:04Z",
+      "updatedAt": "2023-09-13T07:54:34Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "83e4007c1c9c7acd031dd0733f8426a72eb06ff1",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "henk-patch-1",
+      "headRefOid": "837e9a0db1501fa78eaf5709e551a74cbf193246",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It is not a good idea to change the introduction when there is already another PR open that modifies the same text. This will result in lots of merge conflicts.\r\n\r\nAdditionally, there are open issues that need to be resolved and a re-write of the introduction is currently not an open issue. Note that the introduction has already been re-written several times.",
+          "createdAt": "2023-09-12T18:32:15Z",
+          "updatedAt": "2023-09-12T18:32:15Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The language used was deviating significantly from RFC 9334 terminology and RFC 4949 terminology. The conflict with #22 was only about capitalization, which is noted in this PR. Rebasing it is not a problem. I'll file an issue.",
+          "createdAt": "2023-09-13T07:54:34Z",
+          "updatedAt": "2023-09-13T07:54:34Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85gtrxD",
+          "commit": {
+            "abbreviatedOid": "f0ed868"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-12T15:50:49Z",
+          "updatedAt": "2023-09-12T15:50:50Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\nThis specification thereby is intended to be as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. This specification focuses on the transport of Evidence via CSR while making minimal assumptions about content or format of the transported Evidence.\r\n```",
+              "createdAt": "2023-09-12T15:50:49Z",
+              "updatedAt": "2023-09-12T15:50:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85gt05P",
+          "commit": {
+            "abbreviatedOid": "837e9a0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-12T16:09:31Z",
+          "updatedAt": "2023-09-12T16:09:32Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "While RFC9334 does not define `attestation`, https://www.ietf.org/archive/id/draft-ietf-rats-tpm-based-network-device-attest-14.html#name-terminology-2 does. Should we take that into account?",
+              "createdAt": "2023-09-12T16:09:32Z",
+              "updatedAt": "2023-09-12T16:09:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85gt2X3",
+          "commit": {
+            "abbreviatedOid": "837e9a0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-12T16:12:50Z",
+          "updatedAt": "2023-09-12T16:12:51Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "As I assumed that `different cryptographic algorithms` does not really add anything meaningful here, I removed it. Did I unintentionally remove meaning here?",
+              "createdAt": "2023-09-12T16:12:51Z",
+              "updatedAt": "2023-09-12T16:12:51Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOJ3IIN85aKMRn",
+      "title": "Fixed merge conflicts of PR#20 ",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/40",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Merging this PR requires closing PR#20",
+      "createdAt": "2023-09-12T18:43:44Z",
+      "updatedAt": "2023-09-12T18:45:55Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "83e4007c1c9c7acd031dd0733f8426a72eb06ff1",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "a4f69665ad954972f6182be0495c8ea8925fe662",
+      "closedAt": "2023-09-12T18:45:51Z",
+      "mergedAt": "2023-09-12T18:45:51Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
