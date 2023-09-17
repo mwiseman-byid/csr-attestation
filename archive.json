@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-14T00:43:09.167414+00:00",
+  "timestamp": "2023-09-17T00:46:44.762696+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1867,7 +1867,7 @@
       "labels": [],
       "body": "Spelling and formatting, minor changes to wording",
       "createdAt": "2023-09-04T12:52:55Z",
-      "updatedAt": "2023-09-12T11:22:14Z",
+      "updatedAt": "2023-09-16T20:44:06Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "9e9be1c62d7b7e363e9d5d35a4ee5a159825c918",
@@ -1899,6 +1899,13 @@
           "body": "Note-to-self: I'll need to pull this locally and go through the diffs one-by-one.",
           "createdAt": "2023-09-11T15:55:18Z",
           "updatedAt": "2023-09-11T15:55:18Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@meyer-chris This PR is 98% whitespace changes. I think I have extracted the meaningful content changes and submitted that as #43 .\r\n\r\nIf you're ok with it, I'd like to merge #43 and close this PR.",
+          "createdAt": "2023-09-16T20:44:06Z",
+          "updatedAt": "2023-09-16T20:44:06Z"
         }
       ],
       "reviews": [
@@ -2051,6 +2058,58 @@
       "mergeCommit": {
         "oid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOJ3IIN85af7TL",
+      "title": "Incorporated Carl's suggetion. Closes #28",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/42",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The ASN.1 is not currently compiling. I get:\r\n\r\n```\r\nline 88 (CSR-ATTESTATION-2023): A0201E: 'EvidenceStatement' is being used as a typereference, but has been used elsewhere in the current module as a parameterized typereference.\r\n    evidence  SEQUENCE OF EvidenceStatement,\r\n                          ^\r\n```\r\n\r\nI really don't understand these generics in ASN.1. Help please @mcr , @hannestschofenig , @henkbirkholz , @carl-wallace ",
+      "createdAt": "2023-09-16T20:29:00Z",
+      "updatedAt": "2023-09-16T20:29:46Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "mike_#28",
+      "headRefOid": "892d15cefe81722e1960efe8c85009330f3155e3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOJ3IIN85af78k",
+      "title": "Extracted meaningful content changes from Chris' PR 38.",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/43",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "@meyer_chris if you're ok with this, I proposed to merge this PR and close #38 .",
+      "createdAt": "2023-09-16T20:43:18Z",
+      "updatedAt": "2023-09-16T20:43:18Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "mike_merge_chris_meyer_pr38",
+      "headRefOid": "81b11bbb174a1e4b98367728ac2388c4c2ed31cb",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
