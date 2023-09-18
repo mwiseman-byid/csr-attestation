@@ -113,6 +113,7 @@ Table of Contents
      A.1.  TPM V2.0 Evidence in CSR
      A.2.  Platform Security Architecture Attestation Token in CSR
    Appendix B.  ASN.1 Module
+     B.1.  TCG DICE ConceptualMessageWrapper in CSR
    Appendix C.  Acknowledgments
    Authors' Addresses
 
@@ -912,6 +913,18 @@ EvidenceBundle ::= SEQUENCE
 
 
 END
+
+B.1.  TCG DICE ConceptualMessageWrapper in CSR
+
+tcgDiceEvidenceStatementES EVIDENCE-STATEMENT ::=
+  { ConceptualMessageWrapper IDENTIFIED BY tcg-dice-conceptual-message-wrapper }
+
+-- where ConceptualMessageWrapper and tcg-dice-conceptual-message-wrapper
+-- are defined in DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf
+
+EvidenceStatementSet EVIDENCE-STATEMENT ::= {
+  tpmEvidenceStatementES, ...
+}
 
 Appendix C.  Acknowledgments
 

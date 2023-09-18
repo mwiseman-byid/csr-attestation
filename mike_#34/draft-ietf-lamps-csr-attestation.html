@@ -1248,6 +1248,11 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-asn1-module" class="internal xref">ASN.1 Module</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-tcg-dice-conceptualmessagew" class="internal xref">TCG DICE ConceptualMessageWrapper in CSR</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -2172,6 +2177,27 @@ EvidenceBundle ::= SEQUENCE
 
 END
 </pre><a href="#appendix-B-1" class="pilcrow">¶</a>
+</div>
+<div id="tcg-dice-conceptualmessagewrapper-in-csr">
+<section id="appendix-B.1">
+        <h3 id="name-tcg-dice-conceptualmessagew">
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-tcg-dice-conceptualmessagew" class="section-name selfRef">TCG DICE ConceptualMessageWrapper in CSR</a>
+        </h3>
+<div class="alignLeft art-text artwork" id="appendix-B.1-1">
+<pre>
+tcgDiceEvidenceStatementES EVIDENCE-STATEMENT ::=
+  { ConceptualMessageWrapper IDENTIFIED BY tcg-dice-conceptual-message-wrapper }
+
+-- where ConceptualMessageWrapper and tcg-dice-conceptual-message-wrapper
+-- are defined in DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf
+
+EvidenceStatementSet EVIDENCE-STATEMENT ::= {
+  tpmEvidenceStatementES, ...
+}
+
+</pre><a href="#appendix-B.1-1" class="pilcrow">¶</a>
+</div>
+</section>
 </div>
 </section>
 </div>
