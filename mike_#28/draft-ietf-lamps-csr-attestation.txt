@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 19 March 2024                                           Siemens
+Expires: 21 March 2024                                           Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                       16 September 2023
+                                                       18 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -69,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 March 2024.
+   This Internet-Draft will expire on 21 March 2024.
 
 Copyright Notice
 
@@ -94,8 +94,7 @@ Table of Contents
      4.1.  Object Identifiers
      4.2.  Evidence Attribute and Extension
      4.3.  EvidenceStatement
-     4.4.  EvidenceCerts
-     4.5.  CertificateChoice
+     4.4.  CertificateChoice
    5.  IANA Considerations
      5.1.  Object Identifier Allocations
        5.1.1.  Module Registration - SMI Security for PKIX Module
@@ -280,18 +279,26 @@ Table of Contents
      IDENTIFIED BY id-aa-evidenceStatement
    }
 
-   EvidenceBundle ::= SEQUENCE
-     {
+   EvidenceBundle ::= SEQUENCE {
        evidence  SEQUENCE OF EvidenceStatement,
        certs SEQUENCE OF CertificateChoice OPTIONAL
      }
 
    The Extension version is intended only for use within CRMF CSRs and
-   is NOT RECOMMENDED for use within X.509 certificates due to the
-   privacy implications of publishing evidence about the end entity's
-   hardware environment.  See Section 6 for more discussion.
+   MUST NOT be used within X.509 certificates due to the privacy
+   implications of publishing evidence about the end entity's hardware
+   environment.  See Section 6 for more discussion.
 
-   A CSR MAY contain one or more instance of attr-evidence or ext-
+   The certs contains a set of certificates that may be needed to
+   validate the contents of an evidence statement contained in evidence.
+   The set of certificates should contain the object that contains the
+   public key needed to directly validate the evidence.  The remaining
+   elements should chain that data back to an agreed upon trust anchor
+   used for attestation.  No order is implied, it is up to the Attester
+   and its Verifier to agree on both the order and format of
+   certificates contained in certs.
+
+   A CSR MAY contain one or more instances of attr-evidence or ext-
    evidence.  This means that the SEQUENCE OF EvidenceBundle is
    redundant with the ability to carry multiple attr-evidence or ext-
    evidence at the CSR level; either mechanism MAY be used for carrying
@@ -316,7 +323,7 @@ EvidenceStatementSet EVIDENCE-STATEMENT ::= {
    ... -- Empty for now --
 }
 
-EvidenceStatement {EVIDENCE-STATEMENT:EvidenceStatementSet} ::= SEQUENCE {
+EvidenceStatement ::= SEQUENCE {
    type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
    stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
 }
@@ -335,47 +342,7 @@ ext-evidence EXTENSION ::= {
   IDENTIFIED BY id-aa-evidenceStatement
 }
 
-4.4.  EvidenceCerts
-
-   The "EvidenceCertsAttribute" contains a set of certificates that may
-   be needed to validate the contents of an evidence statement contained
-   in an evidenceAttribute.  The set of certificates should contain the
-   object that contains the public key needed to directly validate the
-   EvidenceAttribute.  The remaining elements should chain that data
-   back to an agreed upon trust anchor used for attestation.  No order
-   is implied, it is the Verifier's responsibility to perform the
-   appropriate certification path construction.
-
-   A CSR MUST contain at zero or one EvidenceCertsAttribute.  In the
-   case where the CSR contains multiple instances of EvidenceAttribute
-   representing multiple evidence statements, all necessary certificates
-   MUST be contained in the same instance of EvidenceCertsAttribute.
-   EvidenceCertsAttribute MAY be omitted if there are no certificates to
-   convey, for example if they are already known to the verifier, or if
-   they are contained in the evidence statement.
-
-   id-aa-evidenceChainCerts OBJECT IDENTIFIER ::= { id-aa (TBDAA1) }
-
-   -- For PKCS#10
-   attr-evidenceCerts ATTRIBUTE ::= {
-     TYPE SEQUENCE OF CertificateChoice
-     COUNTS MAX 1
-     IDENTIFIED BY id-aa-evidenceChainCerts
-   }
-
-   -- For CRMF
-   ext-evidenceCerts EXTENSION ::= {
-     TYPE SEQUENCE OF CertificateChoice
-     COUNTS MAX 1
-     IDENTIFIED BY id-aa-evidenceChainCerts
-   }
-
-   The Extension version is intended only for use within CRMF CSRs and
-   is NOT RECOMMENDED for use within X.509 certificates due to the
-   privacy implications of publishing evidence about the end entity's
-   hardware environment.  See Section 6 for more discussion.
-
-4.5.  CertificateChoice
+4.4.  CertificateChoice
 
    This is an ASN.1 CHOICE construct used to represent an encoding of a
    broad variety of certificate types.
@@ -866,20 +833,22 @@ Certificate
      mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-explicit-02(51)}
 
 
-EXTENSION, ATTRIBUTE, AttributeSet{}, SingleAttribute{}, id-pkix
+EXTENSION, ATTRIBUTE, AttributeSet{}, SingleAttribute{}
     FROM PKIX-CommonTypes-2009 -- from [RFC5912]
     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
       mechanisms(5) pkix(7) id-mod(0) id-mod-pkixCommon-02(57) }
 
-id-aa
-FROM SecureMimeMessageV3dot1
-    { iso(1) member-body(2) us(840) rsadsi(113549)
-        pkcs(1) pkcs-9(9) smime(16) modules(0) msg-v3dot1(21) }
   ;
 
+id-aa OBJECT IDENTIFIER ::=
+    { iso(1) member-body(2) us(840) rsadsi(113549)
+        pkcs(1) pkcs-9(9) smime(16) 9 }
+
+id-pkix OBJECT IDENTIFIER ::= {iso(1) identified-organization(3) dod(6) internet(1) security(5)
+     mechanisms(5)7 }
 
 -- Branch for attestation statement types
-id-ata OBJECT IDENTIFIER ::= { id-pkix ata(TBD1) }
+id-ata OBJECT IDENTIFIER ::= { id-pkix 9991 }
 
 
 CertificateChoice ::=
@@ -915,7 +884,7 @@ EvidenceStatementSet EVIDENCE-STATEMENT ::= {
    ... -- Empty for now --
 }
 
-EvidenceStatement {EVIDENCE-STATEMENT:EvidenceStatementSet} ::= SEQUENCE {
+EvidenceStatement ::= SEQUENCE {
    type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
    stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
 }
@@ -924,38 +893,23 @@ id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa aa-evidenceStatement(TBDAA
 
 -- For PKCS#10
 attr-evidence ATTRIBUTE ::= {
-  TYPE SEQUENCE OF EvidenceBundle,
+  TYPE SEQUENCE OF EvidenceBundle
   IDENTIFIED BY id-aa-evidenceStatement
 }
 
 
 -- For CRMF
 ext-evidence EXTENSION ::= {
-  TYPE SEQUENCE OF EvidenceBundle,
+  SYNTAX SEQUENCE OF EvidenceBundle
   IDENTIFIED BY id-aa-evidenceStatement
 }
 
 EvidenceBundle ::= SEQUENCE
-  {
-    evidence  SEQUENCE OF EvidenceStatement,
-    certs SEQUENCE OF CertificateChoice OPTIONAL
-  }
-
-id-aa-evidenceChainCerts OBJECT IDENTIFIER ::= { id-aa aa-evidenceChainCerts(TBDAA1) }
-
--- For PKCS#10
-attr-evidenceCerts ATTRIBUTE ::= {
-  TYPE SEQUENCE OF CertificateChoice
-  COUNTS MAX 1
-  IDENTIFIED BY id-aa-evidenceChainCerts
+{
+  evidence  SEQUENCE OF EvidenceStatement,
+  certs SEQUENCE OF CertificateChoice OPTIONAL
 }
 
--- For CRMF
-ext-evidenceCerts EXTENSION ::= {
-  TYPE SEQUENCE OF CertificateChoice
-  COUNTS MAX 1
-  IDENTIFIED BY id-aa-evidenceChainCerts
-}
 
 END
 
