@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 15 March 2024                                           Siemens
+Expires: 22 March 2024                                           Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                       12 September 2023
+                                                       19 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -69,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 March 2024.
+   This Internet-Draft will expire on 22 March 2024.
 
 Copyright Notice
 
@@ -163,8 +163,7 @@ Table of Contents
    A CSR may contain one or more evidence, for example evidence
    asserting the storage properties of the private key as well evidence
    asserting the firmware version and other general properties of the
-   device, or evidence signed by certificate chains on different
-   cryptographic algorithms.
+   device, or evidence signed using different cryptographic algorithms.
 
    With these attributes, an RA or CA has additional information about
    whether to issue a certificate and what information to populate into
