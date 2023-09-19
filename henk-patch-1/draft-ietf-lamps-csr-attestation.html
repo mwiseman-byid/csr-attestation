@@ -1269,7 +1269,7 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
       </h2>
 <p id="section-1-1">When requesting a certificate from a Certification Authority (CA), a PKI end entity may wish to include Evidence of the security properties of its environments in which the private keys are stored in that request.
 This Evidence can be appraised by authoritative entities, such as a Registration Authority (RA) or a CA, or associated trusted Verifiers as part of validating an incoming certificate request against given certificate policies.
-This specification provides two newly defined attributes that allow for conveyance of remote attestation payload in Certificate Requests (CSR) in either PKCS#10 <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span> or Certificate Request Message Format (CRMF) <span>[<a href="#RFC4211" class="cite xref">RFC4211</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+This specification defines an attribute and an extension that allow for conveyance of Evidence in Certificate Signing Requests (CSRs) in either PKCS#10 <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span> or Certificate Request Message Format (CRMF) <span>[<a href="#RFC4211" class="cite xref">RFC4211</a>]</span> payloads.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">As outlined in the RATS Architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>, an Attester (typically
 a device) produces a signed collection of Claims that constitutes Evidence about its running environment.
 The term "attestation" is intentionally not defined in RFC 9334, but it is often taken to mean the activity of producing and appraising remote attestation Evidence.
