@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 15 March 2024                                           Siemens
+Expires: 22 March 2024                                           Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                       12 September 2023
+                                                       19 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -69,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 March 2024.
+   This Internet-Draft will expire on 22 March 2024.
 
 Copyright Notice
 
@@ -125,7 +125,7 @@ Table of Contents
    in that request.  This Evidence can be appraised by authoritative
    entities, such as a Registration Authority (RA) or a CA as part of
    validating an incoming certificate request against given certificate
-   policies.  This specification provides two newly defined attributes
+   policy.  This specification provides two newly defined attributes
    that allow for conveyance of remote attestation payload in
    Certificate Requests (CSR) in either PKCS#10 [RFC2986] or Certificate
    Request Message Format (CRMF) [RFC4211].
