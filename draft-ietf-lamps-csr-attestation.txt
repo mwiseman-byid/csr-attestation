@@ -93,8 +93,7 @@ Table of Contents
    4.  ASN.1 Elements
      4.1.  Object Identifiers
      4.2.  Evidence Attribute and Extension
-     4.3.  EvidenceStatement
-     4.4.  CertificateChoice
+     4.3.  CertificateChoice
    5.  IANA Considerations
      5.1.  Object Identifier Allocations
        5.1.1.  Module Registration - SMI Security for PKIX Module
@@ -113,6 +112,7 @@ Table of Contents
      A.1.  TPM V2.0 Evidence in CSR
      A.2.  Platform Security Architecture Attestation Token in CSR
    Appendix B.  ASN.1 Module
+     B.1.  TCG DICE ConceptualMessageWrapper in CSR
    Appendix C.  Acknowledgments
    Authors' Addresses
 
@@ -264,25 +264,30 @@ Table of Contents
    This structure allows for grouping evidence statements that share a
    certificate chain.
 
+   EVIDENCE-STATEMENT ::= TYPE-IDENTIFIER
+
+   EvidenceStatementSet EVIDENCE-STATEMENT ::= {
+      ... -- Empty for now --
+   }
+
+   EvidenceStatement ::= SEQUENCE {
+      type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
+      stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
+   }
+
    id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa TBDAA }
 
    -- For PKCS#10
    attr-evidence ATTRIBUTE ::= {
-     TYPE SEQUENCE OF EvidenceBundle,
+     TYPE EvidenceStatement
      IDENTIFIED BY id-aa-evidenceStatement
    }
-
 
    -- For CRMF
    ext-evidence EXTENSION ::= {
-     TYPE SEQUENCE OF EvidenceBundle,
+     SYNTAX SEQUENCE OF EvidenceBundle
      IDENTIFIED BY id-aa-evidenceStatement
    }
-
-   EvidenceBundle ::= SEQUENCE {
-       evidence  SEQUENCE OF EvidenceStatement,
-       certs SEQUENCE OF CertificateChoice OPTIONAL
-     }
 
    The Extension version is intended only for use within CRMF CSRs and
    MUST NOT be used within X.509 certificates due to the privacy
@@ -308,41 +313,7 @@ Table of Contents
    structure to be re-used in the future in other PKIX protocol
    contexts.
 
-4.3.  EvidenceStatement
-
-   An EvidenceStatement is a simple type-value pair identified by an OID
-   type and containing a value stmt.
-
-   encoded as a sequence, of which the type of the "value" field is
-   controlled by the value of the "type" field, similar to an Attribute
-   definition.
-
-EVIDENCE-STATEMENT ::= TYPE-IDENTIFIER
-
-EvidenceStatementSet EVIDENCE-STATEMENT ::= {
-   ... -- Empty for now --
-}
-
-EvidenceStatement ::= SEQUENCE {
-   type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
-   stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
-}
-
-id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa aa-evidenceStatement(TBDAA2) }
-
--- For PKCS#10
-attr-evidence ATTRIBUTE ::= {
-  TYPE EvidenceStatement
-  IDENTIFIED BY id-aa-evidenceStatement
-}
-
--- For CRMF
-ext-evidence EXTENSION ::= {
-  TYPE EvidenceStatement
-  IDENTIFIED BY id-aa-evidenceStatement
-}
-
-4.4.  CertificateChoice
+4.3.  CertificateChoice
 
    This is an ASN.1 CHOICE construct used to represent an encoding of a
    broad variety of certificate types.
@@ -902,6 +873,18 @@ EvidenceBundle ::= SEQUENCE
 
 
 END
+
+B.1.  TCG DICE ConceptualMessageWrapper in CSR
+
+tcgDiceEvidenceStatementES EVIDENCE-STATEMENT ::=
+  { ConceptualMessageWrapper IDENTIFIED BY tcg-dice-conceptual-message-wrapper }
+
+-- where ConceptualMessageWrapper and tcg-dice-conceptual-message-wrapper
+-- are defined in DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf
+
+EvidenceStatementSet EVIDENCE-STATEMENT ::= {
+  tpmEvidenceStatementES, ...
+}
 
 Appendix C.  Acknowledgments
 
