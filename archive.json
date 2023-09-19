@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-17T00:46:44.762696+00:00",
+  "timestamp": "2023-09-19T00:44:08.718854+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1867,7 +1867,7 @@
       "labels": [],
       "body": "Spelling and formatting, minor changes to wording",
       "createdAt": "2023-09-04T12:52:55Z",
-      "updatedAt": "2023-09-16T20:44:06Z",
+      "updatedAt": "2023-09-18T06:53:27Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "9e9be1c62d7b7e363e9d5d35a4ee5a159825c918",
@@ -1906,6 +1906,13 @@
           "body": "@meyer-chris This PR is 98% whitespace changes. I think I have extracted the meaningful content changes and submitted that as #43 .\r\n\r\nIf you're ok with it, I'd like to merge #43 and close this PR.",
           "createdAt": "2023-09-16T20:44:06Z",
           "updatedAt": "2023-09-16T20:44:06Z"
+        },
+        {
+          "author": "meyer-chris",
+          "authorAssociation": "NONE",
+          "body": "Hey Mike, absolutely, feel free to go ahead! Fine by me... As mentioned, just a few typos\r\n\r\n",
+          "createdAt": "2023-09-18T06:53:26Z",
+          "updatedAt": "2023-09-18T06:53:26Z"
         }
       ],
       "reviews": [
@@ -2073,18 +2080,26 @@
       "labels": [],
       "body": "The ASN.1 is not currently compiling. I get:\r\n\r\n```\r\nline 88 (CSR-ATTESTATION-2023): A0201E: 'EvidenceStatement' is being used as a typereference, but has been used elsewhere in the current module as a parameterized typereference.\r\n    evidence  SEQUENCE OF EvidenceStatement,\r\n                          ^\r\n```\r\n\r\nI really don't understand these generics in ASN.1. Help please @mcr , @hannestschofenig , @henkbirkholz , @carl-wallace ",
       "createdAt": "2023-09-16T20:29:00Z",
-      "updatedAt": "2023-09-16T20:29:46Z",
+      "updatedAt": "2023-09-18T19:42:21Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mike_#28",
-      "headRefOid": "892d15cefe81722e1960efe8c85009330f3155e3",
+      "headRefOid": "aedb8e9ec833109406f698f91c453f87b41cbd0b",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "carl-wallace",
+          "authorAssociation": "NONE",
+          "body": "There are a few issues. First take a look at the definitions for ATTRIBUTE and EXTENSION:\r\n```\r\n  ATTRIBUTE ::= CLASS {\r\n      &id             OBJECT IDENTIFIER UNIQUE,\r\n      &Type           OPTIONAL,\r\n      &equality-match MATCHING-RULE OPTIONAL,\r\n      &minCount       INTEGER DEFAULT 1,\r\n      &maxCount       INTEGER OPTIONAL\r\n  } WITH SYNTAX {\r\n      [TYPE &Type]\r\n      [EQUALITY MATCHING RULE &equality-match]\r\n      [COUNTS [MIN &minCount] [MAX &maxCount]]\r\n      IDENTIFIED BY &id\r\n  }\r\n  \r\n  EXTENSION ::= CLASS {\r\n      &id  OBJECT IDENTIFIER UNIQUE,\r\n      &ExtnType,\r\n      &Critical    BOOLEAN DEFAULT {TRUE | FALSE }\r\n  } WITH SYNTAX {\r\n      SYNTAX &ExtnType IDENTIFIED BY &id\r\n      [CRITICALITY &Critical]\r\n  }\r\n ```\r\nNotice ATTRIBUTE uses TYPE and EXTENSION uses SYNTAX. You are using TYPE for both. So change the definitions of ext-evidence and ext-evidenceCerts to use SYNTAX. Also, remove the unnecessary commas from the definitions. There also is no COUNTS field in EXTENSION. Thus:\r\n```\r\next-evidence EXTENSION ::= {\r\n  SYNTAX SEQUENCE OF EvidenceBundle\r\n  IDENTIFIED BY id-aa-evidenceStatement\r\n}\r\n\r\next-evidenceCerts EXTENSION ::= {\r\n  SYNTAX SEQUENCE OF CertificateChoice\r\n  IDENTIFIED BY id-aa-evidenceChainCerts\r\n}\r\n\r\nattr-evidence ATTRIBUTE ::= {\r\n  TYPE SEQUENCE OF EvidenceBundle\r\n  IDENTIFIED BY id-aa-evidenceStatement\r\n}\r\n\r\nattr-evidenceCerts ATTRIBUTE ::= {\r\n  TYPE SEQUENCE OF CertificateChoice\r\n  COUNTS MAX 1\r\n  IDENTIFIED BY id-aa-evidenceChainCerts\r\n}\r\n```\r\nI got a compilation error on the Evidence Statement definition and changed it to be this (but wasn't really sure what you were aiming for so this may warrant further investigation):\r\n```\r\nEvidenceStatement ::= SEQUENCE {\r\n   type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),\r\n   stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})\r\n}\r\n```\r\nI also had to define id-aa and id-pkix in the module. The former because I did not have the referenced module lying around and the latter because id-pkix is not defined in the indicated module. It's actually in PKIX1Explicit-2009, not PKIX-CommonTypes-2009.\r\n\r\nOther changes I made to get it to compile:\r\n\r\n- used fake values for the OIDs (used 9991, 9992 and 9993 for the three TBDs)\r\n- dropped the symbolic name from the leaf element in the OID definitions, i.e., id-aa-evidenceChainCerts OBJECT IDENTIFIER ::= { id-aa 9993 }\r\n\r\nI will send you the module I test compiled successfully.\r\n",
+          "createdAt": "2023-09-18T15:47:32Z",
+          "updatedAt": "2023-09-18T15:47:32Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -2112,6 +2127,46 @@
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDOJ3IIN85am1Tk",
+      "title": "Example of encoding a TCG DICE CMW",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/44",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR's not super clean because it's sitting on top of the changes for #42.\r\n\r\nThe relevant change is this:\r\n\r\nhttps://github.com/lamps-wg/csr-attestation/pull/44/files#diff-9b88f7a24d6eff606780b418b2e2d8ff3e7a400513a2249abd64b87c26686bcf\r\n",
+      "createdAt": "2023-09-18T19:50:01Z",
+      "updatedAt": "2023-09-18T20:04:47Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "mike_#34",
+      "headRefOid": "50c37f3abebbfe9a41b17e654798d6b671a6150f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85hRGGe",
+          "commit": {
+            "abbreviatedOid": "50c37f3"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2023-09-18T20:04:47Z",
+          "updatedAt": "2023-09-18T20:04:47Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
