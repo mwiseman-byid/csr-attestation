@@ -5,8 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 29 February 2024                                        Siemens
-                                                          28 August 2023
+Expires: 22 March 2024                                           Siemens
+                                                             H. Birkholz
+                                                          Fraunhofer SIT
+                                                       19 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -67,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 February 2024.
+   This Internet-Draft will expire on 22 March 2024.
 
 Copyright Notice
 
@@ -120,8 +122,9 @@ Table of Contents
    At the time that it is requesting a certificate from a Certification
    Authority (CA), a PKI end entity may wish to provide evidence of the
    security properties of the environment in which the private key is
-   stored.  This evidence is to be verified by a relying party such as
-   the Registration Authority or the Certification Authority as part of
+   stored.  This evidence is to be verified by a Verifier and the
+   outcome of this evaluation is then made available to the Registration
+   Authority (RA) or the Certification Authority (CA) as part of
    validating an incoming certificate request against a given
    certificate policy.  This specification provides a newly defined
    evidence attribute for carrying evidence in Certificate Requests
@@ -141,8 +144,8 @@ Table of Contents
 
    At the time of writing, several standard and several proprietary
    attestation technologies are in use.  This specification thereby
-   tries to be technology-agnostic with regards to the transport of the
-   produced signed claims.
+   tries to be technology-agnostic with regards to the attestation
+   technologies and instead focused on the transport of Evidence.
 
    This document is focused on the transport of evidence inside a CSR
    and makes minimal assumptions about content or format of the
@@ -179,10 +182,21 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   This document re-uses the terms defined in RFC 9334 related to remote
-   attestation.  Readers of this document are assumed to be familiar
-   with the following terms: evidence, claim, attestation result,
-   attester, verifier, and relying party.
+   This document re-uses the terms defined in [RFC9334] related to
+   remote attestation.  Readers of this document are assumed to be
+   familiar with the following terms: Evidence, Claim, Attestation
+   Results (AR), Attester, Verifier, and Relying Party (RP).
+
+   The term "Certification Request" message is defined in [RFC2986].
+   Specifications, such as [RFC7030], later introduced the term
+   "Certificate Signing Request (CSR)" to refer to the Certification
+   Request message.  While the term "Certification Signing Request"
+   would have been correct, the mistake was unnoticed.  In the meanwhile
+   CSR is an abbreviation used beyond PKCS#10.  Hence, it is equally
+   applicable to other protocols that use a different syntax and even a
+   different encoding, in particular this document also considers
+   Certificate Request Message Format (CRMF) [RFC4211] to be "CSRs".  We
+   use the terms "CSR" and Certificate Request message interchangeably.
 
 3.  Architecture
 
@@ -229,8 +243,7 @@ Table of Contents
    these aspects are, however, outside the scope of this specification
    but relevant for use with a given attestation technology.  The focus
    of this specification is on the transport of evidence from the
-   attester to the relying party via existing certification request
-   messages.
+   attester to the relying party via existing CSR messages.
 
 4.  ASN.1 Elements
 
@@ -460,33 +473,102 @@ ext-evidence EXTENSION ::= {
 
 6.  Security Considerations
 
-   The evidence communicated in the attributes and structures defined in
-   this document are meant to be used in a PKCS#10 or Certificate
-   Signing Request (CSR).  It is up to the verifier and to the relying
-   party (RA/CA) to place as much or as little trust in this information
-   as dictated by policies.
+   A PKCS#10 or CRMF Certification Request message consists of a
+   distinguished name, a public key, and optionally a set of attributes,
+   collectively signed by the entity requesting certification.  The
+   private key used to sign the CSR MUST be different from the Attesting
+   Key utilized to sign Evidence about the Target Environment.  Key
+   separation is an important principle in cryptography and also applies
+   to this specification with regards to the Attestation Key and the CSR
+   signing key.  To demonstrate that the private key applied to sign the
+   CSR is generated, and stored in a secure environment that has
+   controls to prevent theft or misuse (including being non-exportable /
+   non-recoverable), the Attesting Environment has to collect claims
+   about this secure environment (or Target Environment, as shown in
+   Figure 2).
 
-   This document defines the transport of evidence of different formats
-   in a CSR.  Some of these evidence formats are based on standards
-   while others are proprietary formats.  A verifier will need to
-   understand these formats for matching the received values against
-   policies.
+   Figure 2 shows the interaction inside an Attester.  The Attesting
+   Environment, which is provisioned with an Attestation Key, retrieves
+   claims about the Target Environment.  The Target Environment offers
+   key generation, storage and usage, which it makes available to
+   services.  The Attesting Environment collects these claims about the
+   Target Environment and signs them and exports Evidence for use in
+   remote attestation via a CSR.
 
-   Policies drive the processing of evidence at the verifier: the
+                      ^
+                      |CSR with
+                      |Evidence
+        .-------------+-------------.
+        |                           |
+        |       CSR Library         |<-----+
+        |                           |      |
+        '---------------------------'      |
+               |  ^         ^              |
+    Private    |  | Public  | Signature    |
+    Key        |  | Key     | Operation    |
+    Generation |  | Export  |              |
+               |  |         |              |
+    .----------|--|---------|------------. |
+    |          |  |         |    Attester| |
+    |          v  |         v    (HSM)   | |
+    |    .-----------------------.       | |
+    |    | Target Environment(TE)|       | |
+    |    | (with key generation, |       | |
+    |    | storage and usage)    |       | |
+    |    '--------------+--------'       | |
+    |                   |                | |
+    |           Collect |                | |
+    |            Claims |                | |
+    |                   |                | |
+    |                   v                | |
+    |             .-------------.        | |
+    |Attestation  | Attesting   |        | |
+    |   Key ----->| Environment +----------+
+    |             | (Firmware)  |Evidence|
+    |             '-------------'        |
+    |                                    |
+    '------------------------------------'
+
+       Figure 2: Interaction between Attesting and Target Environment
+
+   Figure 2 places the CSR library outside the Attester, which is an
+   implementation choice.  The CSR library may also be located inside
+   the trusted computing base.  Regardless of the placement of the CSR
+   library an Attesting Environment MUST be able to collect claims about
+   the Target Environment such that statements about the storage of the
+   keying material can be made.  For example, one implementation may
+   perform a software measurement of the CSR library along with the
+   crypto library implementation that has access to the keying material.
+   For the Verifier, the provided Evidence must allow an assessment to
+   be made whether the key used to sign the CSR is stored in a secure
+   location and cannot be exported.
+
+   Evidence communicated in the attributes and structures defined in
+   this document are meant to be used in a CSR.  It is up to the
+   Verifier and to the Relying Party (RA/CA) to place as much or as
+   little trust in this information as dictated by policies.
+
+   This document defines the transport of Evidence of different formats
+   in a CSR.  Some of these encoding formats are based on standards
+   while others are proprietary formats.  A Verifier will need to
+   understand these formats for matching the received claim values
+   against policies.
+
+   Policies drive the processing of Evidence at the Verifier: the
    Verifier's Appraisal Policy for Evidence will often be specified by
    the manufacturer of a hardware security module or specified by a
    regulatory body such as the CA Browser Forum Code-Signing Baseline
    Requirements [CSBR] which specifies certain properties, such as non-
    exportability, which must be enabled for storing publicly-trusted
-   code-signing keys.
-
-   The relying party is ultimately responsible for making a decision of
-   what attestation-related information in the CSR it will accept.  The
-   presence of the attributes defined in this specification provide the
-   relying party with additional assurance about attester.  Policies
-   used at the verifier and the relying party are implementation
-   dependent and out of scope for this document.  Whether to require the
-   use of evidence in the CSR is out-of-scope for this document.
+   code-signing keys.  Other policies influence the decision making at
+   the Relying Party when evaluating the Attestation Result.  The
+   Relying Party is ultimately responsible for making a decision of what
+   information in the Attestation Result it will accept.  The presence
+   of the attributes defined in this specification provide the Relying
+   Party with additional assurance about an Attester.  Policies used at
+   the Verifier and the Relying Party are implementation dependent and
+   out of scope for this document.  Whether to require the use of
+   Evidence in a CSR is out-of-scope for this document.
 
 6.1.  Freshness
 
@@ -513,8 +595,9 @@ ext-evidence EXTENSION ::= {
    asserted at time T to have been generated inside the hardware
    boundary and to be non-exportable, then it can be assumed that those
    properties of that key will continue to hold into the future.
-   Developers, operators, and designers of protocols which embed
-   evidence-carrying-CSRs need to consider what notion of freshness is
+
+   Developers, operators, and designers of protocols, which embed
+   Evidence-carrying-CSRs, need to consider what notion of freshness is
    appropriate and available in-context; thus the issue of freshness is
    left up to the discretion of protocol designers and implementors.
 
@@ -573,14 +656,19 @@ ext-evidence EXTENSION ::= {
               Tschofenig, H., Frost, S., Brossard, M., Shaw, A. L., and
               T. Fossati, "Arm's Platform Security Architecture (PSA)
               Attestation Token", Work in Progress, Internet-Draft,
-              draft-tschofenig-rats-psa-token-12, 5 July 2023,
+              draft-tschofenig-rats-psa-token-13, 1 September 2023,
               <https://datatracker.ietf.org/doc/html/draft-tschofenig-
-              rats-psa-token-12>.
+              rats-psa-token-13>.
 
    [RFC2986]  Nystrom, M. and B. Kaliski, "PKCS #10: Certification
               Request Syntax Specification Version 1.7", RFC 2986,
               DOI 10.17487/RFC2986, November 2000,
               <https://www.rfc-editor.org/rfc/rfc2986>.
+
+   [RFC7030]  Pritikin, M., Ed., Yee, P., Ed., and D. Harkins, Ed.,
+              "Enrollment over Secure Transport", RFC 7030,
+              DOI 10.17487/RFC7030, October 2013,
+              <https://www.rfc-editor.org/rfc/rfc7030>.
 
    [TPM20]    Trusted Computing Group, "Trusted Platform Module Library
               Specification, Family 2.0, Level 00, Revision 01.59",
@@ -665,11 +753,11 @@ A.1.  TPM V2.0 Evidence in CSR
            8a:02:20:36:be:3d:71:93:5d:05:c3:ac:fa:a8:f3:e5:46:db:
            57:f9:23:ee:93:47:6d:d6:d3:4f:c2:b7:cc:0d:89:71:fe
 
-                        Figure 2: CSR with TPM V2.0
+                        Figure 3: CSR with TPM V2.0
 
 A.2.  Platform Security Architecture Attestation Token in CSR
 
-   The example shown in Figure 3 illustrates how the Arm Platform
+   The example shown in Figure 4 illustrates how the Arm Platform
    Security Architecture (PSA) Attestation Token is conveyed in a CSR.
    The content of the evidence in this example is re-used from
    [I-D.tschofenig-rats-psa-token] and contains an Entity Attestation
@@ -727,7 +815,7 @@ A.2.  Platform Security Architecture Attestation Token in CSR
            8a:02:20:36:be:3d:71:93:5d:05:c3:ac:fa:a8:f3:e5:46:db:
            57:f9:23:ee:93:47:6d:d6:d3:4f:c2:b7:cc:0d:89:71:fe
 
-             Figure 3: CSR with embedded PSA Attestation Token
+             Figure 4: CSR with embedded PSA Attestation Token
 
    The decoded evidence is shown in Appendix A of
    [I-D.tschofenig-rats-psa-token], the shown evidence, provides the
@@ -874,3 +962,11 @@ Authors' Addresses
    Hannes Tschofenig
    Siemens
    Email: Hannes.Tschofenig@gmx.net
+
+
+   Henk Birkholz
+   Fraunhofer SIT
+   Rheinstrasse 75
+   64295 Darmstadt
+   Germany
+   Email: henk.birkholz@sit.fraunhofer.de
