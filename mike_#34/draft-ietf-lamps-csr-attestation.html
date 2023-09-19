@@ -1198,7 +1198,7 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-object-identifier-allocatio" class="internal xref">Object Identifier Allocations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
-                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-module-registration-smi-sec" class="internal xref">Module Registration - SMI Security for PKIX Module Identifer</a></p>
+                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-module-registration-smi-sec" class="internal xref">Module Registration - SMI Security for PKIX Module Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
                     <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-object-identifier-registrat" class="internal xref">Object Identifier Registrations - SMI Security for S/MIME Attributes</a></p>
@@ -1458,7 +1458,7 @@ EvidenceStatement ::= SEQUENCE {
    stmt   EVIDENCE-STATEMENT.&amp;Type({EvidenceStatementSet}{@type})
 }
 
-id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa aa-evidenceStatement(TBDAA2) }
+id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa TBDAA }
 
 -- For PKCS#10
 attr-evidence ATTRIBUTE ::= {
@@ -1568,13 +1568,13 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5
         <h3 id="name-object-identifier-allocatio">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-object-identifier-allocatio" class="section-name selfRef">Object Identifier Allocations</a>
         </h3>
-<div id="module-registration-smi-security-for-pkix-module-identifer">
+<div id="module-registration-smi-security-for-pkix-module-identifier">
 <section id="section-5.1.1">
           <h4 id="name-module-registration-smi-sec">
-<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-module-registration-smi-sec" class="section-name selfRef">Module Registration - SMI Security for PKIX Module Identifer</a>
+<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-module-registration-smi-sec" class="section-name selfRef">Module Registration - SMI Security for PKIX Module Identifier</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-5.1.1-1.1">Decimal: IANA Assigned - Replace TBDMOD<a href="#section-5.1.1-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.1-1.1">Decimal: IANA Assigned - <strong>Replace TBDMOD</strong><a href="#section-5.1.1-1.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-5.1.1-1.2">Description: CSR-ATTESTATION-2023 - id-mod-pkix-attest-01<a href="#section-5.1.1-1.2" class="pilcrow">¶</a>
 </li>
@@ -1592,7 +1592,7 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5
 <li class="normal" id="section-5.1.2-1.1">
               <p id="section-5.1.2-1.1.1">Attest Statement<a href="#section-5.1.2-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.2-1.1.2.1">Decimal: IANA Assigned - Replace TBDAA<a href="#section-5.1.2-1.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.2-1.1.2.1">Decimal: IANA Assigned - Replace <strong>TBDAA</strong><a href="#section-5.1.2-1.1.2.1" class="pilcrow">¶</a>
 </li>
                 <li class="normal" id="section-5.1.2-1.1.2.2">Description: id-aa-evidenceStatement<a href="#section-5.1.2-1.1.2.2" class="pilcrow">¶</a>
 </li>
@@ -1612,7 +1612,7 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5
 the SMI-numbers registry, allocating an assignment from id-pkix ("SMI
 Security for PKIX" Registry) for the purpose.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-2.1">Decimal: IANA Assigned - replace TBD1<a href="#section-5.1.3-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.3-2.1">Decimal: IANA Assigned - <strong>replace TBD1</strong><a href="#section-5.1.3-2.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-5.1.3-2.2">Description: id-ata<a href="#section-5.1.3-2.2" class="pilcrow">¶</a>
 </li>
