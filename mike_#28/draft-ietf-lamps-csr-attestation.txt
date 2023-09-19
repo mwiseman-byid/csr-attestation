@@ -98,7 +98,7 @@ Table of Contents
    5.  IANA Considerations
      5.1.  Object Identifier Allocations
        5.1.1.  Module Registration - SMI Security for PKIX Module
-               Identifer
+               Identifier
        5.1.2.  Object Identifier Registrations - SMI Security for S/
                MIME Attributes
        5.1.3.  "SMI Security for PKIX Evidence Statement Formats"
@@ -402,9 +402,9 @@ ext-evidence EXTENSION ::= {
 
 5.1.  Object Identifier Allocations
 
-5.1.1.  Module Registration - SMI Security for PKIX Module Identifer
+5.1.1.  Module Registration - SMI Security for PKIX Module Identifier
 
-   *  Decimal: IANA Assigned - Replace TBDMOD
+   *  Decimal: IANA Assigned - *Replace TBDMOD*
 
    *  Description: CSR-ATTESTATION-2023 - id-mod-pkix-attest-01
 
@@ -415,7 +415,7 @@ ext-evidence EXTENSION ::= {
 
    *  Attest Statement
 
-      -  Decimal: IANA Assigned - Replace TBDAA
+      -  Decimal: IANA Assigned - Replace *TBDAA*
 
       -  Description: id-aa-evidenceStatement
 
@@ -427,7 +427,7 @@ ext-evidence EXTENSION ::= {
    SMI-numbers registry, allocating an assignment from id-pkix ("SMI
    Security for PKIX" Registry) for the purpose.
 
-   *  Decimal: IANA Assigned - replace TBD1
+   *  Decimal: IANA Assigned - *replace TBD1*
 
    *  Description: id-ata
 
