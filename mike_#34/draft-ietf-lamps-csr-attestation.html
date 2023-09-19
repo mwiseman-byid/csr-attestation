@@ -1187,10 +1187,7 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-evidence-attribute-and-exte" class="internal xref">Evidence Attribute and Extension</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-evidencestatement" class="internal xref">EvidenceStatement</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
-                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-certificatechoice" class="internal xref">CertificateChoice</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-certificatechoice" class="internal xref">CertificateChoice</a></p>
 </li>
             </ul>
 </li>
@@ -1450,59 +1447,6 @@ This structure allows for grouping evidence statements that share a
 certificate chain.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2-2">
 <pre>
-id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa TBDAA }
-
--- For PKCS#10
-attr-evidence ATTRIBUTE ::= {
-  TYPE SEQUENCE OF EvidenceBundle,
-  IDENTIFIED BY id-aa-evidenceStatement
-}
-
-
--- For CRMF
-ext-evidence EXTENSION ::= {
-  TYPE SEQUENCE OF EvidenceBundle,
-  IDENTIFIED BY id-aa-evidenceStatement
-}
-
-EvidenceBundle ::= SEQUENCE {
-    evidence  SEQUENCE OF EvidenceStatement,
-    certs SEQUENCE OF CertificateChoice OPTIONAL
-  }
-</pre><a href="#section-4.2-2" class="pilcrow">¶</a>
-</div>
-<p id="section-4.2-3">The Extension version is intended only for use within CRMF CSRs and <span class="bcp14">MUST NOT</span> be used within X.509 certificates due to the privacy implications of publishing evidence about the end entity's hardware environment. See <a href="#security-considerations" class="auto internal xref">Section 6</a> for more discussion.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">The <code>certs</code> contains a set of certificates that
-may be needed to validate the contents of an evidence statement
-contained in <code>evidence</code>. The set of certificates should contain
-the object that contains the public key needed to directly validate the
-<code>evidence</code>.  The remaining elements should chain that data back to
-an agreed upon trust anchor used for attestation. No order is implied, it is
-up to the Attester and its Verifier to agree on both the order and format
-of certificates contained in <code>certs</code>.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
-<p id="section-4.2-5">A CSR <span class="bcp14">MAY</span> contain one or more instances of <code>attr-evidence</code> or <code>ext-evidence</code>.
-This means that the <code>SEQUENCE OF EvidenceBundle</code> is redundant with the
-ability to carry multiple <code>attr-evidence</code> or <code>ext-evidence</code> at the CSR level;
-either mechanism <span class="bcp14">MAY</span> be used for carrying multiple evidence bundles.
-We are leaving the <code>SEQUENCE OF EvidenceBundle</code> since it is in general
-more flexible than relying on the containing structure to handle multiplicity
-and allows for this structure to be re-used in the future in other PKIX
-protocol contexts.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="evidencestatement">
-<section id="section-4.3">
-        <h3 id="name-evidencestatement">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-evidencestatement" class="section-name selfRef">EvidenceStatement</a>
-        </h3>
-<p id="section-4.3-1">An EvidenceStatement is a simple type-value pair identified by an OID
-<code>type</code> and containing a value <code>stmt</code>.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">encoded as
-a sequence, of which the type of the "value" field is
-controlled by the value of the "type" field, similar to an Attribute
-definition.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.3-3">
-<pre>
 EVIDENCE-STATEMENT ::= TYPE-IDENTIFIER
 
 EvidenceStatementSet EVIDENCE-STATEMENT ::= {
@@ -1524,21 +1468,38 @@ attr-evidence ATTRIBUTE ::= {
 
 -- For CRMF
 ext-evidence EXTENSION ::= {
-  TYPE EvidenceStatement
+  SYNTAX SEQUENCE OF EvidenceBundle
   IDENTIFIED BY id-aa-evidenceStatement
 }
-</pre><a href="#section-4.3-3" class="pilcrow">¶</a>
+</pre><a href="#section-4.2-2" class="pilcrow">¶</a>
 </div>
+<p id="section-4.2-3">The Extension version is intended only for use within CRMF CSRs and <span class="bcp14">MUST NOT</span> be used within X.509 certificates due to the privacy implications of publishing evidence about the end entity's hardware environment. See <a href="#security-considerations" class="auto internal xref">Section 6</a> for more discussion.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">The <code>certs</code> contains a set of certificates that
+may be needed to validate the contents of an evidence statement
+contained in <code>evidence</code>. The set of certificates should contain
+the object that contains the public key needed to directly validate the
+<code>evidence</code>.  The remaining elements should chain that data back to
+an agreed upon trust anchor used for attestation. No order is implied, it is
+up to the Attester and its Verifier to agree on both the order and format
+of certificates contained in <code>certs</code>.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">A CSR <span class="bcp14">MAY</span> contain one or more instances of <code>attr-evidence</code> or <code>ext-evidence</code>.
+This means that the <code>SEQUENCE OF EvidenceBundle</code> is redundant with the
+ability to carry multiple <code>attr-evidence</code> or <code>ext-evidence</code> at the CSR level;
+either mechanism <span class="bcp14">MAY</span> be used for carrying multiple evidence bundles.
+We are leaving the <code>SEQUENCE OF EvidenceBundle</code> since it is in general
+more flexible than relying on the containing structure to handle multiplicity
+and allows for this structure to be re-used in the future in other PKIX
+protocol contexts.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificatechoice">
-<section id="section-4.4">
+<section id="section-4.3">
         <h3 id="name-certificatechoice">
-<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-certificatechoice" class="section-name selfRef">CertificateChoice</a>
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-certificatechoice" class="section-name selfRef">CertificateChoice</a>
         </h3>
-<p id="section-4.4-1">This is an ASN.1 CHOICE construct used to represent an encoding of a
-broad variety of certificate types.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.4-2">
+<p id="section-4.3-1">This is an ASN.1 CHOICE construct used to represent an encoding of a
+broad variety of certificate types.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.3-2">
 <pre>
 CertificateChoice ::=
    CHOICE {
@@ -1547,20 +1508,20 @@ CertificateChoice ::=
       typedCert     [1] IMPLICIT TypedCert,
       typedFlatCert [2] IMPLICIT TypedFlatCert
    }
-</pre><a href="#section-4.4-2" class="pilcrow">¶</a>
+</pre><a href="#section-4.3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.4-3">"Certificate" is a standard X.509 certificate that <span class="bcp14">MUST</span> be compliant<a href="#section-4.4-3" class="pilcrow">¶</a></p>
-<p id="section-4.4-4">with RFC 5280.  Enforcement of this constraint is left to the relying
-parties.<a href="#section-4.4-4" class="pilcrow">¶</a></p>
-<p id="section-4.4-5">"opaqueCert" should be used sparingly as it requires the verifier to implictly know its format.
-It is encoded as an OCTET STRING.<a href="#section-4.4-5" class="pilcrow">¶</a></p>
-<p id="section-4.4-6">"TypedCert" is an ASN.1 construct that has the charateristics of a
+<p id="section-4.3-3">"Certificate" is a standard X.509 certificate that <span class="bcp14">MUST</span> be compliant<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">with RFC 5280.  Enforcement of this constraint is left to the relying
+parties.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3-5">"opaqueCert" should be used sparingly as it requires the verifier to implictly know its format.
+It is encoded as an OCTET STRING.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+<p id="section-4.3-6">"TypedCert" is an ASN.1 construct that has the charateristics of a
 certificate, but is not encoded as an X.509 certificate.  The
 certType Field (below) indicates how to interpret the certBody field.  While
 it is possible to carry any type of data in this structure, it's
 intended the content field include data for at least one public key
-formatted as a SubjectPublicKeyInfo (see <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>).<a href="#section-4.4-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.4-7">
+formatted as a SubjectPublicKeyInfo (see <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>).<a href="#section-4.3-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.3-7">
 <pre>
 TYPED-CERT ::= TYPE-IDENTIFIER
 
@@ -1574,20 +1535,20 @@ TypedCert ::= SEQUENCE {
 TypedCertSet TYPED-CERT ::= {
              ... -- Empty for now,
              }
-</pre><a href="#section-4.4-7" class="pilcrow">¶</a>
+</pre><a href="#section-4.3-7" class="pilcrow">¶</a>
 </div>
-<p id="section-4.4-8">"TypedFlatCert" is a certificate that does not have a valid ASN.1
+<p id="section-4.3-8">"TypedFlatCert" is a certificate that does not have a valid ASN.1
 encoding.
 These are often compact or implicit certificates used by smart cards.
 certType indicates the format of the data in the
-certBody field, and ideally refers to a published specification.<a href="#section-4.4-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.4-9">
+certBody field, and ideally refers to a published specification.<a href="#section-4.3-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.3-9">
 <pre>
 TypedFlatCert ::= SEQUENCE {
     certType OBJECT IDENTIFIER,
     certBody OCTET STRING
 }
-</pre><a href="#section-4.4-9" class="pilcrow">¶</a>
+</pre><a href="#section-4.3-9" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
