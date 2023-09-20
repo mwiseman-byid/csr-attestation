@@ -635,10 +635,10 @@ Table of Contents
 Appendix A.  Examples
 
    This section provides two non-normative examples for embedding
-   Evidence in in CSRs.  The first example conveys Arm Platform Security
-   Architecture tokens, which provides claims about the used hardware
-   and software platform, into the CSR.  The second example embeds the
-   TPM v2.0 Evidence in the CSR.
+   Evidence in CSRs.  The first example embeds Evidence produced by a
+   TPM in the CSR.  The second example conveys an Arm Platform Security
+   Architecture token, which provides claims about the used hardware and
+   software platform, into the CSR.
 
 A.1.  TPM V2.0 Evidence in CSR
 
