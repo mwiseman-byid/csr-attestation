@@ -1060,7 +1060,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 23 March 2024</td>
+<td class="center">Expires 24 March 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1073,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-csr-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-20" class="published">20 September 2023</time>
+<time datetime="2023-09-21" class="published">21 September 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-03-23">23 March 2024</time></dd>
+<dd class="expires"><time datetime="2024-03-24">24 March 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1267,11 +1267,11 @@ This specification defines an attribute and an extension that allow for conveyan
 a device) produces a signed collection of Claims that constitutes Evidence about its running environment.
 While the term "attestation" is not defined in RFC 9334, it was later defined in <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>, it refers to the activity of producing and appraising remote attestation Evidence.
 A Relying Party may consult an Attestation Result produced by a Verifier that has appraised the Evidence in making policy decisions about the trustworthiness of the
-target environment being assessed via appraisal of Evidence. <a href="#architecture" class="auto internal xref">Section 3</a> provides the basis to illustrate in this document how the various roles
+Target Environment being assessed via appraisal of Evidence. <a href="#architecture" class="auto internal xref">Section 3</a> provides the basis to illustrate in this document how the various roles
 in the RATS architecture map to a certificate requester and a CA/RA.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the time of writing, several standard and several proprietary attestation technologies
 are in use.
-This specification thereby is intended to as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. This specification focuses on (1) the conveyance of Evidence via CSR while making minimal assumptions about content or format of the transported Evidence and (2) the conveyance of sets of certificates used for validation of Evidence.
+This specification thereby is intended to be as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. Instead, it focuses on (1) the conveyance of Evidence via CSRs while making minimal assumptions about content or format of the transported Evidence and (2) the conveyance of sets of certificates used for validation of Evidence.
 The certificates typically contain one or more certification paths
 rooted in a device manufacture trust anchor and the leaf certificate being
 on the device in question; the latter is the Attestation Key that signs the Evidence statement.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1304,7 +1304,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-2-2">This document re-uses the terms defined in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> related to remote
 attestation. Readers of this document are assumed to be familiar with
 the following terms: Evidence, Claim, Attestation Results (AR), Attester,
-Verifier, and Relying Party (RP).<a href="#section-2-2" class="pilcrow">¶</a></p>
+Verifier, Target Environment, Attesting Environment, and Relying Party (RP).<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">The term "Certification Request" message is defined in <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span>.
 Specifications, such as <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span>, later introduced the term
 "Certificate Signing Request (CSR)" to refer to the Certification
@@ -1323,22 +1323,31 @@ message interchangeably.<a href="#section-2-3" class="pilcrow">¶</a></p>
       <h2 id="name-architecture">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
       </h2>
-<p id="section-3-1"><a href="#fig-arch" class="auto internal xref">Figure 1</a> shows the high-level communication pattern of the RATS passport
-model where the Attester transmits the Evidence in the CSR to the RA
-and the CA. The Verifier processes the received Evidence and computes
-an Attestation Result, which is then processed by the RA/CA prior to the
-certificate issuance.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Note that the Verifier is a logical role that may be included in the
+<p id="section-3-1"><a href="#fig-arch" class="auto internal xref">Figure 1</a> shows the high-level communication pattern of the RATS
+background check model where the Attester transmits the Evidence in the
+CSR to the RA and the CA, which is subsequently forwarded to the Verifier.
+The Verifier processes the received Evidence and computes an Attestation
+Result, which is then processed by the RA/CA prior to the certificate
+issuance.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">In addition to the background check model the RATS architecture also
+specifies the passport model and combinations. See Section 5.2 of
+<span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> for a description of the passport model. The passport model
+requires the Attester to transmit Evidence to the Verifier directly in order
+to obtain the Attestation Result, which is then forwarded to the Relying
+Party. This specification utilizes the background model since CSRs are
+often used as one-shot messages where no direct real-time interaction
+between the Attester and the Verifier is possible.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">Note that the Verifier is a logical role that may be included in the
 RA/CA product. In this case the Relying Party and Verifier collapse into a
 single entity. The Verifier functionality can, however,
 also be kept separate from the RA/CA functionality, such as a utility or
 library provided by the device manufacturer. For example,
 security concerns may require parsers of Evidence formats to be logically
-or physically separated from the core CA functionality.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<span id="name-architecture-2"></span><div id="fig-arch">
+or physically separated from the core CA functionality.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<span id="name-architecture-with-backgroun"></span><div id="fig-arch">
 <figure id="figure-1">
-        <div id="section-3-3.1">
-          <div class="alignLeft art-svg artwork" id="section-3-3.1.1">
+        <div id="section-3-4.1">
+          <div class="alignLeft art-svg artwork" id="section-3-4.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="536" viewBox="0 0 536 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
               <path d="M 8,176 L 8,240" fill="none" stroke="black"></path>
               <path d="M 112,176 L 112,240" fill="none" stroke="black"></path>
@@ -1382,14 +1391,14 @@ or physically separated from the core CA functionality.<a href="#section-3-2" cl
                 <text x="328" y="228">(RA/CA)</text>
                 <text x="404" y="228">policy</text>
               </g>
-            </svg><a href="#section-3-3.1.1" class="pilcrow">¶</a>
+            </svg><a href="#section-3-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-architecture-2" class="selfRef">Architecture</a>
+<a href="#name-architecture-with-backgroun" class="selfRef">Architecture with Background Check Model.</a>
         </figcaption></figure>
 </div>
-<p id="section-3-4">As discussed in RFC 9334, different security and privacy aspects need to be
+<p id="section-3-5">As discussed in RFC 9334, different security and privacy aspects need to be
 considered. For example, Evidence may need to be protected against replay and
 Section 10 of RFC 9334 lists approach for offering freshness. There are also
 concerns about the exposure of persistent identifiers by utilizing attestation
@@ -1400,7 +1409,7 @@ This aspect is described in Section 12 of RFC 9334. Most of these aspects are,
 however, outside the scope of this specification but relevant for use with a
 given attestation technology. The focus of this specification is on the
 transport of Evidence from the Attester to the Relying Party via existing
-CSR messages.<a href="#section-3-4" class="pilcrow">¶</a></p>
+CSR messages.<a href="#section-3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="asn1-elements">
@@ -1550,7 +1559,7 @@ TypedFlatCert ::= SEQUENCE {
       <h2 id="name-iana-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-5-1">The IANA is requested to open one new registry, allocate a value
+<p id="section-5-1">IANA is requested to open one new registry, allocate a value
 from the "SMI Security for PKIX Module Identifier" registry for the
 included ASN.1 module, and allocate values from "SMI Security for
 S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5-1" class="pilcrow">¶</a></p>
@@ -1715,7 +1724,7 @@ exports Evidence for use in remote attestation via a CSR.<a href="#section-6-2" 
                 <text x="268" y="260">Attester</text>
                 <text x="256" y="276">(HSM)</text>
                 <text x="84" y="308">Target</text>
-                <text x="176" y="308">Environment(TE)</text>
+                <text x="160" y="308">Environment</text>
                 <text x="80" y="324">(with</text>
                 <text x="120" y="324">key</text>
                 <text x="184" y="324">generation,</text>
@@ -1758,11 +1767,13 @@ in a CSR. Some of these encoding formats are based on standards
 while others are proprietary formats. A Verifier will need to understand
 these formats for matching the received claim values against policies.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <p id="section-6-7">Policies drive the processing of Evidence at the Verifier: the Verifier's
-Appraisal Policy for Evidence will often be specified by the manufacturer
-of a hardware security module or specified by a regulatory body such as
-the CA Browser Forum Code-Signing Baseline Requirements <span>[<a href="#CSBR" class="cite xref">CSBR</a>]</span> which
-specifies certain properties, such as non-exportability, which must be
-enabled for storing publicly-trusted code-signing keys. Other
+Appraisal Policy for Evidence will often be based on specifications by the manufacturer
+of a hardware security module, a regulatory agency, or specified by an
+oversight body, such as the CA Browser Forum. The Code-Signing Baseline
+Requirements <span>[<a href="#CSBR" class="cite xref">CSBR</a>]</span> document is an example of such a policy that has
+been published by the CA Browser Forum and specifies certain properties,
+such as non-exportability, which must be enabled for storing
+publicly-trusted code-signing keys. Other
 policies influence the decision making at the Relying Party when
 evaluating the Attestation Result. The Relying Party is ultimately
 responsible for making a decision of what information in the Attestation
@@ -1829,6 +1840,10 @@ These privacy considerations are beyond the scope of this document and may requi
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC2986">[RFC2986]</dt>
+        <dd>
+<span class="refAuthor">Nystrom, M.</span> and <span class="refAuthor">B. Kaliski</span>, <span class="refTitle">"PKCS #10: Certification Request Syntax Specification Version 1.7"</span>, <span class="seriesInfo">RFC 2986</span>, <span class="seriesInfo">DOI 10.17487/RFC2986</span>, <time datetime="2000-11" class="refDate">November 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2986">https://www.rfc-editor.org/rfc/rfc2986</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4211">[RFC4211]</dt>
         <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Request Message Format (CRMF)"</span>, <span class="seriesInfo">RFC 4211</span>, <span class="seriesInfo">DOI 10.17487/RFC4211</span>, <time datetime="2005-09" class="refDate">September 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4211">https://www.rfc-editor.org/rfc/rfc4211</a>&gt;</span>. </dd>
@@ -1864,10 +1879,6 @@ These privacy considerations are beyond the scope of this document and may requi
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A. L.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-tschofenig-rats-psa-token-13</span>, <time datetime="2023-09-01" class="refDate">1 September 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-13">https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC2986">[RFC2986]</dt>
-        <dd>
-<span class="refAuthor">Nystrom, M.</span> and <span class="refAuthor">B. Kaliski</span>, <span class="refTitle">"PKCS #10: Certification Request Syntax Specification Version 1.7"</span>, <span class="seriesInfo">RFC 2986</span>, <span class="seriesInfo">DOI 10.17487/RFC2986</span>, <time datetime="2000-11" class="refDate">November 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2986">https://www.rfc-editor.org/rfc/rfc2986</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC7030">[RFC7030]</dt>
         <dd>
 <span class="refAuthor">Pritikin, M., Ed.</span>, <span class="refAuthor">Yee, P., Ed.</span>, and <span class="refAuthor">D. Harkins, Ed.</span>, <span class="refTitle">"Enrollment over Secure Transport"</span>, <span class="seriesInfo">RFC 7030</span>, <span class="seriesInfo">DOI 10.17487/RFC7030</span>, <time datetime="2013-10" class="refDate">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7030">https://www.rfc-editor.org/rfc/rfc7030</a>&gt;</span>. </dd>
@@ -1885,9 +1896,10 @@ These privacy considerations are beyond the scope of this document and may requi
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
 <p id="appendix-A-1">This section provides two non-normative examples for embedding Evidence
-in in CSRs. The first example conveys Arm Platform Security Architecture
-tokens, which provides claims about the used hardware and software platform,
-into the CSR. The second example embeds the TPM v2.0 Evidence in the CSR.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+in CSRs. The first example embeds Evidence produced by a TPM in the CSR.
+The second example conveys an Arm Platform Security Architecture token,
+which provides claims about the used hardware and software platform,
+into the CSR.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div id="tpm-v20-evidence-in-csr">
 <section id="appendix-A.1">
         <h3 id="name-tpm-v20-evidence-in-csr">
