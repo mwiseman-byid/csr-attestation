@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-19T00:44:08.718854+00:00",
+  "timestamp": "2023-09-21T00:43:21.275929+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -373,7 +373,7 @@
       "id": "I_kwDOJ3IIN85u90Yh",
       "title": "Remove EvidenceCerts attr/extn ?",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/28",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -382,8 +382,8 @@
       "labels": [],
       "body": "Hannes is advocating to remove the EvidanceCerts attribute / extension and roll it into the single EvidenceStatement attribute / extension; something like:\r\n\r\n```\r\nEvidenceStatement ::= SEQUENCE\r\n  {\r\n    type   OBJECT IDENTIFIER,\r\n    value  <whatever>,\r\n    certs SEQUENCE OF CertificateChoice OPTIONAL\r\n  }\r\n```\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/8C0QEGQLn38neLZvpH4rBrOBltc/",
       "createdAt": "2023-08-22T15:24:34Z",
-      "updatedAt": "2023-09-11T15:48:43Z",
-      "closedAt": null,
+      "updatedAt": "2023-09-19T16:47:02Z",
+      "closedAt": "2023-09-19T16:47:02Z",
       "comments": [
         {
           "author": "ounsworth",
@@ -399,15 +399,15 @@
       "id": "I_kwDOJ3IIN85vUINr",
       "title": "attr-evidence is duplicated between s. 4.2 & 4.3",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/31",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-08-25T18:57:23Z",
-      "updatedAt": "2023-08-25T18:57:23Z",
-      "closedAt": null,
+      "updatedAt": "2023-09-19T17:05:34Z",
+      "closedAt": "2023-09-19T17:05:34Z",
       "comments": []
     },
     {
@@ -415,15 +415,15 @@
       "id": "I_kwDOJ3IIN85vd4TC",
       "title": "Provide an example of embedding a CMW",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/34",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Ned says that TCG has already registered an OID for \"This is CMW\".\r\n\r\nhttps://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-17_1August2023.pdf\r\n\r\ntcg-dice-conceptual-message-wrapper OBJECT IDENTIFIER ::= {tcg-dice 9}",
       "createdAt": "2023-08-28T16:45:50Z",
-      "updatedAt": "2023-09-12T14:14:34Z",
-      "closedAt": null,
+      "updatedAt": "2023-09-19T17:05:34Z",
+      "closedAt": "2023-09-19T17:05:34Z",
       "comments": [
         {
           "author": "ounsworth",
@@ -439,15 +439,15 @@
       "id": "I_kwDOJ3IIN85vd6gh",
       "title": "Add extension marks to CertificateChoice",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/36",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "CertificateChoice ::=\r\n   CHOICE {\r\n      cert Certificate,\r\n      opaqueCert    [0] IMPLICIT OCTET STRING,\r\n      typedCert     [1] IMPLICIT TypedCert,\r\n      typedFlatCert [2] IMPLICIT TypedFlatCert,\r\n      ...\r\n   }\r\n\r\nTODO: look up the right syntax and run it through a compiler.",
       "createdAt": "2023-08-28T16:52:26Z",
-      "updatedAt": "2023-09-12T14:22:58Z",
-      "closedAt": null,
+      "updatedAt": "2023-09-19T17:05:56Z",
+      "closedAt": "2023-09-19T17:05:56Z",
       "comments": [
         {
           "author": "ounsworth",
@@ -470,24 +470,32 @@
       "labels": [],
       "body": "@henkbirkholz has brought this up 3 times now; might as well add a paragraph.",
       "createdAt": "2023-08-28T17:24:17Z",
-      "updatedAt": "2023-08-28T17:24:30Z",
+      "updatedAt": "2023-09-20T10:15:30Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Will start a PR this week.",
+          "createdAt": "2023-09-20T10:15:30Z",
+          "updatedAt": "2023-09-20T10:15:30Z"
+        }
+      ]
     },
     {
       "number": 41,
       "id": "I_kwDOJ3IIN85w47U0",
       "title": "Conflicts with establish remote attestation terminology and some lack of precision",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/41",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "henkbirkholz",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Especially in the Introduction, the current wording is sometimes ambiguous or conflicting and often not following RFC 4949 or RFC 9334. Also `attestation` is defined in https://www.ietf.org/archive/id/draft-ietf-rats-tpm-based-network-device-attest-14.html#name-terminology-2\r\n\r\nA few examples where the text is off: Evidence is verified or checked, a Target Environment is attested, at one point \"a attribute\" is defined, while it are two. Some phrasing can be made more fluid simply by restructuring sentences or making the language used more homogeneous.",
       "createdAt": "2023-09-13T08:02:08Z",
-      "updatedAt": "2023-09-13T08:02:42Z",
-      "closedAt": null,
+      "updatedAt": "2023-09-19T19:03:47Z",
+      "closedAt": "2023-09-19T19:03:47Z",
       "comments": [
         {
           "author": "henkbirkholz",
@@ -497,6 +505,46 @@
           "updatedAt": "2023-09-13T08:02:41Z"
         }
       ]
+    },
+    {
+      "number": 47,
+      "id": "I_kwDOJ3IIN85xddu-",
+      "title": "Attestation Terminology",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/47",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Henk wrote:\r\n\r\n> While RFC9334 does not define attestation, https://www.ietf.org/archive/id/draft-ietf-rats-tpm-based-network-device-attest-14.html#name-terminology-2 does. Should we take that into account?\r\n\r\n",
+      "createdAt": "2023-09-19T18:47:24Z",
+      "updatedAt": "2023-09-19T19:04:02Z",
+      "closedAt": "2023-09-19T19:04:01Z",
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Referenced draft for now.",
+          "createdAt": "2023-09-19T19:04:02Z",
+          "updatedAt": "2023-09-19T19:04:02Z"
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "id": "I_kwDOJ3IIN85xhtf7",
+      "title": "Explain what the \"TCG DICE ConceptualMessageWrapper in CSR\" Section shows us",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/55",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T10:16:09Z",
+      "updatedAt": "2023-09-20T10:16:09Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -1860,21 +1908,21 @@
       "id": "PR_kwDOJ3IIN85Ze1lw",
       "title": "Spelling and formatting, minor changes to wording",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/38",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "meyer-chris",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Spelling and formatting, minor changes to wording",
       "createdAt": "2023-09-04T12:52:55Z",
-      "updatedAt": "2023-09-18T06:53:27Z",
+      "updatedAt": "2023-09-19T16:42:58Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "9e9be1c62d7b7e363e9d5d35a4ee5a159825c918",
       "headRepository": "meyer-chris/csr-attestation",
       "headRefName": "main",
       "headRefOid": "4197b75b711f4981bd0179334938f7151f2a0c28",
-      "closedAt": null,
+      "closedAt": "2023-09-19T16:42:58Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -1943,24 +1991,26 @@
       "id": "PR_kwDOJ3IIN85aJM98",
       "title": "terminololgy and phrasing in Introduction",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/39",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Rather extensive overhaul. Please check!",
       "createdAt": "2023-09-12T15:36:04Z",
-      "updatedAt": "2023-09-13T07:54:34Z",
+      "updatedAt": "2023-09-19T18:54:48Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "83e4007c1c9c7acd031dd0733f8426a72eb06ff1",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "henk-patch-1",
-      "headRefOid": "837e9a0db1501fa78eaf5709e551a74cbf193246",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "ae0bc6bf04c2595956411f77d865375e641e6b1f",
+      "closedAt": "2023-09-19T18:54:44Z",
+      "mergedAt": "2023-09-19T18:54:44Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "faf7530992cb6d54c658cc5afa98f94fb8ae380f"
+      },
       "comments": [
         {
           "author": "hannestschofenig",
@@ -1975,6 +2025,34 @@
           "body": "The language used was deviating significantly from RFC 9334 terminology and RFC 4949 terminology. The conflict with #22 was only about capitalization, which is noted in this PR. Rebasing it is not a problem. I'll file an issue.",
           "createdAt": "2023-09-13T07:54:34Z",
           "updatedAt": "2023-09-13T07:54:34Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Where does the terminology conflict with  RFC 9334 and RFC 4949 terminology?",
+          "createdAt": "2023-09-19T07:26:26Z",
+          "updatedAt": "2023-09-19T07:26:26Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "A few prominent examples:\r\n\r\n* Examples of major conflicts\r\n    * w.r.t. RFC 9334, `This evidence is to be verified by a relying party`: \"verified\" means nothing in the RATS scope and Evidence is never appraised by a Relying Party - only by Verifiers\r\n    * w.r.t. RFC 4949, `certificate chains` is a term deprecated at least for 15 years and `certification path` should be used.\r\n* Examples of minor conflicts\r\n    * `evidence signed by certificate chains` This makes no sense. An Attester signes Evidence and it probably should sign with appropriate key material that is endorsed via certification paths\r\n    * to stay in sync with RFC 9334 (colloquial) language, it is preferable to write that RATS conceptual messages are `conveyed` and not `carried`\r\n\r\n",
+          "createdAt": "2023-09-19T08:20:56Z",
+          "updatedAt": "2023-09-19T08:20:56Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I created two PRs to address the issues you have raised above instead of re-writing the text altogether. \r\n\r\nThree comments:\r\n\r\n* Certificate chains is not a depreciated term. It depends what you want to say. \r\n* The terms \"convey\" and \"carry\" (or \"transport\") mean the same thing.\r\n* The term \"appraise\" is something that aims to give the impression that there is something magic going on while in reality you are just comparing the provided data against some reference values. \"Verification\" is more natural. \r\n\r\n",
+          "createdAt": "2023-09-19T09:01:30Z",
+          "updatedAt": "2023-09-19T09:01:30Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "These are only prominent examples and the text was littered with similar ones: I'd sincerely recommend to soldier through my proposal once instead of fixing each terminology nit one by one. I understand that reviewing takes time! But I think it is way more time consuming to comment on various related issues in several PRs. Like [here](https://github.com/lamps-wg/csr-attestation/pull/46#discussion_r1329808990) for example, where only some of the issues are addressed and a new issue is introduced.",
+          "createdAt": "2023-09-19T09:12:59Z",
+          "updatedAt": "2023-09-19T09:12:59Z"
         }
       ],
       "reviews": [
@@ -2037,6 +2115,106 @@
               "updatedAt": "2023-09-12T16:12:51Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hUqNd",
+          "commit": {
+            "abbreviatedOid": "837e9a0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T09:17:53Z",
+          "updatedAt": "2023-09-19T09:17:53Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nThis Evidence can be appraised by authoritative entities, such as a Registration Authority (RA) or a CA as part of validating an incoming certificate request against given certificate policy.\r\n```",
+              "createdAt": "2023-09-19T09:17:53Z",
+              "updatedAt": "2023-09-19T09:17:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hUrrb",
+          "commit": {
+            "abbreviatedOid": "e611668"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T09:21:07Z",
+          "updatedAt": "2023-09-19T09:21:07Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nWhen requesting a certificate from a Certification Authority (CA), a PKI end entity may wish to include Evidence of the security properties of its environments in which private keys are stored.\r\n```",
+              "createdAt": "2023-09-19T09:21:07Z",
+              "updatedAt": "2023-09-19T09:21:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hZIHA",
+          "commit": {
+            "abbreviatedOid": "aba44be"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T18:45:26Z",
+          "updatedAt": "2023-09-19T18:45:27Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nThis specification defines an attribute and an extension that allow for conveyance of Evidence in Certificate Signing Requests (CSRs) in either PKCS#10 {{RFC2986}} or Certificate Request Message Format (CRMF) {{RFC4211}} payloads.\r\n```",
+              "createdAt": "2023-09-19T18:45:27Z",
+              "updatedAt": "2023-09-19T18:45:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hZJhU",
+          "commit": {
+            "abbreviatedOid": "41cc3f6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T18:49:24Z",
+          "updatedAt": "2023-09-19T18:49:25Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\nWhile the term \"attestation\" is not defined in RFC 9334, it was later defined in {{?I-D.[ietf-rats-tpm-based-network-device-attest}}, it refers to the activity of producing and appraising remote attestation Evidence.\r\n```",
+              "createdAt": "2023-09-19T18:49:24Z",
+              "updatedAt": "2023-09-19T18:49:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hZJ2U",
+          "commit": {
+            "abbreviatedOid": "41cc3f6"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T18:50:25Z",
+          "updatedAt": "2023-09-19T18:50:25Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nA Relying Party may consult an Attestation Result produced by a Verifier that has appraised the Evidence in making policy decisions about the trustworthiness of the\r\n```",
+              "createdAt": "2023-09-19T18:50:25Z",
+              "updatedAt": "2023-09-19T18:50:25Z"
+            }
+          ]
         }
       ]
     },
@@ -2073,24 +2251,26 @@
       "id": "PR_kwDOJ3IIN85af7TL",
       "title": "Incorporated Carl's suggetion. Closes #28",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/42",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The ASN.1 is not currently compiling. I get:\r\n\r\n```\r\nline 88 (CSR-ATTESTATION-2023): A0201E: 'EvidenceStatement' is being used as a typereference, but has been used elsewhere in the current module as a parameterized typereference.\r\n    evidence  SEQUENCE OF EvidenceStatement,\r\n                          ^\r\n```\r\n\r\nI really don't understand these generics in ASN.1. Help please @mcr , @hannestschofenig , @henkbirkholz , @carl-wallace ",
       "createdAt": "2023-09-16T20:29:00Z",
-      "updatedAt": "2023-09-18T19:42:21Z",
+      "updatedAt": "2023-09-19T16:47:42Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
-      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "baseRefOid": "69f7b723dcd96147f865a9c4143582cfe01e7b31",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mike_#28",
-      "headRefOid": "aedb8e9ec833109406f698f91c453f87b41cbd0b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "d69714d5edc301f8d6781be4429b6dbfa99d7e62",
+      "closedAt": "2023-09-19T16:47:00Z",
+      "mergedAt": "2023-09-19T16:47:00Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "0e3ca46fc98e85042d4daa3a64e862f604c94707"
+      },
       "comments": [
         {
           "author": "carl-wallace",
@@ -2107,25 +2287,35 @@
       "id": "PR_kwDOJ3IIN85af78k",
       "title": "Extracted meaningful content changes from Chris' PR 38.",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/43",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "@meyer_chris if you're ok with this, I proposed to merge this PR and close #38 .",
       "createdAt": "2023-09-16T20:43:18Z",
-      "updatedAt": "2023-09-16T20:43:18Z",
+      "updatedAt": "2023-09-19T16:43:00Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mike_merge_chris_meyer_pr38",
       "headRefOid": "81b11bbb174a1e4b98367728ac2388c4c2ed31cb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2023-09-19T16:42:57Z",
+      "mergedAt": "2023-09-19T16:42:57Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "69f7b723dcd96147f865a9c4143582cfe01e7b31"
+      },
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This looks good to me.",
+          "createdAt": "2023-09-19T07:17:49Z",
+          "updatedAt": "2023-09-19T07:17:49Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -2133,24 +2323,26 @@
       "id": "PR_kwDOJ3IIN85am1Tk",
       "title": "Example of encoding a TCG DICE CMW",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/44",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR's not super clean because it's sitting on top of the changes for #42.\r\n\r\nThe relevant change is this:\r\n\r\nhttps://github.com/lamps-wg/csr-attestation/pull/44/files#diff-9b88f7a24d6eff606780b418b2e2d8ff3e7a400513a2249abd64b87c26686bcf\r\n",
       "createdAt": "2023-09-18T19:50:01Z",
-      "updatedAt": "2023-09-18T20:04:47Z",
+      "updatedAt": "2023-09-19T17:05:39Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
-      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "baseRefOid": "0e3ca46fc98e85042d4daa3a64e862f604c94707",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mike_#34",
-      "headRefOid": "50c37f3abebbfe9a41b17e654798d6b671a6150f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "477880c14e27031bc87e62eb50f08f502e768c0f",
+      "closedAt": "2023-09-19T17:05:32Z",
+      "mergedAt": "2023-09-19T17:05:32Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "83446f86584a33ddbc652f624258ca455cb59984"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2165,8 +2357,434 @@
           "createdAt": "2023-09-18T20:04:47Z",
           "updatedAt": "2023-09-18T20:04:47Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hVKRD",
+          "commit": {
+            "abbreviatedOid": "50c37f3"
+          },
+          "author": "carl-wallace",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T10:29:49Z",
+          "updatedAt": "2023-09-19T10:29:49Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "You should put this back. The only reason I removed it was that I did not have SecureMimeMessageV3dot1 in the collection of ASN.1 modules I use to test compile. It is there though. ",
+              "createdAt": "2023-09-19T10:29:49Z",
+              "updatedAt": "2023-09-19T10:29:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hVLAy",
+          "commit": {
+            "abbreviatedOid": "50c37f3"
+          },
+          "author": "carl-wallace",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T10:31:49Z",
+          "updatedAt": "2023-09-19T10:31:49Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "This one should be imported from:\r\n\r\n```\r\n  id-pkix\r\n  FROM PKIX1Explicit-2009\r\n      {iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n      mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-explicit-02(51)}\r\n```",
+              "createdAt": "2023-09-19T10:31:49Z",
+              "updatedAt": "2023-09-19T10:31:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hVLTC",
+          "commit": {
+            "abbreviatedOid": "50c37f3"
+          },
+          "author": "carl-wallace",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T10:32:35Z",
+          "updatedAt": "2023-09-19T10:32:36Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "Leave the TBDs for the spec. It's common practice to use fake values locally for test compilation purposes. The TBDs are needed by IANA.",
+              "createdAt": "2023-09-19T10:32:35Z",
+              "updatedAt": "2023-09-19T10:32:36Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOJ3IIN85apz4q",
+      "title": "Clarification regarding signature using different algorithms",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/45",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-19T08:54:55Z",
+      "updatedAt": "2023-09-19T18:56:04Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "99e2aa5787323fa244f36de524ec9c02b252c9ef",
+      "closedAt": "2023-09-19T18:56:02Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOJ3IIN85ap1Xg",
+      "title": "Clarification about the Verifier in the Introduction",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/46",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-19T08:57:47Z",
+      "updatedAt": "2023-09-19T18:55:20Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "209e4d99c47fd23d06bb683ae1ee4e24d84223b8",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "9ac086994ffc8ef61f357d0566239cc68ab6c8bb",
+      "closedAt": "2023-09-19T18:55:16Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85hUj4H",
+          "commit": {
+            "abbreviatedOid": "9ac0869"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-19T09:03:57Z",
+          "updatedAt": "2023-09-19T09:03:58Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThis Evidence can be appraised by authoritative entities, such as a Registration Authority (RA) or a CA as part of validating an incoming certificate request against given certificate policy.\r\n```\r\n\r\nI'd prefer the phrasing that I proposed in #39, as we do not have to, for example, reintroduce `CA` that was just introduced in line 88 above and #39 also fixes inconsistent language, such as \"evidence is to be verified\".\r\n\r\n[fixed PR ref]",
+              "createdAt": "2023-09-19T09:03:57Z",
+              "updatedAt": "2023-09-19T09:17:23Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOJ3IIN85awarI",
+      "title": "Updated Abstract",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/48",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T08:29:43Z",
+      "updatedAt": "2023-09-20T11:32:53Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "2357d7e721aa4eb2f558cccede0eb069a8996920",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "5e1401efd06892b0e1a0e4f8b315c8d847d02bdd",
+      "closedAt": "2023-09-20T11:32:31Z",
+      "mergedAt": "2023-09-20T11:32:31Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "1123dd074a9ea6b1677efa6dd97eccafd3520f66"
+      },
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I like the polish, but should an abstract be more than one paragraph? I know that shortening an abstract to render it one paragraph  would be yet more work, so I am neutral on the multi-paragraph change.",
+          "createdAt": "2023-09-20T08:37:20Z",
+          "updatedAt": "2023-09-20T08:37:20Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I gave it another try and shorted it a bit more. ",
+          "createdAt": "2023-09-20T11:04:07Z",
+          "updatedAt": "2023-09-20T11:04:07Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85hdK7i",
+          "commit": {
+            "abbreviatedOid": "7484b46"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-20T08:33:23Z",
+          "updatedAt": "2023-09-20T08:33:23Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\r\nA client requesting a certificate from a Certification Authority (CA) may wish to offer believable claims about the protections afforded to the corresponding private key, such as whether the private key resides on a hardware security module or the protection capabilities provided by the hardware.\r\n```",
+              "createdAt": "2023-09-20T08:33:23Z",
+              "updatedAt": "2023-09-20T08:38:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85hefyq",
+          "commit": {
+            "abbreviatedOid": "7c46b39"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-20T11:09:49Z",
+          "updatedAt": "2023-09-20T11:09:49Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "LGTM!\r\n\r\nNon-blocking suggestion: maybe `trustworthiness properties` instead of `suitability`?\r\n\r\n```suggestion\r\nIncluding Evidence along with a CSR can help to improve the assessment of the security posture for the private key, and the trustworthiness properties of the submitted key to the requested certificate profile. These Evidence Claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys).\r\n```",
+              "createdAt": "2023-09-20T11:09:49Z",
+              "updatedAt": "2023-09-20T11:09:49Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOJ3IIN85aw_Qm",
+      "title": "Editorial fix",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/49",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T09:58:36Z",
+      "updatedAt": "2023-09-20T10:03:00Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "ef20d9cf55fddc4b4f62de0332df60ac1f737e45",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "a465038ec93bd8bf820a730455e563fb1033833d",
+      "closedAt": "2023-09-20T10:02:55Z",
+      "mergedAt": "2023-09-20T10:02:55Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "085f0b75cef79d4c5e49d696f7729ac81afd5c7e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOJ3IIN85axAcS",
+      "title": "Target Environment",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/50",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T10:01:43Z",
+      "updatedAt": "2023-09-20T10:03:20Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "ef20d9cf55fddc4b4f62de0332df60ac1f737e45",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-4",
+      "headRefOid": "6e04519c3a2a7e59e35bf67addbda657b249873b",
+      "closedAt": "2023-09-20T10:03:17Z",
+      "mergedAt": "2023-09-20T10:03:16Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "72f9bc391bb2ab2a2615b2fe0770d048d4d6c146"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOJ3IIN85axBRW",
+      "title": "Adding Attesting Environment",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/51",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T10:03:57Z",
+      "updatedAt": "2023-09-20T10:06:24Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "72f9bc391bb2ab2a2615b2fe0770d048d4d6c146",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "5115ef6dc40385ff546dd8485e5fe18be3386cb9",
+      "closedAt": "2023-09-20T10:06:21Z",
+      "mergedAt": "2023-09-20T10:06:21Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "b280e5d4d9804127f0caecbbbec730ff441dfa09"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 52,
+      "id": "PR_kwDOJ3IIN85axEBO",
+      "title": "Editorial Changes to the Security Consideration Section",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/52",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T10:11:23Z",
+      "updatedAt": "2023-09-20T10:59:51Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "b280e5d4d9804127f0caecbbbec730ff441dfa09",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "09c97db62f137cec0acb7a9d696c98aaa4df2807",
+      "closedAt": "2023-09-20T10:59:47Z",
+      "mergedAt": "2023-09-20T10:59:47Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "410caa3adda7e670b95c917e2ad500a3389cd075"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85heEqL",
+          "commit": {
+            "abbreviatedOid": "9fc63c1"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-20T10:14:07Z",
+          "updatedAt": "2023-09-20T10:14:08Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\r\nAppraisal Policy for Evidence will often be based on specifications by the manufacturer\r\n```\r\n\r\nmaybe a little bit weaker than `specified by`? Just a non-blocking nit.",
+              "createdAt": "2023-09-20T10:14:07Z",
+              "updatedAt": "2023-09-20T10:14:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85heEug",
+          "commit": {
+            "abbreviatedOid": "9fc63c1"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-20T10:14:17Z",
+          "updatedAt": "2023-09-20T10:14:17Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\r\nAppraisal Policy for Evidence will often be based on specifications by the manufacturer\r\n```\r\n\r\nmaybe a little bit weaker than `specified by`? Just a non-blocking nit.",
+              "createdAt": "2023-09-20T10:14:17Z",
+              "updatedAt": "2023-09-20T10:14:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOJ3IIN85axEmf",
+      "title": "RFC 2986 is a normative reference",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/53",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T10:13:02Z",
+      "updatedAt": "2023-09-20T11:58:47Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "b280e5d4d9804127f0caecbbbec730ff441dfa09",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-4",
+      "headRefOid": "c43c39e2f95c67fc10d28262affc07281c355c2d",
+      "closedAt": "2023-09-20T11:58:39Z",
+      "mergedAt": "2023-09-20T11:58:39Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "d52ffeb06ed48bb3f9242844ffb9d57abc84173a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 54,
+      "id": "PR_kwDOJ3IIN85axFhu",
+      "title": "Fixing the example",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/54",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-20T10:15:42Z",
+      "updatedAt": "2023-09-20T10:17:40Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "b280e5d4d9804127f0caecbbbec730ff441dfa09",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-5",
+      "headRefOid": "c4bbd1b8decad4522de7c94f786340fe2e85413f",
+      "closedAt": "2023-09-20T10:17:36Z",
+      "mergedAt": "2023-09-20T10:17:36Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "059c0c439b853cc04c33695d6758198eb3a6b511"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
