@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-21T00:43:21.275929+00:00",
+  "timestamp": "2023-09-24T00:46:52.845743+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -470,7 +470,7 @@
       "labels": [],
       "body": "@henkbirkholz has brought this up 3 times now; might as well add a paragraph.",
       "createdAt": "2023-08-28T17:24:17Z",
-      "updatedAt": "2023-09-20T10:15:30Z",
+      "updatedAt": "2023-09-21T09:15:13Z",
       "closedAt": null,
       "comments": [
         {
@@ -479,6 +479,13 @@
           "body": "Will start a PR this week.",
           "createdAt": "2023-09-20T10:15:30Z",
           "updatedAt": "2023-09-20T10:15:30Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Didn't see your message. Have a look at the reference PR to see whether it matches your understanding.",
+          "createdAt": "2023-09-21T09:15:13Z",
+          "updatedAt": "2023-09-21T09:15:13Z"
         }
       ]
     },
@@ -538,13 +545,23 @@
       "state": "OPEN",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "henkbirkholz"
+      ],
       "labels": [],
       "body": "",
       "createdAt": "2023-09-20T10:16:09Z",
-      "updatedAt": "2023-09-20T10:16:09Z",
+      "updatedAt": "2023-09-21T09:19:10Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We need a bit of text explaining the reader what they are seeing in the example.\r\n\r\nMy additional question is whether this example illustrates a pattern for re-using the CMW and thereby addressing https://github.com/lamps-wg/csr-attestation/issues/11",
+          "createdAt": "2023-09-21T09:19:09Z",
+          "updatedAt": "2023-09-21T09:19:09Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -2785,6 +2802,61 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 56,
+      "id": "PR_kwDOJ3IIN85a3TCk",
+      "title": "Addressing Passport Model",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/56",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressing https://github.com/lamps-wg/csr-attestation/issues/37",
+      "createdAt": "2023-09-21T09:14:26Z",
+      "updatedAt": "2023-09-21T14:34:01Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "d52ffeb06ed48bb3f9242844ffb9d57abc84173a",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "0debdaa4de1e6011b29202696dfafe970a913a2f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "lgtm! just one nit",
+          "createdAt": "2023-09-21T13:58:19Z",
+          "updatedAt": "2023-09-21T13:58:19Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85hoIeg",
+          "commit": {
+            "abbreviatedOid": "42e7de0"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-21T13:56:46Z",
+          "updatedAt": "2023-09-21T13:56:47Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nThe Verifier appraises the received Evidence and computes an Attestation\r\n```",
+              "createdAt": "2023-09-21T13:56:46Z",
+              "updatedAt": "2023-09-21T13:56:47Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
