@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 23 March 2024                                           Siemens
+Expires: 28 March 2024                                           Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                       20 September 2023
+                                                       25 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 March 2024.
+   This Internet-Draft will expire on 28 March 2024.
 
 Copyright Notice
 
@@ -194,10 +194,21 @@ Table of Contents
 3.  Architecture
 
    Figure 1 shows the high-level communication pattern of the RATS
-   passport model where the Attester transmits the Evidence in the CSR
-   to the RA and the CA.  The Verifier processes the received Evidence
-   and computes an Attestation Result, which is then processed by the
-   RA/CA prior to the certificate issuance.
+   background check model where the Attester transmits the Evidence in
+   the CSR to the RA and the CA, which is subsequently forwarded to the
+   Verifier.  The Verifier appraises the received Evidence and computes
+   an Attestation Result, which is then processed by the RA/CA prior to
+   the certificate issuance.
+
+   In addition to the background check model the RATS architecture also
+   specifies the passport model and combinations.  See Section 5.2 of
+   [RFC9334] for a description of the passport model.  The passport
+   model requires the Attester to transmit Evidence to the Verifier
+   directly in order to obtain the Attestation Result, which is then
+   forwarded to the Relying Party.  This specification utilizes the
+   background model since CSRs are often used as one-shot messages where
+   no direct real-time interaction between the Attester and the Verifier
+   is possible.
 
    Note that the Verifier is a logical role that may be included in the
    RA/CA product.  In this case the Relying Party and Verifier collapse
@@ -222,7 +233,7 @@ Table of Contents
     |            |   in CSR      | Party (RA/CA) | policy
     '------------'               '---------------'
 
-                           Figure 1: Architecture
+            Figure 1: Architecture with Background Check Model.
 
    As discussed in RFC 9334, different security and privacy aspects need
    to be considered.  For example, Evidence may need to be protected
