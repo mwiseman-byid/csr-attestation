@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-24T00:46:52.845743+00:00",
+  "timestamp": "2023-09-26T00:44:18.620627+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -463,15 +463,15 @@
       "id": "I_kwDOJ3IIN85veE40",
       "title": "Explain in section 3 why the Passport Model is not applicable to CSRs",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/37",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "@henkbirkholz has brought this up 3 times now; might as well add a paragraph.",
       "createdAt": "2023-08-28T17:24:17Z",
-      "updatedAt": "2023-09-21T09:15:13Z",
-      "closedAt": null,
+      "updatedAt": "2023-09-25T16:10:53Z",
+      "closedAt": "2023-09-25T16:10:53Z",
       "comments": [
         {
           "author": "henkbirkholz",
@@ -486,6 +486,13 @@
           "body": "Didn't see your message. Have a look at the reference PR to see whether it matches your understanding.",
           "createdAt": "2023-09-21T09:15:13Z",
           "updatedAt": "2023-09-21T09:15:13Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closed with #56 ",
+          "createdAt": "2023-09-25T16:10:53Z",
+          "updatedAt": "2023-09-25T16:10:53Z"
         }
       ]
     },
@@ -2808,24 +2815,26 @@
       "id": "PR_kwDOJ3IIN85a3TCk",
       "title": "Addressing Passport Model",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/56",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Addressing https://github.com/lamps-wg/csr-attestation/issues/37",
       "createdAt": "2023-09-21T09:14:26Z",
-      "updatedAt": "2023-09-21T14:34:01Z",
+      "updatedAt": "2023-09-25T16:10:33Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "d52ffeb06ed48bb3f9242844ffb9d57abc84173a",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-2",
       "headRefOid": "0debdaa4de1e6011b29202696dfafe970a913a2f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-09-25T16:10:29Z",
+      "mergedAt": "2023-09-25T16:10:29Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "3aa4c63f7dac0f393444163d27171b0896c27d5a"
+      },
       "comments": [
         {
           "author": "henkbirkholz",
@@ -2833,6 +2842,13 @@
           "body": "lgtm! just one nit",
           "createdAt": "2023-09-21T13:58:19Z",
           "updatedAt": "2023-09-21T13:58:19Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Looks good to me too.",
+          "createdAt": "2023-09-25T16:03:44Z",
+          "updatedAt": "2023-09-25T16:03:44Z"
         }
       ],
       "reviews": [
@@ -2855,6 +2871,32 @@
               "updatedAt": "2023-09-21T13:56:47Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85h5sej",
+          "commit": {
+            "abbreviatedOid": "0debdaa"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": ":+1:",
+          "createdAt": "2023-09-25T15:56:30Z",
+          "updatedAt": "2023-09-25T15:56:30Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJ3IIN85h5vgn",
+          "commit": {
+            "abbreviatedOid": "0debdaa"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-25T16:03:13Z",
+          "updatedAt": "2023-09-25T16:03:13Z",
+          "comments": []
         }
       ]
     }
