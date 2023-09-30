@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 22 March 2024                                           Siemens
+Expires: 2 April 2024                                            Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                       19 September 2023
+                                                       30 September 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -69,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 March 2024.
+   This Internet-Draft will expire on 2 April 2024.
 
 Copyright Notice
 
@@ -97,7 +97,7 @@ Table of Contents
    5.  IANA Considerations
      5.1.  Object Identifier Allocations
        5.1.1.  Module Registration - SMI Security for PKIX Module
-               Identifier
+               Identifer
        5.1.2.  Object Identifier Registrations - SMI Security for S/
                MIME Attributes
        5.1.3.  "SMI Security for PKIX Evidence Statement Formats"
@@ -264,30 +264,30 @@ Table of Contents
    This structure allows for grouping evidence statements that share a
    certificate chain.
 
-   EVIDENCE-STATEMENT ::= TYPE-IDENTIFIER
+EVIDENCE-STATEMENT ::= TYPE-IDENTIFIER
 
-   EvidenceStatementSet EVIDENCE-STATEMENT ::= {
-      ... -- Empty for now --
-   }
+EvidenceStatementSet EVIDENCE-STATEMENT ::= {
+   ... -- Empty for now --
+}
 
-   EvidenceStatement ::= SEQUENCE {
-      type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
-      stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
-   }
+EvidenceStatement ::= SEQUENCE {
+   type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
+   stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
+}
 
-   id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa TBDAA }
+id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa aa-evidenceStatement(TBDAA2) }
 
-   -- For PKCS#10
-   attr-evidence ATTRIBUTE ::= {
-     TYPE EvidenceStatement
-     IDENTIFIED BY id-aa-evidenceStatement
-   }
+-- For PKCS#10
+attr-evidence ATTRIBUTE ::= {
+  TYPE SEQUENCE OF EvidenceBundle
+  IDENTIFIED BY id-aa-evidenceStatement
+}
 
-   -- For CRMF
-   ext-evidence EXTENSION ::= {
-     SYNTAX SEQUENCE OF EvidenceBundle
-     IDENTIFIED BY id-aa-evidenceStatement
-   }
+-- For CRMF
+ext-evidence EXTENSION ::= {
+  SYNTAX SEQUENCE OF EvidenceBundle
+  IDENTIFIED BY id-aa-evidenceStatement
+}
 
    The Extension version is intended only for use within CRMF CSRs and
    MUST NOT be used within X.509 certificates due to the privacy
@@ -373,9 +373,9 @@ Table of Contents
 
 5.1.  Object Identifier Allocations
 
-5.1.1.  Module Registration - SMI Security for PKIX Module Identifier
+5.1.1.  Module Registration - SMI Security for PKIX Module Identifer
 
-   *  Decimal: IANA Assigned - *Replace TBDMOD*
+   *  Decimal: IANA Assigned - Replace TBDMOD
 
    *  Description: CSR-ATTESTATION-2023 - id-mod-pkix-attest-01
 
@@ -386,7 +386,7 @@ Table of Contents
 
    *  Attest Statement
 
-      -  Decimal: IANA Assigned - Replace *TBDAA*
+      -  Decimal: IANA Assigned - Replace TBDAA
 
       -  Description: id-aa-evidenceStatement
 
@@ -398,7 +398,7 @@ Table of Contents
    SMI-numbers registry, allocating an assignment from id-pkix ("SMI
    Security for PKIX" Registry) for the purpose.
 
-   *  Decimal: IANA Assigned - *replace TBD1*
+   *  Decimal: IANA Assigned - replace TBD1
 
    *  Description: id-ata
 
