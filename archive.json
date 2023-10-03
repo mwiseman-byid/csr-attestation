@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-26T00:44:18.620627+00:00",
+  "timestamp": "2023-10-03T00:44:47.653039+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -2899,6 +2899,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 57,
+      "id": "PR_kwDOJ3IIN85btyFd",
+      "title": "Mike dice text",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/57",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added explanatory text to TCG DICE example.\r\n\r\nAlso in this PR: I fixed a discrepancy between the ASN.1 module and the copy of the ASN.1 in the body.",
+      "createdAt": "2023-10-02T21:07:09Z",
+      "updatedAt": "2023-10-02T21:08:10Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "9955409cc283e5d02957381d3ed8d701152bd989",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "mike_dice_text",
+      "headRefOid": "8b69001979d3126a4befffa4a6b83cc413877d84",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
