@@ -9,14 +9,11 @@
 <meta content="Hannes Tschofenig" name="author">
 <meta content="Henk Birkholz" name="author">
 <meta content="
-       A client requesting a certificate from a Certification Authority (CA) may wish to offer believable claims about the protections afforded to the corresponding private key, such as whether the private key resides on a hardware securtiy model or trusted platform module, and the protection capabilities provided by the hardware module.
-Including this evidence along with the certificate request can help to improve the assessment of the security posture for the private key, and suitability of the submitted key to the requested certificate profile.
-These evidence claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys).
-Producing, conveying, and appraising such believable claims is enabled via remote attestation procedures where the device holding the private key takes on the role of an attester and produces evidence that is made available to remote parties in a cryptographically secured way.
-This document describes two new extensions to encode evidence produced by an attester
-for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribute or Extension definition to convey a cryptographically-signed evidence statement to a Registration Authority or to a Certification Authority, and an ASN.1 Attribute or Extension to carry any certificates necessary for validating the cryptographically-signed evidence statement. 
+       A client requesting a certificate from a Certification Authority (CA) may wish to offer believable claims about the protections afforded to the corresponding private key, such as whether the private key resides on a hardware security module or the protection capabilities provided by the hardware. 
+       This document describes how to encode Evidence produced by an Attester for inclusion in Certificate Signing Requests (CSRs), and any certificates necessary for validating it. 
+       Including Evidence along with a CSR can help to improve the assessment of the security posture for the private key, and the trustworthiness properties of the submitted key to the requested certificate profile. These Evidence Claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys). 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.18.1" name="generator">
 <meta content="PKI" name="keyword">
 <meta content="PKCS#10" name="keyword">
 <meta content="CFMF" name="keyword">
@@ -25,20 +22,20 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
 <meta content="Certificate Signing Requests" name="keyword">
 <meta content="draft-ietf-lamps-csr-attestation-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
+  xml2rfc 3.18.1
     Python 3.11.5
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 3.11.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.8
 -->
 <link href="draft-ietf-lamps-csr-attestation.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1041,7 +1038,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 4 April 2024</td>
+<td class="center">Expires 5 April 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1054,12 +1051,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-csr-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-10-02" class="published">2 October 2023</time>
+<time datetime="2023-10-03" class="published">3 October 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-04">4 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-04-05">5 April 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1080,12 +1077,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Use of Remote Attestation with Certificate Signing Requests</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">A client requesting a certificate from a Certification Authority (CA) may wish to offer believable claims about the protections afforded to the corresponding private key, such as whether the private key resides on a hardware securtiy model or trusted platform module, and the protection capabilities provided by the hardware module.
-Including this evidence along with the certificate request can help to improve the assessment of the security posture for the private key, and suitability of the submitted key to the requested certificate profile.
-These evidence claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys).
-Producing, conveying, and appraising such believable claims is enabled via remote attestation procedures where the device holding the private key takes on the role of an attester and produces evidence that is made available to remote parties in a cryptographically secured way.
-This document describes two new extensions to encode evidence produced by an attester
-for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribute or Extension definition to convey a cryptographically-signed evidence statement to a Registration Authority or to a Certification Authority, and an ASN.1 Attribute or Extension to carry any certificates necessary for validating the cryptographically-signed evidence statement.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">A client requesting a certificate from a Certification Authority (CA) may wish to offer believable claims about the protections afforded to the corresponding private key, such as whether the private key resides on a hardware security module or the protection capabilities provided by the hardware.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document describes how to encode Evidence produced by an Attester for inclusion in Certificate Signing Requests (CSRs), and any certificates necessary for validating it.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">Including Evidence along with a CSR can help to improve the assessment of the security posture for the private key, and the trustworthiness properties of the submitted key to the requested certificate profile. These Evidence Claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys).<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1117,7 +1111,7 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1176,7 +1170,7 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-object-identifier-allocatio" class="internal xref">Object Identifier Allocations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
-                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-module-registration-smi-sec" class="internal xref">Module Registration - SMI Security for PKIX Module Identifer</a></p>
+                    <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-module-registration-smi-sec" class="internal xref">Module Registration - SMI Security for PKIX Module Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.2">
                     <p id="section-toc.1-1.5.2.1.2.2.1"><a href="#section-5.1.2" class="auto internal xref">5.1.2</a>.  <a href="#name-object-identifier-registrat" class="internal xref">Object Identifier Registrations - SMI Security for S/MIME Attributes</a></p>
@@ -1244,39 +1238,36 @@ for inclusion in PKCS#10 or CRMF certificate signing requests: an ASN.1 Attribut
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">At the time that it is requesting a certificate from a Certification Authority (CA), a PKI end entity may wish to provide evidence of the security properties of the environment in which the private key is stored.
-This evidence is to be verified by a relying party such as the Registration Authority or the Certification Authority as part of validating an incoming certificate request against a given certificate policy.
-This specification provides a newly defined evidence attribute for carrying evidence in Certificate Requests (CSR) in either PKCS#10 <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span> or Certificate Request Message Format (CRMF) <span>[<a href="#RFC4211" class="cite xref">RFC4211</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">When requesting a certificate from a Certification Authority (CA), a PKI end entity may wish to include Evidence of the security properties of its environments in which the private keys are stored in that request.
+This Evidence can be appraised by authoritative entities, such as a Registration Authority (RA) or a CA, or associated trusted Verifiers as part of validating an incoming certificate request against given certificate policies.
+This specification defines an attribute and an extension that allow for conveyance of Evidence in Certificate Signing Requests (CSRs) in either PKCS#10 <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span> or Certificate Request Message Format (CRMF) <span>[<a href="#RFC4211" class="cite xref">RFC4211</a>]</span> payloads.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">As outlined in the RATS Architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>, an Attester (typically
-a device) produces a signed collection of evidence about its running environment.
-The term "attestation" is intentionally not defined in RFC 9334, but it is often taken to mean the overall process of producing and verifying evidence.
-A Relying Party may consult that evidence, or an attestation result produced by a verifier who has checked the evidence, in making policy decisions about the trustworthiness of the
-target environment being attested. <a href="#architecture" class="auto internal xref">Section 3</a> overviews how the various roles
+a device) produces a signed collection of Claims that constitutes Evidence about its running environment.
+While the term "attestation" is not defined in RFC 9334, it was later defined in <span>[<a href="#I-D.ietf-rats-tpm-based-network-device-attest" class="cite xref">I-D.ietf-rats-tpm-based-network-device-attest</a>]</span>, it refers to the activity of producing and appraising remote attestation Evidence.
+A Relying Party may consult an Attestation Result produced by a Verifier that has appraised the Evidence in making policy decisions about the trustworthiness of the
+Target Environment being assessed via appraisal of Evidence. <a href="#architecture" class="auto internal xref">Section 3</a> provides the basis to illustrate in this document how the various roles
 in the RATS architecture map to a certificate requester and a CA/RA.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">At the time of writing, several standard and several proprietary attestation technologies
 are in use.
-This specification thereby tries to be technology-agnostic with regards to the attestation technologies and instead focused on the transport of Evidence.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document is focused on the transport of evidence
-inside a CSR and makes minimal assumptions about content or format of the transported evidence.
-We also enable conveyance of a set of certificates used for validation of
-evidence. These certificates typically contain one or more certificate chains
+This specification thereby is intended to be as technology-agnostic as it is feasible with respect to implemented remote attestation technologies. Instead, it focuses on (1) the conveyance of Evidence via CSRs while making minimal assumptions about content or format of the transported Evidence and (2) the conveyance of sets of certificates used for validation of Evidence.
+The certificates typically contain one or more certification paths
 rooted in a device manufacture trust anchor and the leaf certificate being
-on the device in question; the latter is the Attestation Key that signs the evidence statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This document creates two ATTRIBUTE/Attribute definitions. The first
+on the device in question; the latter is the Attestation Key that signs the Evidence statement.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document specifies two ATTRIBUTE/Attribute definitions. The first
 Attribute may be used to carry a set of certificates or public keys that
-may be necessary to validate evidence. The second Attribute carries a
-structure that may be used to carry evidence.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">A CSR may contain one or more evidence, for example evidence
-asserting the storage properties of the private key as well evidence
-asserting the firmware version and other general properties
-of the device, or evidence signed by certificate chains
-on different cryptographic algorithms.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">With these attributes, an RA or CA has additional
+may be required to validate signed Evidence. The second Attribute carries a
+structure that may be used to convey Evidence.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">A CSR may contain one or more Evidence payloads, for example Evidence
+asserting the storage properties of a private key as well Evidence
+asserting firmware version and other general properties
+of the device, or Evidence signed using different cryptographic
+algorithms.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">With these attributes, additional
 information about whether to issue a certificate and what information
-to populate into the certificate. The scope of this document is, however,
-limited to the transport of evidence via a CSR. The exact format of the
-evidence being carried is defined in various standard and proprietary
-specifications.<a href="#section-1-7" class="pilcrow">¶</a></p>
+to populate into the certificate is available to an RA or CA. The scope of this document is, however,
+limited to the conveyance of Evidence within CSR. The exact format of the
+Evidence being conveyed is defined in various standard and proprietary
+specifications.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1291,7 +1282,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-2-2">This document re-uses the terms defined in <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> related to remote
 attestation. Readers of this document are assumed to be familiar with
 the following terms: Evidence, Claim, Attestation Results (AR), Attester,
-Verifier, and Relying Party (RP).<a href="#section-2-2" class="pilcrow">¶</a></p>
+Verifier, Target Environment, Attesting Environment, and Relying Party (RP).<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">The term "Certification Request" message is defined in <span>[<a href="#RFC2986" class="cite xref">RFC2986</a>]</span>.
 Specifications, such as <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span>, later introduced the term
 "Certificate Signing Request (CSR)" to refer to the Certification
@@ -1310,22 +1301,31 @@ message interchangeably.<a href="#section-2-3" class="pilcrow">¶</a></p>
       <h2 id="name-architecture">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
       </h2>
-<p id="section-3-1"><a href="#fig-arch" class="auto internal xref">Figure 1</a> shows the high-level communication pattern of the RATS passport
-model where the attester transmits the evidence in the CSR to the RA
-and the CA. The verifier processes the received evidence and computes
-an attestation result, which is then processed by the RA/CA prior to the
-certificate issuance.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Note that the verifier is a logical role that may be included in the
+<p id="section-3-1"><a href="#fig-arch" class="auto internal xref">Figure 1</a> shows the high-level communication pattern of the RATS
+background check model where the Attester transmits the Evidence in the
+CSR to the RA and the CA, which is subsequently forwarded to the Verifier.
+The Verifier appraises the received Evidence and computes an Attestation
+Result, which is then processed by the RA/CA prior to the certificate
+issuance.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">In addition to the background check model the RATS architecture also
+specifies the passport model and combinations. See Section 5.2 of
+<span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> for a description of the passport model. The passport model
+requires the Attester to transmit Evidence to the Verifier directly in order
+to obtain the Attestation Result, which is then forwarded to the Relying
+Party. This specification utilizes the background model since CSRs are
+often used as one-shot messages where no direct real-time interaction
+between the Attester and the Verifier is possible.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">Note that the Verifier is a logical role that may be included in the
 RA/CA product. In this case the Relying Party and Verifier collapse into a
-single entity. The verifier functionality can, however,
+single entity. The Verifier functionality can, however,
 also be kept separate from the RA/CA functionality, such as a utility or
 library provided by the device manufacturer. For example,
-security concerns may require parsers of evidence formats to be logically
-or physically separated from the core CA functionality.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<span id="name-architecture-2"></span><div id="fig-arch">
+security concerns may require parsers of Evidence formats to be logically
+or physically separated from the core CA functionality.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<span id="name-architecture-with-backgroun"></span><div id="fig-arch">
 <figure id="figure-1">
-        <div id="section-3-3.1">
-          <div class="alignLeft art-svg artwork" id="section-3-3.1.1">
+        <div id="section-3-4.1">
+          <div class="alignLeft art-svg artwork" id="section-3-4.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="536" viewBox="0 0 536 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
               <path d="M 8,176 L 8,240" fill="none" stroke="black"></path>
               <path d="M 112,176 L 112,240" fill="none" stroke="black"></path>
@@ -1369,25 +1369,25 @@ or physically separated from the core CA functionality.<a href="#section-3-2" cl
                 <text x="328" y="228">(RA/CA)</text>
                 <text x="404" y="228">policy</text>
               </g>
-            </svg><a href="#section-3-3.1.1" class="pilcrow">¶</a>
+            </svg><a href="#section-3-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-architecture-2" class="selfRef">Architecture</a>
+<a href="#name-architecture-with-backgroun" class="selfRef">Architecture with Background Check Model.</a>
         </figcaption></figure>
 </div>
-<p id="section-3-4">As discussed in RFC 9334, different security and privacy aspects need to be
-considered. For example, evidence may need to be protected against replay and
+<p id="section-3-5">As discussed in RFC 9334, different security and privacy aspects need to be
+considered. For example, Evidence may need to be protected against replay and
 Section 10 of RFC 9334 lists approach for offering freshness. There are also
 concerns about the exposure of persistent identifiers by utilizing attestation
 technology, which are discussed in Section 11 of RFC 9334. Finally, the keying
-material used by the attester need to be protected against unauthorized access,
+material used by the Attester need to be protected against unauthorized access,
 and against signing arbitrary content that originated from outside the device.
 This aspect is described in Section 12 of RFC 9334. Most of these aspects are,
 however, outside the scope of this specification but relevant for use with a
 given attestation technology. The focus of this specification is on the
-transport of evidence from the attester to the relying party via existing
-CSR messages.<a href="#section-3-4" class="pilcrow">¶</a></p>
+transport of Evidence from the Attester to the Relying Party via existing
+CSR messages.<a href="#section-3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="asn1-elements">
@@ -1404,7 +1404,7 @@ CSR messages.<a href="#section-3-4" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">We define:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-3">
 <pre>
--- Arc for evidence types
+-- Arc for Evidence types
 id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 </pre><a href="#section-4.1-3" class="pilcrow">¶</a>
 </div>
@@ -1418,10 +1418,10 @@ id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 <p id="section-4.2-1">By definition, Attributes within a PKCS#10 CSR are
 typed as ATTRIBUTE and within a CRMF CSR are typed as EXTENSION.
 This attribute definition contains one or more
-evidence bundles of type <code>EvidenceBundle</code> which each contain
-one or more evidence statements of a type <code>EvidenceStatement</code> along with
+Evidence bundles of type <code>EvidenceBundle</code> which each contain
+one or more Evidence statements of a type <code>EvidenceStatement</code> along with
 an optional certificate chain.
-This structure allows for grouping evidence statements that share a
+This structure allows for grouping Evidence statements that share a
 certificate chain.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2-2">
 <pre>
@@ -1436,7 +1436,7 @@ EvidenceStatement ::= SEQUENCE {
    stmt   EVIDENCE-STATEMENT.&amp;Type({EvidenceStatementSet}{@type})
 }
 
-id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa aa-evidenceStatement(TBDAA2) }
+id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa TBDAA }
 
 -- For PKCS#10
 attr-evidence ATTRIBUTE ::= {
@@ -1451,9 +1451,9 @@ ext-evidence EXTENSION ::= {
 }
 </pre><a href="#section-4.2-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2-3">The Extension version is intended only for use within CRMF CSRs and <span class="bcp14">MUST NOT</span> be used within X.509 certificates due to the privacy implications of publishing evidence about the end entity's hardware environment. See <a href="#security-considerations" class="auto internal xref">Section 6</a> for more discussion.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">The Extension version is intended only for use within CRMF CSRs and <span class="bcp14">MUST NOT</span> be used within X.509 certificates due to the privacy implications of publishing Evidence about the end entity's hardware environment. See <a href="#security-considerations" class="auto internal xref">Section 6</a> for more discussion.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 <p id="section-4.2-4">The <code>certs</code> contains a set of certificates that
-may be needed to validate the contents of an evidence statement
+may be needed to validate the contents of an Evidence statement
 contained in <code>evidence</code>. The set of certificates should contain
 the object that contains the public key needed to directly validate the
 <code>evidence</code>.  The remaining elements should chain that data back to
@@ -1463,7 +1463,7 @@ of certificates contained in <code>certs</code>.<a href="#section-4.2-4" class="
 <p id="section-4.2-5">A CSR <span class="bcp14">MAY</span> contain one or more instances of <code>attr-evidence</code> or <code>ext-evidence</code>.
 This means that the <code>SEQUENCE OF EvidenceBundle</code> is redundant with the
 ability to carry multiple <code>attr-evidence</code> or <code>ext-evidence</code> at the CSR level;
-either mechanism <span class="bcp14">MAY</span> be used for carrying multiple evidence bundles.
+either mechanism <span class="bcp14">MAY</span> be used for carrying multiple Evidence bundles.
 We are leaving the <code>SEQUENCE OF EvidenceBundle</code> since it is in general
 more flexible than relying on the containing structure to handle multiplicity
 and allows for this structure to be re-used in the future in other PKIX
@@ -1491,7 +1491,7 @@ CertificateChoice ::=
 <p id="section-4.3-3">"Certificate" is a standard X.509 certificate that <span class="bcp14">MUST</span> be compliant<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 <p id="section-4.3-4">with RFC 5280.  Enforcement of this constraint is left to the relying
 parties.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
-<p id="section-4.3-5">"opaqueCert" should be used sparingly as it requires the verifier to implictly know its format.
+<p id="section-4.3-5">"opaqueCert" should be used sparingly as it requires the Verifier to implictly know its format.
 It is encoded as an OCTET STRING.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
 <p id="section-4.3-6">"TypedCert" is an ASN.1 construct that has the charateristics of a
 certificate, but is not encoded as an X.509 certificate.  The
@@ -1537,7 +1537,7 @@ TypedFlatCert ::= SEQUENCE {
       <h2 id="name-iana-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-5-1">The IANA is requested to open one new registry, allocate a value
+<p id="section-5-1">IANA is requested to open one new registry, allocate a value
 from the "SMI Security for PKIX Module Identifier" registry for the
 included ASN.1 module, and allocate values from "SMI Security for
 S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5-1" class="pilcrow">¶</a></p>
@@ -1546,17 +1546,20 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5
         <h3 id="name-object-identifier-allocatio">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-object-identifier-allocatio" class="section-name selfRef">Object Identifier Allocations</a>
         </h3>
-<div id="module-registration-smi-security-for-pkix-module-identifer">
+<div id="module-registration-smi-security-for-pkix-module-identifier">
 <section id="section-5.1.1">
           <h4 id="name-module-registration-smi-sec">
-<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-module-registration-smi-sec" class="section-name selfRef">Module Registration - SMI Security for PKIX Module Identifer</a>
+<a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-module-registration-smi-sec" class="section-name selfRef">Module Registration - SMI Security for PKIX Module Identifier</a>
           </h4>
 <ul class="normal">
-<li class="normal" id="section-5.1.1-1.1">Decimal: IANA Assigned - Replace TBDMOD<a href="#section-5.1.1-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.1-1.1">
+              <p id="section-5.1.1-1.1.1">Decimal: IANA Assigned - <strong>Replace TBDMOD</strong><a href="#section-5.1.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.1-1.2">Description: CSR-ATTESTATION-2023 - id-mod-pkix-attest-01<a href="#section-5.1.1-1.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.1-1.2">
+              <p id="section-5.1.1-1.2.1">Description: CSR-ATTESTATION-2023 - id-mod-pkix-attest-01<a href="#section-5.1.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.1-1.3">References: This Document<a href="#section-5.1.1-1.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.1-1.3">
+              <p id="section-5.1.1-1.3.1">References: This Document<a href="#section-5.1.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1570,11 +1573,14 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5
 <li class="normal" id="section-5.1.2-1.1">
               <p id="section-5.1.2-1.1.1">Attest Statement<a href="#section-5.1.2-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.2-1.1.2.1">Decimal: IANA Assigned - Replace TBDAA<a href="#section-5.1.2-1.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.2-1.1.2.1">
+                  <p id="section-5.1.2-1.1.2.1.1">Decimal: IANA Assigned - Replace <strong>TBDAA</strong><a href="#section-5.1.2-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-5.1.2-1.1.2.2">Description: id-aa-evidenceStatement<a href="#section-5.1.2-1.1.2.2" class="pilcrow">¶</a>
+                <li class="normal" id="section-5.1.2-1.1.2.2">
+                  <p id="section-5.1.2-1.1.2.2.1">Description: id-aa-evidenceStatement<a href="#section-5.1.2-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-5.1.2-1.1.2.3">References: This Document<a href="#section-5.1.2-1.1.2.3" class="pilcrow">¶</a>
+                <li class="normal" id="section-5.1.2-1.1.2.3">
+                  <p id="section-5.1.2-1.1.2.3.1">References: This Document<a href="#section-5.1.2-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
@@ -1586,30 +1592,38 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-5
           <h4 id="name-smi-security-for-pkix-evide">
 <a href="#section-5.1.3" class="section-number selfRef">5.1.3. </a><a href="#name-smi-security-for-pkix-evide" class="section-name selfRef">"SMI Security for PKIX Evidence Statement Formats" Registry</a>
           </h4>
-<p id="section-5.1.3-1">Please open up a registry for evidence Statement Formats within
+<p id="section-5.1.3-1">Please open up a registry for Evidence Statement Formats within
 the SMI-numbers registry, allocating an assignment from id-pkix ("SMI
 Security for PKIX" Registry) for the purpose.<a href="#section-5.1.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-2.1">Decimal: IANA Assigned - replace TBD1<a href="#section-5.1.3-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.3-2.1">
+              <p id="section-5.1.3-2.1.1">Decimal: IANA Assigned - <strong>replace TBD1</strong><a href="#section-5.1.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-2.2">Description: id-ata<a href="#section-5.1.3-2.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-2.2">
+              <p id="section-5.1.3-2.2.1">Description: id-ata<a href="#section-5.1.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-2.3">References: This document<a href="#section-5.1.3-2.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-2.3">
+              <p id="section-5.1.3-2.3.1">References: This document<a href="#section-5.1.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-2.4">Initial contents: None<a href="#section-5.1.3-2.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-2.4">
+              <p id="section-5.1.3-2.4.1">Initial contents: None<a href="#section-5.1.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-2.5">Registration Regime: Specification Required.
+            <li class="normal" id="section-5.1.3-2.5">
+              <p id="section-5.1.3-2.5.1">Registration Regime: Specification Required.
 Document must specify an EVIDENCE-STATEMENT definition to which this
-Object Identifier shall be bound.<a href="#section-5.1.3-2.5" class="pilcrow">¶</a>
+Object Identifier shall be bound.<a href="#section-5.1.3-2.5.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.1.3-3">Columns:<a href="#section-5.1.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1.3-4.1">Decimal: The subcomponent under id-ata<a href="#section-5.1.3-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.1.3-4.1">
+              <p id="section-5.1.3-4.1.1">Decimal: The subcomponent under id-ata<a href="#section-5.1.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-4.2">Description: Begins with id-ata<a href="#section-5.1.3-4.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-4.2">
+              <p id="section-5.1.3-4.2.1">Description: Begins with id-ata<a href="#section-5.1.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.1.3-4.3">References: RFC or other document<a href="#section-5.1.3-4.3" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.1.3-4.3">
+              <p id="section-5.1.3-4.3.1">References: RFC or other document<a href="#section-5.1.3-4.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1702,7 +1716,7 @@ exports Evidence for use in remote attestation via a CSR.<a href="#section-6-2" 
                 <text x="268" y="260">Attester</text>
                 <text x="256" y="276">(HSM)</text>
                 <text x="84" y="308">Target</text>
-                <text x="176" y="308">Environment(TE)</text>
+                <text x="160" y="308">Environment</text>
                 <text x="80" y="324">(with</text>
                 <text x="120" y="324">key</text>
                 <text x="184" y="324">generation,</text>
@@ -1745,11 +1759,13 @@ in a CSR. Some of these encoding formats are based on standards
 while others are proprietary formats. A Verifier will need to understand
 these formats for matching the received claim values against policies.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <p id="section-6-7">Policies drive the processing of Evidence at the Verifier: the Verifier's
-Appraisal Policy for Evidence will often be specified by the manufacturer
-of a hardware security module or specified by a regulatory body such as
-the CA Browser Forum Code-Signing Baseline Requirements <span>[<a href="#CSBR" class="cite xref">CSBR</a>]</span> which
-specifies certain properties, such as non-exportability, which must be
-enabled for storing publicly-trusted code-signing keys. Other
+Appraisal Policy for Evidence will often be based on specifications by the manufacturer
+of a hardware security module, a regulatory agency, or specified by an
+oversight body, such as the CA Browser Forum. The Code-Signing Baseline
+Requirements <span>[<a href="#CSBR" class="cite xref">CSBR</a>]</span> document is an example of such a policy that has
+been published by the CA Browser Forum and specifies certain properties,
+such as non-exportability, which must be enabled for storing
+publicly-trusted code-signing keys. Other
 policies influence the decision making at the Relying Party when
 evaluating the Attestation Result. The Relying Party is ultimately
 responsible for making a decision of what information in the Attestation
@@ -1763,12 +1779,12 @@ require the use of Evidence in a CSR is out-of-scope for this document.<a href="
         <h3 id="name-freshness">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-freshness" class="section-name selfRef">Freshness</a>
         </h3>
-<p id="section-6.1-1">Evidence generated by an attester generally needs to be fresh to provide
-value to the verifier since the configuration on the device may change
+<p id="section-6.1-1">Evidence generated by an Attester generally needs to be fresh to provide
+value to the Verifier since the configuration on the device may change
 over time. Section 10 of <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> discusses different approaches for
 providing freshness, including a nonce-based approach, the use of timestamps
 and an epoch-based technique.  The use of nonces requires an extra message
-exchange via the relying party and the use of timestamps requires
+exchange via the Relying Party and the use of timestamps requires
 synchronized clocks. Epochs also require (unidirectional) communication.
 None of these things are practical when interacting with Hardware Security
 Modules (HSM).<a href="#section-6.1-1" class="pilcrow">¶</a></p>
@@ -1795,8 +1811,8 @@ left up to the discretion of protocol designers and implementors.<a href="#secti
         <h3 id="name-publishing-evidence-in-an-x">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-publishing-evidence-in-an-x" class="section-name selfRef">Publishing evidence in an X.509 extension</a>
         </h3>
-<p id="section-6.2-1">This document specifies and Extension for carrying evidence in a CRMF Certificate Signing Request (CSR), but it is intentionally <span class="bcp14">NOT RECOMMENDED</span> for a CA to copy the ext-evidence or ext-evidenceCerts extensions into the published certificate.
-The reason for this is that certificates are considered public information and the evidence might contain detailed information about hardware and patch levels of the device on which the private key resides.
+<p id="section-6.2-1">This document specifies and Extension for carrying Evidence in a CRMF Certificate Signing Request (CSR), but it is intentionally <span class="bcp14">NOT RECOMMENDED</span> for a CA to copy the ext-evidence or ext-evidenceCerts extensions into the published certificate.
+The reason for this is that certificates are considered public information and the Evidence might contain detailed information about hardware and patch levels of the device on which the private key resides.
 The certificate requester has consented to sharing this detailed device information with the CA but might not consent to having these details published.
 These privacy considerations are beyond the scope of this document and may require additional signaling mechanisms in the CSR to prevent unintended publication of sensitive information, so we leave it as "<span class="bcp14">NOT RECOMMENDED</span>".<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
@@ -1816,6 +1832,10 @@ These privacy considerations are beyond the scope of this document and may requi
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2986">[RFC2986]</dt>
+        <dd>
+<span class="refAuthor">Nystrom, M.</span> and <span class="refAuthor">B. Kaliski</span>, <span class="refTitle">"PKCS #10: Certification Request Syntax Specification Version 1.7"</span>, <span class="seriesInfo">RFC 2986</span>, <span class="seriesInfo">DOI 10.17487/RFC2986</span>, <time datetime="2000-11" class="refDate">November 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2986">https://www.rfc-editor.org/rfc/rfc2986</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4211">[RFC4211]</dt>
         <dd>
@@ -1846,13 +1866,13 @@ These privacy considerations are beyond the scope of this document and may requi
         <dd>
 <span class="refAuthor">CA/Browser Forum</span>, <span class="refTitle">"Baseline Requirements for Code-Signing Certificates, v.3.3"</span>, <time datetime="2023-06" class="refDate">June 2023</time>, <span>&lt;<a href="https://cabforum.org/wp-content/uploads/Baseline-Requirements-for-the-Issuance-and-Management-of-Code-Signing.v3.3.pdf">https://cabforum.org/wp-content/uploads/Baseline-Requirements-for-the-Issuance-and-Management-of-Code-Signing.v3.3.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ietf-rats-tpm-based-network-device-attest">[I-D.ietf-rats-tpm-based-network-device-attest]</dt>
+        <dd>
+<span class="refAuthor">Fedorkow, G.</span>, <span class="refAuthor">Voit, E.</span>, and <span class="refAuthor">J. Fitzgerald-McKay</span>, <span class="refTitle">"TPM-based Network Device Remote Integrity Verification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-rats-tpm-based-network-device-attest-14</span>, <time datetime="2022-03-22" class="refDate">22 March 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-14">https://datatracker.ietf.org/doc/html/draft-ietf-rats-tpm-based-network-device-attest-14</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.tschofenig-rats-psa-token">[I-D.tschofenig-rats-psa-token]</dt>
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Frost, S.</span>, <span class="refAuthor">Brossard, M.</span>, <span class="refAuthor">Shaw, A. L.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Arm's Platform Security Architecture (PSA) Attestation Token"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-tschofenig-rats-psa-token-13</span>, <time datetime="2023-09-01" class="refDate">1 September 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-13">https://datatracker.ietf.org/doc/html/draft-tschofenig-rats-psa-token-13</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC2986">[RFC2986]</dt>
-        <dd>
-<span class="refAuthor">Nystrom, M.</span> and <span class="refAuthor">B. Kaliski</span>, <span class="refTitle">"PKCS #10: Certification Request Syntax Specification Version 1.7"</span>, <span class="seriesInfo">RFC 2986</span>, <span class="seriesInfo">DOI 10.17487/RFC2986</span>, <time datetime="2000-11" class="refDate">November 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2986">https://www.rfc-editor.org/rfc/rfc2986</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7030">[RFC7030]</dt>
         <dd>
@@ -1875,10 +1895,11 @@ These privacy considerations are beyond the scope of this document and may requi
       <h2 id="name-examples">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
-<p id="appendix-A-1">This section provides two non-normative examples for embedding evidence
-in in CSRs. The first example conveys Arm Platform Security Architecture
-tokens, which provides claims about the used hardware and software platform,
-into the CSR. The second example embeds the TPM v2.0 evidence in the CSR.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">This section provides two non-normative examples for embedding Evidence
+in CSRs. The first example embeds Evidence produced by a TPM in the CSR.
+The second example conveys an Arm Platform Security Architecture token,
+which provides claims about the used hardware and software platform,
+into the CSR.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div id="tpm-v20-evidence-in-csr">
 <section id="appendix-A.1">
         <h3 id="name-tpm-v20-evidence-in-csr">
@@ -1966,7 +1987,7 @@ Certification Request:
         </h3>
 <p id="appendix-A.2-1">The example shown in <a href="#fig-example-psa" class="auto internal xref">Figure 4</a> illustrates how the Arm
 Platform Security Architecture (PSA) Attestation Token
-is conveyed in a CSR. The content of the evidence in this example is re-used
+is conveyed in a CSR. The content of the Evidence in this example is re-used
 from <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span> and contains an Entity Attestation
 Token (EAT) digitally signed with an attestation private key.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <span id="name-csr-with-embedded-psa-attes"></span><div id="fig-example-psa">
@@ -2030,19 +2051,24 @@ Certification Request:
 <a href="#name-csr-with-embedded-psa-attes" class="selfRef">CSR with embedded PSA Attestation Token</a>
           </figcaption></figure>
 </div>
-<p id="appendix-A.2-3">The decoded evidence is shown in Appendix A of
-<span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>, the shown evidence, provides the following
+<p id="appendix-A.2-3">The decoded Evidence is shown in Appendix A of
+<span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>, the shown Evidence, provides the following
 information to an RA/CA:<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-A.2-4.1">Boot seed,<a href="#appendix-A.2-4.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-A.2-4.1">
+            <p id="appendix-A.2-4.1.1">Boot seed,<a href="#appendix-A.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-4.2">Firmware measurements,<a href="#appendix-A.2-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="appendix-A.2-4.2">
+            <p id="appendix-A.2-4.2.1">Firmware measurements,<a href="#appendix-A.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-4.3">Hardware security certification reference,<a href="#appendix-A.2-4.3" class="pilcrow">¶</a>
+          <li class="normal" id="appendix-A.2-4.3">
+            <p id="appendix-A.2-4.3.1">Hardware security certification reference,<a href="#appendix-A.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-4.4">Identification of the immutable root of trust implementation, and<a href="#appendix-A.2-4.4" class="pilcrow">¶</a>
+          <li class="normal" id="appendix-A.2-4.4">
+            <p id="appendix-A.2-4.4.1">Identification of the immutable root of trust implementation, and<a href="#appendix-A.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-4.5">Lifecycle state information.<a href="#appendix-A.2-4.5" class="pilcrow">¶</a>
+          <li class="normal" id="appendix-A.2-4.5">
+            <p id="appendix-A.2-4.5.1">Lifecycle state information.<a href="#appendix-A.2-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
