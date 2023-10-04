@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 28 March 2024                                           Siemens
+Expires: 6 April 2024                                            Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                       25 September 2023
+                                                          4 October 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2024.
+   This Internet-Draft will expire on 6 April 2024.
 
 Copyright Notice
 
@@ -285,7 +285,7 @@ Table of Contents
 
    -- For PKCS#10
    attr-evidence ATTRIBUTE ::= {
-     TYPE EvidenceStatement
+     TYPE SEQUENCE OF EvidenceBundle
      IDENTIFIED BY id-aa-evidenceStatement
    }
 
@@ -633,6 +633,12 @@ Table of Contents
               DOI 10.17487/RFC7030, October 2013,
               <https://www.rfc-editor.org/rfc/rfc7030>.
 
+   [TCGDICE1.1]
+              Trusted Computing Group, "DICE Attestation Architecture,
+              v.1.1", May 2023, <https://trustedcomputinggroup.org/wp-
+              content/uploads/DICE-Attestation-Architecture-Version-1.1-
+              Revision-17_1August2023.pdf>.
+
    [TPM20]    Trusted Computing Group, "Trusted Platform Module Library
               Specification, Family 2.0, Level 00, Revision 01.59",
               November 2019,
@@ -891,6 +897,11 @@ EvidenceBundle ::= SEQUENCE
 END
 
 B.1.  TCG DICE ConceptualMessageWrapper in CSR
+
+   This section gives an example of extending the ASN.1 module above to
+   carry an existing ASN.1-based evidence statement.  The example used
+   is the Trusted Computing Group DICE Attestation Conceptual Message
+   Wrapper as defined in [TCGDICE1.1].
 
 tcgDiceEvidenceStatementES EVIDENCE-STATEMENT ::=
   { ConceptualMessageWrapper IDENTIFIED BY tcg-dice-conceptual-message-wrapper }
