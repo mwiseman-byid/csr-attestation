@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-03T00:44:47.653039+00:00",
+  "timestamp": "2023-10-05T00:44:03.284432+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -86,15 +86,15 @@
       "id": "I_kwDOJ3IIN85rBGmp",
       "title": "Re-use of RATS\u2019s Conceptual Messages Wrapper (CMW)",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Remark from Thomas:\r\n\r\n> It looks very much like RATS\u2019s CMW [1], except CMW builds on media types rather than OIDs to provide the typing information (and therefore does not need bootstrapping and maintenance of yet another IANA registry).\r\n>  \r\n> IMO it\u2019d be better if we could converge on one only encap format.  Not only to avoid unnecessary duplication, but also because from the point of view of the RA/CA an AttestStatement is just a byte string that needs to be forwarded to their trusted attestation Verifier.  The RA/CA does not need to know which type of attestation statement it\u2019s dealing with, as long as it knows that it\u2019s a blob that the attestation Verifier will make sense of.\r\n> \r\n> [1] https://datatracker.ietf.org/doc/html/draft-ftbs-rats-msg-wrap-03#section-3.1\r\n\r\n\r\nProposal from Russ:\r\n> \r\n> PKIXAttestIdentifier ::= CHOICE {\r\n>    coap-content-format INTEGER (0..65535),\r\n>    media-type IA5String }\r\n> \r\n> CMOptions ::= ENUMERATED {\r\n>    reference-values,\r\n>    endorsements,\r\n>    evidence,\r\n>    attestation-results }\r\n> \r\n>   PKIX-ATTESTATION ::= CLASS {\r\n>       &id  PKIXAttestIdentifier UNIQUE,\r\n>       &AttestType,\r\n>       &cm CMOptions OPTIONAL\r\n>   } WITH SYNTAX {\r\n>       TYPE &AttestType IDENTIFIED BY &id [FOR &cm]\r\n>   }\r\n> \r\n>   PKIXAttestation{PKIX-ATTESTATION:PKIXAttestSet} ::= SEQUENCE {\r\n>       attestID      PKIX-ATTESTATION.&id({PKIXAttestSet}),\r\n>       attestType    CMOptions OPTIONAL,\r\n>       attestValue   PKIX-ATTESTATION.&AttestType({PKIXAttestSet}{@attestID})\r\n>   }\r\n> \r\n> PKIXAttestSet PKIX-ATTESTATION ::= { ... }\r\n> \r\n\r\nSuggestion from Thomas:\r\n\r\n> I'd be more radical and just put the CMW as-is into an OCTET STRING.",
       "createdAt": "2023-07-09T15:35:43Z",
-      "updatedAt": "2023-08-03T20:18:07Z",
-      "closedAt": null,
+      "updatedAt": "2023-10-04T05:58:19Z",
+      "closedAt": "2023-10-04T05:58:19Z",
       "comments": [
         {
           "author": "ounsworth",
@@ -549,7 +549,7 @@
       "id": "I_kwDOJ3IIN85xhtf7",
       "title": "Explain what the \"TCG DICE ConceptualMessageWrapper in CSR\" Section shows us",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/55",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -558,8 +558,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-09-20T10:16:09Z",
-      "updatedAt": "2023-09-21T09:19:10Z",
-      "closedAt": null,
+      "updatedAt": "2023-10-04T06:09:33Z",
+      "closedAt": "2023-10-04T05:58:19Z",
       "comments": [
         {
           "author": "hannestschofenig",
@@ -567,6 +567,13 @@
           "body": "We need a bit of text explaining the reader what they are seeing in the example.\r\n\r\nMy additional question is whether this example illustrates a pattern for re-using the CMW and thereby addressing https://github.com/lamps-wg/csr-attestation/issues/11",
           "createdAt": "2023-09-21T09:19:09Z",
           "updatedAt": "2023-09-21T09:19:09Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "NONE",
+          "body": "> My additional question is whether this example illustrates a pattern for re-using the CMW\r\n\r\nLikely so, and that's great.   To that respect I think the text proposed in https://github.com/lamps-wg/csr-attestation/commit/882aa7ea05e84e3d6b087bd980c554412b7a81c0 should be made more explicit.\r\n\r\n(Also, it'd be good to stick a ref to the \"RATS Conceptual Messages Wrapper\" document alongside DICE arch 1.1.)\r\n",
+          "createdAt": "2023-10-04T06:09:32Z",
+          "updatedAt": "2023-10-04T06:09:32Z"
         }
       ]
     }
@@ -2905,26 +2912,42 @@
       "id": "PR_kwDOJ3IIN85btyFd",
       "title": "Mike dice text",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/57",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Added explanatory text to TCG DICE example.\r\n\r\nAlso in this PR: I fixed a discrepancy between the ASN.1 module and the copy of the ASN.1 in the body.",
       "createdAt": "2023-10-02T21:07:09Z",
-      "updatedAt": "2023-10-02T21:08:10Z",
+      "updatedAt": "2023-10-04T05:58:20Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "9955409cc283e5d02957381d3ed8d701152bd989",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mike_dice_text",
-      "headRefOid": "8b69001979d3126a4befffa4a6b83cc413877d84",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "368a1ef0c173a451fb3a1e2909fc71094b2e60a4",
+      "closedAt": "2023-10-04T05:58:17Z",
+      "mergedAt": "2023-10-04T05:58:17Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "bbf1286467fe80cc2668a30f619e918ffd1d07fa"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN85iv3u7",
+          "commit": {
+            "abbreviatedOid": "368a1ef"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-04T05:57:58Z",
+          "updatedAt": "2023-10-04T05:57:58Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
