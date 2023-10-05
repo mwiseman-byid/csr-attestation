@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 6 April 2024                                            Siemens
+Expires: 7 April 2024                                            Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                          4 October 2023
+                                                          5 October 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2024.
+   This Internet-Draft will expire on 7 April 2024.
 
 Copyright Notice
 
