@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-05T00:44:03.284432+00:00",
+  "timestamp": "2023-10-08T00:48:17.761527+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -2948,6 +2948,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 58,
+      "id": "PR_kwDOJ3IIN85cCuga",
+      "title": "Removed opaqueCert, renamed CertificateChoice to CertificateALternati\u2026",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/58",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026ves.\r\n\r\nImplementing changes requested on LAMPS list:\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/Z89MxQBSQ67ToXc1fNArnzp5iLA/",
+      "createdAt": "2023-10-05T19:06:21Z",
+      "updatedAt": "2023-10-05T19:07:29Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "bbf1286467fe80cc2668a30f619e918ffd1d07fa",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "mikeo_remove_opaquecert",
+      "headRefOid": "31ccb43f20d87b43cf3983716f7612c7420b6374",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
