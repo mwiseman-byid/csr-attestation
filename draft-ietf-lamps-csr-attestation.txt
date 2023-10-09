@@ -5,10 +5,10 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 7 April 2024                                            Siemens
+Expires: 11 April 2024                                           Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
-                                                          5 October 2023
+                                                          9 October 2023
 
 
       Use of Remote Attestation with Certificate Signing Requests
@@ -63,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 April 2024.
+   This Internet-Draft will expire on 11 April 2024.
 
 Copyright Notice
 
@@ -87,7 +87,7 @@ Table of Contents
    4.  ASN.1 Elements
      4.1.  Object Identifiers
      4.2.  Evidence Attribute and Extension
-     4.3.  CertificateChoice
+     4.3.  CertificateAlternatives
    5.  IANA Considerations
      5.1.  Object Identifier Allocations
        5.1.1.  Module Registration - SMI Security for PKIX Module
@@ -281,6 +281,12 @@ Table of Contents
       stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type})
    }
 
+   EvidenceBundle ::= SEQUENCE
+   {
+     evidence  SEQUENCE OF EvidenceStatement,
+     certs SEQUENCE OF CertificateAlternatives OPTIONAL
+   }
+
    id-aa-evidenceStatement OBJECT IDENTIFIER ::= { id-aa TBDAA }
 
    -- For PKCS#10
@@ -319,26 +325,22 @@ Table of Contents
    structure to be re-used in the future in other PKIX protocol
    contexts.
 
-4.3.  CertificateChoice
+4.3.  CertificateAlternatives
 
    This is an ASN.1 CHOICE construct used to represent an encoding of a
    broad variety of certificate types.
 
-   CertificateChoice ::=
+   CertificateAlternatives ::=
       CHOICE {
          cert Certificate,
-         opaqueCert    [0] IMPLICIT OCTET STRING,
-         typedCert     [1] IMPLICIT TypedCert,
-         typedFlatCert [2] IMPLICIT TypedFlatCert
+         typedCert     [0] IMPLICIT TypedCert,
+         typedFlatCert [1] IMPLICIT TypedFlatCert
       }
 
    "Certificate" is a standard X.509 certificate that MUST be compliant
 
    with RFC 5280.  Enforcement of this constraint is left to the relying
    parties.
-
-   "opaqueCert" should be used sparingly as it requires the Verifier to
-   implictly know its format.  It is encoded as an OCTET STRING.
 
    "TypedCert" is an ASN.1 construct that has the charateristics of a
    certificate, but is not encoded as an X.509 certificate.  The
@@ -834,12 +836,11 @@ FROM SecureMimeMessageV3dot1
 id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 
 
-CertificateChoice ::=
+CertificateAlternatives ::=
    CHOICE {
       cert Certificate,
-      opaqueCert    [0] IMPLICIT OCTET STRING,
-      typedCert     [1] IMPLICIT TypedCert,
-      typedFlatCert [2] IMPLICIT TypedFlatCert,
+      typedCert     [0] IMPLICIT TypedCert,
+      typedFlatCert [1] IMPLICIT TypedFlatCert,
       ...
    }
 
@@ -890,7 +891,7 @@ ext-evidence EXTENSION ::= {
 EvidenceBundle ::= SEQUENCE
 {
   evidence  SEQUENCE OF EvidenceStatement,
-  certs SEQUENCE OF CertificateChoice OPTIONAL
+  certs SEQUENCE OF CertificateAlternatives OPTIONAL
 }
 
 
