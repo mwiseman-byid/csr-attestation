@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-10T00:43:41.659581+00:00",
+  "timestamp": "2023-10-26T00:43:05.052645+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -576,6 +576,22 @@
           "updatedAt": "2023-10-04T06:09:32Z"
         }
       ]
+    },
+    {
+      "number": 59,
+      "id": "I_kwDOJ3IIN850ze7v",
+      "title": "Optimizing the EvidenceBundle Structure",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/59",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The current draft (version -02) defines the EvidenceBundle as follws:\r\n\r\n> \r\n>    EvidenceBundle ::= SEQUENCE\r\n>    {\r\n>      evidence  SEQUENCE OF EvidenceStatement,\r\n>      certs SEQUENCE OF CertificateAlternatives OPTIONAL\r\n>    }\r\n> \r\n\r\nThe idea is that Evidence can be sent with optionally with a certificate chain. In complex scenarios (such as Composite Devices) the sequence construct allows multiple Evidence payloads to be conveyed in a CSR. In such a situation it is possible to convey a certificate chain with each Evidence payload.\r\n\r\nThe payload construction would be something like:\r\n\r\n               Evidence1\r\n               cert1\r\n               Evidence2\r\n               cert2\r\n\r\nWe have also envisioned the case where the certificate chain is the same for all Evidence payloads. In such a case, it is possible to accomplish a performance optimization by only send one cert chain. Here is the payload construction:\r\n\r\n               Evidence1\r\n               Evidence2\r\n               cert\r\n\r\nIf the certificate chains differ, then this optimization is not possible.\r\n\r\nMike StJohns brought up a scenario where the current design of the EvidenceBundle is limiting. In his scenario multiple Evidence payloads are sent and their certificate chain only differents by the end entity certificate. In the current design an optimization would not be possible.\r\n\r\nQuestion: Should we allow this optimization? If so, how should we best design it?\r\n",
+      "createdAt": "2023-10-24T16:34:07Z",
+      "updatedAt": "2023-10-24T16:34:07Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
