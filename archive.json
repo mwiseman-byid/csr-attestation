@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-28T00:45:20.611737+00:00",
+  "timestamp": "2024-03-31T00:50:57.206372+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -5366,19 +5366,61 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-03-24T00:55:42Z",
-      "updatedAt": "2024-03-24T00:55:42Z",
+      "updatedAt": "2024-03-29T07:11:16Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "d2b3bab9ec6c8fec44cd1e7254ab00a2c8d12bb1",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mikeo_108",
-      "headRefOid": "62eca683e607794a2d9ace9a3c4caa5a8eea0749",
+      "headRefOid": "40b93755c840fbef8c987df65e3a36a547b4b254",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Works for me.",
+          "createdAt": "2024-03-28T12:19:37Z",
+          "updatedAt": "2024-03-28T12:19:37Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN851LzJN",
+          "commit": {
+            "abbreviatedOid": "62eca68"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-28T12:18:38Z",
+          "updatedAt": "2024-03-28T12:18:38Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\nresource name (URN) [RFC8141] or a registered value corresponding to this\r\n```",
+              "createdAt": "2024-03-28T12:18:38Z",
+              "updatedAt": "2024-03-28T12:18:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN851TR0K",
+          "commit": {
+            "abbreviatedOid": "40b9375"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-29T07:11:16Z",
+          "updatedAt": "2024-03-29T07:11:16Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 113,
@@ -5392,7 +5434,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-03-24T01:09:59Z",
-      "updatedAt": "2024-03-26T18:29:37Z",
+      "updatedAt": "2024-03-28T14:06:18Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "d2b3bab9ec6c8fec44cd1e7254ab00a2c8d12bb1",
@@ -5407,9 +5449,9 @@
         {
           "author": "hannestschofenig",
           "authorAssociation": "COLLABORATOR",
-          "body": "I proposed a new figure in another PR since this figure exceeds the maximum line limit",
+          "body": "I proposed a new figure in another PR, see https://github.com/lamps-wg/csr-attestation/pull/114, since this figure exceeds the maximum line limit",
           "createdAt": "2024-03-26T18:29:35Z",
-          "updatedAt": "2024-03-26T18:29:35Z"
+          "updatedAt": "2024-03-28T14:06:18Z"
         }
       ],
       "reviews": []
@@ -5426,13 +5468,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-03-26T18:28:59Z",
-      "updatedAt": "2024-03-27T05:01:43Z",
+      "updatedAt": "2024-03-29T07:09:29Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "mike_ra_pic",
       "baseRefOid": "921d5b60e652637fc23268a47c34231ee62a2362",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-2",
-      "headRefOid": "2cda2269d90ba0ce80b57cc5812643cc78ba4898",
+      "headRefOid": "cc44a919f27e7c46ffdae8d6c41bf8e67539e3f5",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -5451,8 +5493,47 @@
           "createdAt": "2024-03-27T05:01:43Z",
           "updatedAt": "2024-03-27T05:01:43Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJ3IIN851TQrj",
+          "commit": {
+            "abbreviatedOid": "cc44a91"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-29T07:09:29Z",
+          "updatedAt": "2024-03-29T07:09:29Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 115,
+      "id": "PR_kwDOJ3IIN85rD5jS",
+      "title": "Add Corey to acknowledgements",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/115",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T14:13:38Z",
+      "updatedAt": "2024-03-28T14:13:38Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "d2b3bab9ec6c8fec44cd1e7254ab00a2c8d12bb1",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "5192d5119efbbf5f027fcaf4f7443edd80889f12",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
