@@ -5,12 +5,12 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 30 September 2024                                       Siemens
+Expires: 24 October 2024                                         Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
                                                               M. Wiseman
                                                          Beyond Identity
-                                                           29 March 2024
+                                                           22 April 2024
 
 
      Use of Remote Attestation with Certification Signing Requests
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 September 2024.
+   This Internet-Draft will expire on 24 October 2024.
 
 Copyright Notice
 
@@ -559,11 +559,10 @@ Table of Contents
    of this hint can be used to look up the correct Verifier.  Under no
    circumstances must the RP be tricked into contacting an unknown and
    untrusted Verifier since the returned Attestation Result must not be
-   relied on.  The format and contents of the hint are out of scope of
-   this document, however the hint SHOULD contain a value which is
-   unique to this Verifier, such as a fully qualified domain name
-   (FQDN), a uniform resource name (URN) [RFC8141] or a registered value
-   corresponding to this evidence format.
+   relied on.  The hint SHOULD contain a value which is unique to this
+   Verifier, such as a fully qualified domain name (FQDN), a uniform
+   resource name (URN) [RFC8141] or a registered value corresponding to
+   this evidence format.
 
    EvidenceBundles ::= SEQUENCE SIZE (1..MAX) OF EvidenceBundle
 
