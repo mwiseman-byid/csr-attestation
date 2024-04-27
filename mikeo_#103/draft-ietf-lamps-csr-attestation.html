@@ -14,7 +14,7 @@
        This document defines a new PKCS#10 attribute attr-evidence and CRMF extension ext-evidence that allows placing any Evidence data, in any pre-existing format, along with any certificates needed to validate it, into a PKCS#10 or CRMF CSR. 
        Including Evidence along with a CSR can help to improve the assessment of the security posture for the private key, and the trustworthiness properties of the submitted key to the requested certificate profile. These Evidence Claims can include information about the hardware component's manufacturer, the version of installed or running firmware, the version of software installed or running in layers above the firmware, or the presence of hardware components providing specific protection capabilities or shielded locations (e.g., to protect keys). 
     " name="description">
-<meta content="xml2rfc 3.20.1" name="generator">
+<meta content="xml2rfc 3.21.0" name="generator">
 <meta content="PKI" name="keyword">
 <meta content="PKCS#10" name="keyword">
 <meta content="CRMF" name="keyword">
@@ -23,8 +23,8 @@
 <meta content="Certificate Signing Requests" name="keyword">
 <meta content="draft-ietf-lamps-csr-attestation-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.20.1
-    Python 3.11.8
+  xml2rfc 3.21.0
+    Python 3.11.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
@@ -1035,11 +1035,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Remote Attestation with CSRs</td>
-<td class="right">March 2024</td>
+<td class="right">April 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 29 September 2024</td>
+<td class="center">Expires 29 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-csr-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-28" class="published">28 March 2024</time>
+<time datetime="2024-04-27" class="published">27 April 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-29">29 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-29">29 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1254,7 +1254,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                     <p id="section-toc.1-1.9.2.2.2.5.1"><a href="#appendix-A.2.5" class="auto internal xref">A.2.5</a>.  <a href="#name-tcg-objects-and-key-attesta" class="internal xref">TCG Objects and Key Attestation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.6">
-                    <p id="section-toc.1-1.9.2.2.2.6.1"><a href="#appendix-A.2.6" class="auto internal xref">A.2.6</a>.  <a href="#name-example-structures" class="internal xref">Example Structures</a></p>
+                    <p id="section-toc.1-1.9.2.2.2.6.1"><a href="#appendix-A.2.6" class="auto internal xref">A.2.6</a>.  <a href="#name-sample-csr" class="internal xref">Sample CSR</a></p>
 </li>
                 </ul>
 </li>
@@ -2830,10 +2830,109 @@ If Key's "expected" Name equals TPM2B_ATTEST-&gt;attestationData then returned T
 </div>
 <div id="appdx-tpm-example">
 <section id="appendix-A.2.6">
-          <h4 id="name-example-structures">
-<a href="#appendix-A.2.6" class="section-number selfRef">A.2.6. </a><a href="#name-example-structures" class="section-name selfRef">Example Structures</a>
+          <h4 id="name-sample-csr">
+<a href="#appendix-A.2.6" class="section-number selfRef">A.2.6. </a><a href="#name-sample-csr" class="section-name selfRef">Sample CSR</a>
           </h4>
-<p id="appendix-A.2.6-1">TODO -- a full CSR would be great.<a href="#appendix-A.2.6-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2.6-1">
+<pre>
+-----BEGIN CERTIFICATE REQUEST-----
+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
+R5L7MAMtck6hkyd20a0qYq4=
+-----END CERTIFICATE REQUEST-----
+</pre><a href="#appendix-A.2.6-1" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.2.6-2">This CSR demonstrates a certification request for a key stored in a TPM using the following structure:<a href="#appendix-A.2.6-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2.6-3">
+<pre>
+CSR {
+  attributes {
+    id-aa-evidence {
+      EvidenceBundles {
+        EvidenceBundle {
+          EvidenceStatements {
+            EvidenceStatement {
+              type: id-TcgAttestCertify,
+              stmt: &lt;TcgAttestCertify_data&gt;
+              hint: "TcgAttestCertify.trustedcomputinggroup.org"
+            }
+          },
+          certs {
+            akCertificate,
+            caCertificate
+          }
+        }
+      }
+    }
+  }
+}
+</pre><a href="#appendix-A.2.6-3" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 </section>
@@ -3052,14 +3151,14 @@ Jean-Pierre Fiset, Sander Temme, Jethro Beekman, Zsolt Rózsahegyi, Ferenc
 Pető, Mike Agrenius Kushner, Tomas Gustavsson, Dieter Bong, Christopher Meyer,
 Michael StJohns, Carl Wallace, Michael Richardson, Tomofumi Okubo, Olivier
 Couillard, John Gray, Eric Amador, Johnson Darren, Herman Slatman, Tiru Reddy,
-Corey Bonnell, Argenius Kushner, James Hagborg, Monty Wiseman, John Kemp,
+Corey Bonnell, Argenius Kushner, James Hagborg, Monty Wiseman,
 Ned Smith.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <p id="appendix-C-2">We would like to specifically thank Mike StJohns for his work on an earlier
-version of this draft. Monty Wiseman contributed TPM 2.0 Attestation in the
-specification and wrote the necessary scripts with the help from Corey Bonnell.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
-<p id="appendix-C-3">Finally, we would like to thank Andreas Kretschmer and Thomas Fossati for their
-feedback based on implementation experience, and Daniel Migault and Russ Housley
-for their review comments.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+version of this draft.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">We would also like to specifically thank Corey Bonnell for help during the hackathon with constructing sample code for generating the TcgAttestCertify sample.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-4">Finally, we would like to thank Andreas Kretschmer and Thomas Fossati for their feedback based
+on implementation experience, and Daniel Migault and Russ Housley for
+their review comments.<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
