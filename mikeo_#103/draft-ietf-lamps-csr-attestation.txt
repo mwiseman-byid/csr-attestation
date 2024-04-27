@@ -1085,6 +1085,12 @@ A.2.  TPM V2.0 Evidence in CSR
 
    This section describes TPM2 key attestation for use in a CSR.
 
+   This is a complete and canonical example that can be used to test
+   parsers implemented against this specification.  Readers who wish the
+   sample data may skip to Appendix A.2.6; the following sections
+   explain the TPM-specific data structures needed to fully parse the
+   contents of the evidence statement.
+
 A.2.1.  TCG Key Attestation Certify
 
    There are several ways in TPM2 to provide proof of a key's
@@ -1339,6 +1345,61 @@ A.2.5.6.  Verifier Processing
 
 A.2.6.  Sample CSR
 
+   This CSR demonstrates a certification request for a key stored in a
+   TPM using the following structure:
+
+   CSR {
+     attributes {
+       id-aa-evidence {
+         EvidenceBundles {
+           EvidenceBundle {
+             EvidenceStatements {
+               EvidenceStatement {
+                 type: id-TcgAttestCertify,
+                 stmt: <TcgAttestCertify_data>
+                 hint: "tpmverifier.example.com"
+               }
+             },
+             certs {
+               akCertificate,
+               caCertificate
+             }
+           }
+         }
+       }
+     }
+   }
+
+   Note that this example demonstrates most of the features of this
+   specification:
+
+   *  The data type is identified by the OID id-TcgAttestCertify
+      contained in the EvidenceStatement.type field.
+
+   *  The signed evidence is carried in the EvidenceStatement.stmt
+      field.
+
+   *  The EvidenceStatement.hint provides information to the Relying
+      Party about which Verifier (software) will be able to correctly
+      parse this data.  Note that the type OID indicates the format of
+      the data, but that may itself be a wrapper format that contains
+      further data in a proprietary format.  In this example, the hint
+      says that software from the package "tpmverifier.example.com" will
+      be able to parse this data.
+
+   *  The evidence statement is accompanied by a certificate chain in
+      the EvidenceBundle.certs field which can be used to verify the
+      signature on the evidence statement.
+
+   Features of this specification that are not demonstrated by this
+   example are:
+
+   *  An EvidenceBundle containing multiple EvidenceStatements that
+      share a certificate chain.
+
+   *  Multiple EvidenceBundles that each have their own certificate
+      chain.
+
    -----BEGIN CERTIFICATE REQUEST-----
    MIIMnTCCC4cCAQAwcjELMAkGA1UEBhMCQVUxDDAKBgNVBAgMA1FMRDERMA8GA1UE
    BwwIQnJpc2JhbmUxGzAZBgNVBAoMEmlldGYtMTE5LWhhY2thdGhvbjEWMBQGA1UE
@@ -1409,31 +1470,6 @@ A.2.6.  Sample CSR
    FNfYZHBnIlwpYXNnoPXJT+Pa+tMSvU0GZjUuxe6g3gASem2in3jW9KoLrxevjplX
    R5L7MAMtck6hkyd20a0qYq4=
    -----END CERTIFICATE REQUEST-----
-
-   This CSR demonstrates a certification request for a key stored in a
-   TPM using the following structure:
-
-   CSR {
-     attributes {
-       id-aa-evidence {
-         EvidenceBundles {
-           EvidenceBundle {
-             EvidenceStatements {
-               EvidenceStatement {
-                 type: id-TcgAttestCertify,
-                 stmt: <TcgAttestCertify_data>
-                 hint: "TcgAttestCertify.trustedcomputinggroup.org"
-               }
-             },
-             certs {
-               akCertificate,
-               caCertificate
-             }
-           }
-         }
-       }
-     }
-   }
 
 A.3.  PSA Attestation Token in CSR
 
