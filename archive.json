@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-25T00:49:43.963339+00:00",
+  "timestamp": "2024-04-28T00:51:22.115942+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -112,7 +112,7 @@
         },
         {
           "author": "nedmsmith",
-          "authorAssociation": "NONE",
+          "authorAssociation": "COLLABORATOR",
           "body": "> We should respond to this on-list. The core question here is whether LAMPS / CSR should be specifying encodings other than ASN.1.\r\n\r\nWhat is the rationale for redefining something that is already defined but doesn't use ASN.1 as the data definition language?\r\n\r\nI makes sense to consider the constraints of the environments that are creating the CSR structures and their capabilities. HSMs that already support ASN.1/DER likely will object to some other encoding (e.g., CBOR), but environments that are already capable of CBOR may object to ASN.1/DER etc. Given there are use cases for CSRs originating from various environments such as DICE Protection Environment (DPE), SPDM Responders, and embedded uControllers (but not HSMs). Given there can be layers of compute that may issue a CSR, the CSR draft should be flexible toward accommodating industry evolution and trends rather than serve to constrain or limit such evolution.",
           "createdAt": "2023-07-17T17:01:55Z",
           "updatedAt": "2023-08-03T20:18:07Z"
@@ -2075,7 +2075,7 @@
             "abbreviatedOid": "f32b955"
           },
           "author": "nedmsmith",
-          "authorAssociation": "NONE",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "In general, it seems appropriate to follow RATS Arch capitalization for RATS roles and other terms having special meaning.",
           "createdAt": "2023-08-24T20:41:13Z",
@@ -2355,7 +2355,7 @@
             "abbreviatedOid": "2c84d7b"
           },
           "author": "nedmsmith",
-          "authorAssociation": "NONE",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2023-08-24T21:06:36Z",
@@ -3188,7 +3188,7 @@
             "abbreviatedOid": "50c37f3"
           },
           "author": "nedmsmith",
-          "authorAssociation": "NONE",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "LGTM",
           "createdAt": "2023-09-18T20:04:47Z",
@@ -5194,7 +5194,7 @@
         },
         {
           "author": "nedmsmith",
-          "authorAssociation": "NONE",
+          "authorAssociation": "COLLABORATOR",
           "body": "It may be appropriate to list the other evidence oids tcg-dice-TcbInfo OBJECT IDENTIFIER ::= {tcg-dice 1}, tcg-dice-MultiTcbInfo OBJECT IDENTIFIER ::= {tcg-dice 5}, tcg-dice-UCCS-evidence OBJECT IDENTIFIER ::= {tcg-dice 6}, tcg-dice-manifest-evidence OBJECT IDENTIFIER ::= {tcg-dice 7}, and tcg-dice-MultiTcbInfoComp OBJECT IDENTIFIER ::= {tcg-dice 8}. \r\n\r\nThe thread that motivated removal of {tcg-dice 10} seemed to miss the point that the registry should list existing valid oids. {tcg-dice 10} doesn't fit this criteria, but these others do.",
           "createdAt": "2024-02-28T00:32:28Z",
           "updatedAt": "2024-02-28T00:42:07Z"
@@ -5340,13 +5340,13 @@
       "labels": [],
       "body": "Don't merge until:\r\n\r\n- [x] IANA has officially allocated `id-aa-evidence ::= OBJECT IDENTIFIER { id-aa 59 }`\r\n   - Done: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#security-smime-2\r\n- [ ] We have the final OID for id-TcgAttestCertify from TCG.\r\n- [ ] The extra potentially spurious SEQUENCE layer has been investigated. See: https://github.com/mwiseman-byid/csr-attestation-tpm-example/wiki/Decoded-sample-%E2%80%90%E2%80%90-why-so-many-SEQUENCES-%3F",
       "createdAt": "2024-03-24T00:45:21Z",
-      "updatedAt": "2024-04-22T12:30:26Z",
+      "updatedAt": "2024-04-27T20:29:58Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "d2b3bab9ec6c8fec44cd1e7254ab00a2c8d12bb1",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mikeo_#103",
-      "headRefOid": "37193cbe448242f5799395b2d0a8d1bd0011e7da",
+      "headRefOid": "03be76d32f3d2ecd6ef7696d5a667cf61f1a3f60",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -5364,15 +5364,15 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "TODO:\r\n\r\n- [ ] Update the sample code in Monty's repo to use a verifier-specific string, rather than the name of the OID. Maybe \"tpmverifier.example.com\" and get an updated CSR.\r\n- [ ] Update this text to cross-reference that example in the TPM example.\r\n- [ ] Revisit how this hint is introduced around line 133 (pull up the better version of this sentence).",
+      "body": "TODO:\r\n\r\n- [x] Update the sample code in Monty's repo to use a verifier-specific string, rather than the name of the OID. Maybe \"tpmverifier.example.com\" and get an updated CSR. (this change is in #111 )\r\n- [x] Update this text to cross-reference that example in the TPM example.\r\n- [x] Revisit how this hint is introduced around line 133 (pull up the better version of this sentence).",
       "createdAt": "2024-03-24T00:55:42Z",
-      "updatedAt": "2024-04-22T22:46:46Z",
+      "updatedAt": "2024-04-27T20:50:04Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "d2b3bab9ec6c8fec44cd1e7254ab00a2c8d12bb1",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mikeo_108",
-      "headRefOid": "1494b900d5cd37aa796ea2adba141b0e5880d053",
+      "headRefOid": "50981a72a24b994845b94fc595860f1418ffe55a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -5538,6 +5538,63 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 116,
+      "id": "PR_kwDOJ3IIN85tvk_d",
+      "title": "Update draft-ietf-lamps-csr-attestation.md",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/116",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "Adds other TCG OIDs for evidence.",
+      "createdAt": "2024-04-25T15:33:42Z",
+      "updatedAt": "2024-04-27T20:52:39Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "42b516fda052c2b8c30039c231fdfd65e06e7dc3",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "more-entries-in-oid-table",
+      "headRefOid": "b3e36fffef13b99697e10b9bbf1bb3736e443557",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Hi Ned,\r\n\r\nYou changed the name \"Conceptual Message Wrapper\" to \"DiceConceptualMessageWrapper\". I was wondering whether the name change applies that the CMW now can only be used with DICE.",
+          "createdAt": "2024-04-26T07:20:42Z",
+          "updatedAt": "2024-04-26T07:20:42Z"
+        },
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Hi Ned,\r\n> \r\n> You changed the name \"Conceptual Message Wrapper\" to \"DiceConceptualMessageWrapper\". I was wondering whether the name change applies that the CMW now can only be used with DICE.\r\n\r\nNo. I just used the OID name as it appears in the TCG spec. I thought that would make it easier for someone to find it if they were reading the spec. The previous comment uses upper case as if to say the CMW structure can be found in the TCG spec by that name. \r\n\r\nAlternatively, the Description section should contain free form prose?",
+          "createdAt": "2024-04-26T16:28:37Z",
+          "updatedAt": "2024-04-26T16:28:37Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN854zagw",
+          "commit": {
+            "abbreviatedOid": "b3e36ff"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Looks excellent to me.\r\nLet's wait to merge until Monty has gotten TCG to assign a permanent OID for TcgAttestCertify (which is used in the TPM2 example appendix), and then we can add that to this list also.",
+          "createdAt": "2024-04-27T20:52:39Z",
+          "updatedAt": "2024-04-27T20:52:39Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
