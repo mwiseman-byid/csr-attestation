@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-30T00:46:35.030605+00:00",
+  "timestamp": "2024-05-02T00:46:32.933942+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1380,6 +1380,38 @@
       "body": "Seems redundant with the version that includes the Hint.",
       "createdAt": "2024-03-22T03:36:06Z",
       "updatedAt": "2024-03-22T03:36:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 117,
+      "id": "I_kwDOJ3IIN86Hg2d3",
+      "title": "Add an inline reference to https://github.com/lamps-wg/csr-attestation-examples",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/117",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Copy the style of what RFC 9180 did with their Informative reference \"[TestVectors]\".",
+      "createdAt": "2024-05-01T13:41:31Z",
+      "updatedAt": "2024-05-01T13:41:32Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 118,
+      "id": "I_kwDOJ3IIN86HiJZI",
+      "title": "Add 2.23.133.20.1:  tcg-csr-certify",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/118",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "It needs to go into a few places:\r\n\r\n- [ ] Update the python code is Monty's repo and re-build the CSR.\r\n- [ ] Update any references in the TPM2 appendix\r\n- [ ] Add to Ned's PR with the initial contents of the new IANA registry\r\n- [ ] Others?",
+      "createdAt": "2024-05-01T17:21:24Z",
+      "updatedAt": "2024-05-01T17:21:24Z",
       "closedAt": null,
       "comments": []
     }
@@ -5340,19 +5372,33 @@
       "labels": [],
       "body": "Don't merge until:\r\n\r\n- [x] IANA has officially allocated `id-aa-evidence ::= OBJECT IDENTIFIER { id-aa 59 }`\r\n   - Done: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#security-smime-2\r\n- [ ] We have the final OID for id-TcgAttestCertify from TCG.\r\n- [ ] The extra potentially spurious SEQUENCE layer has been investigated. See: https://github.com/mwiseman-byid/csr-attestation-tpm-example/wiki/Decoded-sample-%E2%80%90%E2%80%90-why-so-many-SEQUENCES-%3F",
       "createdAt": "2024-03-24T00:45:21Z",
-      "updatedAt": "2024-04-27T20:29:58Z",
+      "updatedAt": "2024-04-30T17:43:26Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "d2b3bab9ec6c8fec44cd1e7254ab00a2c8d12bb1",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mikeo_#103",
-      "headRefOid": "03be76d32f3d2ecd6ef7696d5a667cf61f1a3f60",
+      "headRefOid": "f69f3d90a063df1dc614d0f29919362df434b680",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN855H4V8",
+          "commit": {
+            "abbreviatedOid": "f69f3d9"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-04-30T17:43:26Z",
+          "updatedAt": "2024-04-30T17:43:26Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 112,
