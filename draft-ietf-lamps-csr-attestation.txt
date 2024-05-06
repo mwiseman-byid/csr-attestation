@@ -762,18 +762,39 @@ Table of Contents
 6.4.2.  Initial Registry Contents
 
    The initial registry contents is shown in the table below.  It lists
-   one entry for the Conceptual Message Wrapper (CMW)
-   [I-D.ietf-rats-msg-wrap].
+   entries for several evidence encodings including an entry for the
+   Conceptual Message Wrapper (CMW) [I-D.ietf-rats-msg-wrap].
 
-     +==========+=================+==============+===================+
-     | OID      | Description     | Reference(s) | Change Controller |
-     +==========+=================+==============+===================+
-     | 2 23 133 | Conceptual      | [TCGDICE1.1] | TCG               |
-     | 5 4 9    | Message Wrapper |              |                   |
-     +----------+-----------------+--------------+-------------------+
+   +=======+==============================+==============+============+
+   | OID   | Description                  | Reference(s) | Change     |
+   |       |                              |              | Controller |
+   +=======+==============================+==============+============+
+   | 2 23  | DiceTcbInfo                  | [TCGDICE1.1] | TCG        |
+   | 133 5 |                              |              |            |
+   | 4 1   |                              |              |            |
+   +-------+------------------------------+--------------+------------+
+   | 2 23  | DiceMultiTcbInfo             | [TCGDICE1.1] | TCG        |
+   | 133 5 |                              |              |            |
+   | 4 5   |                              |              |            |
+   +-------+------------------------------+--------------+------------+
+   | 2 23  | DiceUccsEvidence             | [TCGDICE1.1] | TCG        |
+   | 133 5 |                              |              |            |
+   | 4 6   |                              |              |            |
+   +-------+------------------------------+--------------+------------+
+   | 2 23  | DiceManifestEvidence         | [TCGDICE1.1] | TCG        |
+   | 133 5 |                              |              |            |
+   | 4 7   |                              |              |            |
+   +-------+------------------------------+--------------+------------+
+   | 2 23  | DiceTcbInfoComp              | [TCGDICE1.1] | TCG        |
+   | 133 5 |                              |              |            |
+   | 4 8   |                              |              |            |
+   +-------+------------------------------+--------------+------------+
+   | 2 23  | DiceConceptualMessageWrapper | [TCGDICE1.1] | TCG        |
+   | 133 5 |                              |              |            |
+   | 4 9   |                              |              |            |
+   +-------+------------------------------+--------------+------------+
 
-         Table 1: Initial Contents of the Attestation Evidence OID
-                                  Registry
+    Table 1: Initial Contents of the Attestation Evidence OID Registry
 
    EDNOTE: This is currently under debate with our contacts at TCG about
    which OID they want used for the initial registry.
