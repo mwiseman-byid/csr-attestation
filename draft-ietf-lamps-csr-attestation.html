@@ -30,7 +30,7 @@
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 4.2.0
+    platformdirs 4.2.1
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
@@ -1035,11 +1035,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Remote Attestation with CSRs</td>
-<td class="right">April 2024</td>
+<td class="right">May 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 24 October 2024</td>
+<td class="center">Expires 7 November 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-csr-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-04-22" class="published">22 April 2024</time>
+<time datetime="2024-05-06" class="published">6 May 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-10-24">24 October 2024</time></dd>
+<dd class="expires"><time datetime="2024-11-07">7 November 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1302,7 +1302,7 @@ This specification thereby is intended to be as technology-agnostic as it is fea
 The certificates typically contain one or more certification paths
 rooted in a device manufacture trust anchor and the leaf certificate being
 on the device in question; the latter is the Attestation Key that signs the Evidence statement.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This document specifies a CSR Attribute (or Extension for Certificate Request Message Format (CRMF) CSRs) for carrying Evidence. Evidence can be placed into an EvidenceStatement along with an OID to identify its type and optionally a hint to the Relying Party about how to verify it. A set of EvidenceStatements may be grouped together along with the set of CertificateAlternatives needed to validate them to form a EvidenceBundle. One or more EvidenceBundles may be placed into the id-aa-evidence CSR Attribute (or CRFM Extension).<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document specifies a CSR Attribute (or Extension for Certificate Request Message Format (CRMF) CSRs) for carrying Evidence. Evidence can be placed into an EvidenceStatement along with an OID to identify its type and optionally a hint to the Relying Party about which Verifier (software package) will be capable of parsing it. A set of EvidenceStatements may be grouped together along with the set of CertificateAlternatives needed to validate them to form a EvidenceBundle. One or more EvidenceBundles may be placed into the id-aa-evidence CSR Attribute (or CRFM Extension).<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">A CSR may contain one or more Evidence payloads, for example Evidence
 asserting the storage properties of a private key as well Evidence
 asserting firmware version and other general properties
@@ -1869,38 +1869,45 @@ or vendor proprietary formats along with the OIDs that identify them.<a href="#s
 populate it with the formats that they wish to support.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-5">
 <pre>
-EvidenceHint ::= CHOICE {
-     rfc822Name [0] IA5String,
-     dNSName    [1] IA5String,
-     uri        [2] IA5String,
-     text       [3] UTF8String
-}
-
 EvidenceStatements ::= SEQUENCE SIZE (1..MAX) OF EvidenceStatement
 
 EvidenceStatement ::= SEQUENCE {
    type   EVIDENCE-STATEMENT.&amp;id({EvidenceStatementSet}),
    stmt   EVIDENCE-STATEMENT.&amp;Type({EvidenceStatementSet}{@type}),
-   hint   EvidenceHint OPTIONAL
+   hint   UTF8String OPTIONAL
 }
 </pre><a href="#section-5.2-5" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-6">The type is on OID indicating the format of the data contained in stmt.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.2-7">The hint is intended for an Attester to indicate to the Relying Party (RP)
-which Verifier should be invoked to parse this statement. In many cases,
-the type OID will already uniquely indicate which Verifier to invoke;
-for example because the OID indicates a proprietary Evidence format for
-which the RP has corresponding proprietary Verifier. However,
-in some cases it may still be ambiguous, or the type may indicate
-another layer of conceptual message wrapping in which case it is helpful
-to the RP to bring this hint outside of the statement.
+<p id="section-5.2-7">The Attester <span class="bcp14">MAY</span> populate the hint with the name of a Verifier software package
+which will be capable of parsing the data contained in <code>EvidenceStatement.stmt</code>;
+this is to help the Relying Party select the correct Verifier without requiring
+the Relying Party to perform any parsing of the data in <code>EvidenceStatement.stmt</code>.
+The type OID, which identifies the format of the data found in the evidence statement,
+will sometimes be sufficient for a Relying Party to select the correct
+Verifier (software) to invoke, however in some cases the Relying Party
+may have more than one Verifier capable of parsing a given type OID -- for
+example if the OID indicates a wrapper format such as DICE
+ConceptualMessageWrapper which will contain further proprietary data.
+A design goal of this specification is that Relying Parties be able to
+select the correct Verifier (software) without needing to perform any
+parsing of the <code>EvidenceStatement.stmt</code> data.
+To help with this, the Attester <span class="bcp14">MAY</span> populate the hint with the name of a
+software package that will be capable of parsing this data.
+The hint <span class="bcp14">SHOULD</span> contain a value which is unique
+to this Verifier, such as a fully qualified domain name (FQDN), a uniform
+resource name (URN) <span>[<a href="#RFC8141" class="cite xref">RFC8141</a>]</span> or a registered value corresponding to this
+evidence format.
 It is assumed that the RP must be pre-configured with a list of trusted
 Verifiers and that the contents of this hint can be used to look up
 the correct Verifier. Under no circumstances must the RP be tricked into
 contacting an unknown and untrusted Verifier since the returned Attestation
-Result must not be relied on. The format and contents of the hint are out of
-scope of this document.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-8">
+Result must not be relied on.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2-8">Usage of the hint field can be seen in the TPM2_attest example in
+<a href="#appdx-tpm2" class="auto internal xref">Appendix A.2</a> where the type OID indicates the OID
+id-TcgAttestCertify, while the hint indicates the the Verifier software
+"tpmverifier.example.com" should be invoked for parsing it.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-9">
 <pre>
 EvidenceBundles ::= SEQUENCE SIZE (1..MAX) OF EvidenceBundle
 
@@ -1923,21 +1930,21 @@ ext-evidence EXTENSION ::= {
   SYNTAX EvidenceBundles
   IDENTIFIED BY id-aa-evidence
 }
-</pre><a href="#section-5.2-8" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-9">The Extension variant is intended only for use within CRMF CSRs and <span class="bcp14">MUST NOT</span> be used within X.509 certificates due to the privacy implications of publishing Evidence about the end entity's hardware environment. See <a href="#security-considerations" class="auto internal xref">Section 7</a> for more discussion.<a href="#section-5.2-9" class="pilcrow">¶</a></p>
-<p id="section-5.2-10">The <code>certs</code> contains a set of certificates that
+<p id="section-5.2-10">The Extension variant is intended only for use within CRMF CSRs and <span class="bcp14">MUST NOT</span> be used within X.509 certificates due to the privacy implications of publishing Evidence about the end entity's hardware environment. See <a href="#security-considerations" class="auto internal xref">Section 7</a> for more discussion.<a href="#section-5.2-10" class="pilcrow">¶</a></p>
+<p id="section-5.2-11">The <code>certs</code> contains a set of certificates that
 may be needed to validate the contents of an Evidence statement
 contained in <code>evidence</code>. The set of certificates should contain
 the object that contains the public key needed to directly validate the
 <code>evidence</code>. The remaining elements should chain that data back to
 an agreed upon trust anchor used for attestation. No order is implied, it is
 up to the Attester and its Verifier to agree on both the order and format
-of certificates contained in <code>certs</code>.<a href="#section-5.2-10" class="pilcrow">¶</a></p>
-<p id="section-5.2-11">A CSR <span class="bcp14">MAY</span> contain one or more instances of <code>attr-evidence</code> or <code>ext-evidence</code>.
+of certificates contained in <code>certs</code>.<a href="#section-5.2-11" class="pilcrow">¶</a></p>
+<p id="section-5.2-12">A CSR <span class="bcp14">MAY</span> contain one or more instances of <code>attr-evidence</code> or <code>ext-evidence</code>.
 This means that the <code>SEQUENCE OF EvidenceBundle</code> is redundant with the
 ability to carry multiple <code>attr-evidence</code> or <code>ext-evidence</code> at the CSR level;
-either mechanism <span class="bcp14">MAY</span> be used for carrying multiple Evidence bundles.<a href="#section-5.2-11" class="pilcrow">¶</a></p>
+either mechanism <span class="bcp14">MAY</span> be used for carrying multiple Evidence bundles.<a href="#section-5.2-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificatealternatives">
@@ -2459,6 +2466,10 @@ Implementers should also be cautious around <code>type</code> OID or <code>hint<
         <dd>
 <span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8141">[RFC8141]</dt>
+        <dd>
+<span class="refAuthor">Saint-Andre, P.</span> and <span class="refAuthor">J. Klensin</span>, <span class="refTitle">"Uniform Resource Names (URNs)"</span>, <span class="seriesInfo">RFC 8141</span>, <span class="seriesInfo">DOI 10.17487/RFC8141</span>, <time datetime="2017-04" class="refDate">April 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8141">https://www.rfc-editor.org/rfc/rfc8141</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TCGDICE1.1">[TCGDICE1.1]</dt>
         <dd>
 <span class="refAuthor">Trusted Computing Group</span>, <span class="refTitle">"DICE Attestation Architecture"</span>, <time datetime="2024-01" class="refDate">January 2024</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-18_pub.pdf">https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-18_pub.pdf</a>&gt;</span>. </dd>
@@ -2512,7 +2523,7 @@ EvidenceStatementSet EVIDENCE-STATEMENT ::= {
 </div>
 </section>
 </div>
-<div id="tpm-v20-evidence-in-csr">
+<div id="appdx-tpm2">
 <section id="appendix-A.2">
         <h3 id="name-tpm-v20-evidence-in-csr">
 <a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-tpm-v20-evidence-in-csr" class="section-name selfRef">TPM V2.0 Evidence in CSR</a>
@@ -2974,19 +2985,12 @@ EvidenceStatementSet EVIDENCE-STATEMENT ::= {
    ... -- None defined in this document --
 }
 
-EvidenceHint ::= CHOICE {
-     rfc822Name [0] IA5String,
-     dNSName    [1] IA5String,
-     uri        [2] IA5String,
-     text       [3] UTF8String
-}
-
 EvidenceStatements ::= SEQUENCE SIZE (1..MAX) OF EvidenceStatement
 
 EvidenceStatement ::= SEQUENCE {
    type   EVIDENCE-STATEMENT.&amp;id({EvidenceStatementSet}),
    stmt   EVIDENCE-STATEMENT.&amp;Type({EvidenceStatementSet}{@type}),
-   hint   EvidenceHint OPTIONAL
+   hint   UTF8String OPTIONAL
 }
 
 id-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }
