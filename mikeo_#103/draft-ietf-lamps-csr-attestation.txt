@@ -5,12 +5,12 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 6 November 2024                                         Siemens
+Expires: 11 November 2024                                        Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
                                                               M. Wiseman
                                                          Beyond Identity
-                                                              5 May 2024
+                                                             10 May 2024
 
 
      Use of Remote Attestation with Certification Signing Requests
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 November 2024.
+   This Internet-Draft will expire on 11 November 2024.
 
 Copyright Notice
 
@@ -1105,13 +1105,13 @@ A.2.2.  TCG OIDs
    The OIDs in this section are defined by TCG TCG has a registered arc
    of 2.23.133
 
-   id-tcg OBJECT IDENTIFIER ::= { 2 23 133 }
+   tcg OBJECT IDENTIFIER ::= { 2 23 133 }
 
-   id-tcg-kp-AIKCertificate OBJECT IDENTIFIER ::= { id-tcg 8 3 }
+   tcg-kp-AIKCertificate OBJECT IDENTIFIER ::= { id-tcg 8 3 }
 
-   id-tcg-attest OBJECT IDENTIFIER ::= { id-tcg 20 }
+   tcg-attest OBJECT IDENTIFIER ::= { id-tcg 20 }
 
-   id-TcgAttestCertify OBJECT IDENTIFIER ::= { id-tcg-attest 1 }
+   tcg-attest-tpm-certify OBJECT IDENTIFIER ::= { id-tcg-attest 1 }
 
 A.2.3.  TPM2 AttestationStatement
 
@@ -1357,8 +1357,8 @@ A.2.6.  Sample CSR
            EvidenceBundle {
              EvidenceStatements {
                EvidenceStatement {
-                 type: id-TcgCsrCertify,
-                 stmt: <TcgAttestCertify_data>
+                 type: tcg-attest-tpm-certify,
+                 stmt: <TcgAttestTpmCertify_data>
                  hint: "tpmverifier.example.com"
                }
              },
