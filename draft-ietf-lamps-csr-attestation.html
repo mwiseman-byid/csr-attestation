@@ -1039,7 +1039,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 7 November 2024</td>
+<td class="center">Expires 11 November 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-csr-attestation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-05-06" class="published">6 May 2024</time>
+<time datetime="2024-05-10" class="published">10 May 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-11-07">7 November 2024</time></dd>
+<dd class="expires"><time datetime="2024-11-11">11 November 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1254,7 +1254,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                     <p id="section-toc.1-1.9.2.2.2.5.1"><a href="#appendix-A.2.5" class="auto internal xref">A.2.5</a>.  <a href="#name-tcg-objects-and-key-attesta" class="internal xref">TCG Objects and Key Attestation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.6">
-                    <p id="section-toc.1-1.9.2.2.2.6.1"><a href="#appendix-A.2.6" class="auto internal xref">A.2.6</a>.  <a href="#name-example-structures" class="internal xref">Example Structures</a></p>
+                    <p id="section-toc.1-1.9.2.2.2.6.1"><a href="#appendix-A.2.6" class="auto internal xref">A.2.6</a>.  <a href="#name-sample-csr" class="internal xref">Sample CSR</a></p>
 </li>
                 </ul>
 </li>
@@ -1959,6 +1959,8 @@ broad variety of certificate types.<a href="#section-5.3-1" class="pilcrow">¶</
 CertificateAlternatives ::=
    CHOICE {
       cert              Certificate,
+                           -- Using the Certificate ASN.1
+                           -- structure as defined in RFC 5280.
       typedCert     [0] TypedCert,
       typedFlatCert [1] TypedFlatCert,
       ...
@@ -1966,7 +1968,8 @@ CertificateAlternatives ::=
 </pre><a href="#section-5.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.3-3">"Certificate" is a standard X.509 certificate that <span class="bcp14">MUST</span> be compliant
-with RFC 5280.  Enforcement of this constraint is left to the relying
+with RFC 5280.
+Enforcement of this constraint is left to the relying
 parties.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.3-4">"TypedCert" is an ASN.1 construct that has the characteristics of a
 certificate, but is not encoded as an X.509 certificate.  The
@@ -2569,6 +2572,7 @@ EvidenceStatementSet EVIDENCE-STATEMENT ::= {
 <a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-tpm-v20-evidence-in-csr" class="section-name selfRef">TPM V2.0 Evidence in CSR</a>
         </h3>
 <p id="appendix-A.2-1">This section describes TPM2 key attestation for use in a CSR.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-2">This is a complete and canonical example that can be used to test parsers implemented against this specification. Readers who wish the sample data may skip to <a href="#appdx-tpm-example" class="auto internal xref">Appendix A.2.6</a>; the following sections explain the TPM-specific data structures needed to fully parse the contents of the evidence statement.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
 <div id="tcg-key-attestation-certify">
 <section id="appendix-A.2.1">
           <h4 id="name-tcg-key-attestation-certify">
@@ -2586,10 +2590,17 @@ expected to used which is the TPM2_Certify and the TPM2_ReadPublic commands.<a h
           </h4>
 <p id="appendix-A.2.2-1">The OIDs in this section are defined by TCG
 TCG has a registered arc of 2.23.133<a href="#appendix-A.2.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.2-2">id-tcg OBJECT IDENTIFIER ::= { 2 23 133 }<a href="#appendix-A.2.2-2" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.2-3">id-tcg-kp-AIKCertificate OBJECT IDENTIFIER ::= { id-tcg 8 3 }<a href="#appendix-A.2.2-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.2-4">id-tcg-attest OBJECT IDENTIFIER ::= { id-tcg TBD }<a href="#appendix-A.2.2-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.2.2-5">id-tcg-attest-certify OBJECT IDENTIFIER ::= { id-tcg-attest 1 }<a href="#appendix-A.2.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2.2-2">
+<pre>
+tcg OBJECT IDENTIFIER ::= { 2 23 133 }
+
+tcg-kp-AIKCertificate OBJECT IDENTIFIER ::= { id-tcg 8 3 }
+
+tcg-attest OBJECT IDENTIFIER ::= { id-tcg 20 }
+
+tcg-attest-tpm-certify OBJECT IDENTIFIER ::= { id-tcg-attest 1 }
+</pre><a href="#appendix-A.2.2-2" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="appdx-tcg-attest-certify">
@@ -2604,7 +2615,7 @@ the stmt, which is a concatenation of existing TPM2 structures. These structures
 will be explained in the rest of this section.<a href="#appendix-A.2.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2.3-2">
 <pre>
-Tcg-attest-certify ::= SEQUENCE {
+Tcg-csr-certify ::= SEQUENCE {
   tpmSAttest       OCTET STRING,
   signature        OCTET STRING,
   tpmTPublic       OCTET STRING OPTIONAL
@@ -2881,10 +2892,133 @@ If Key's "expected" Name equals TPM2B_ATTEST-&gt;attestationData then returned T
 </div>
 <div id="appdx-tpm-example">
 <section id="appendix-A.2.6">
-          <h4 id="name-example-structures">
-<a href="#appendix-A.2.6" class="section-number selfRef">A.2.6. </a><a href="#name-example-structures" class="section-name selfRef">Example Structures</a>
+          <h4 id="name-sample-csr">
+<a href="#appendix-A.2.6" class="section-number selfRef">A.2.6. </a><a href="#name-sample-csr" class="section-name selfRef">Sample CSR</a>
           </h4>
-<p id="appendix-A.2.6-1">TODO -- a full CSR would be great.<a href="#appendix-A.2.6-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.6-1">This CSR demonstrates a certification request for a key stored in a TPM using the following structure:<a href="#appendix-A.2.6-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2.6-2">
+<pre>
+CSR {
+  attributes {
+    id-aa-evidence {
+      EvidenceBundles {
+        EvidenceBundle {
+          EvidenceStatements {
+            EvidenceStatement {
+              type: tcg-attest-tpm-certify,
+              stmt: &lt;TcgAttestTpmCertify_data&gt;
+              hint: "tpmverifier.example.com"
+            }
+          },
+          certs {
+            akCertificate,
+            caCertificate
+          }
+        }
+      }
+    }
+  }
+}
+</pre><a href="#appendix-A.2.6-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-A.2.6-3">Note that this example demonstrates most of the features of this specification:<a href="#appendix-A.2.6-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.6-4.1">
+              <p id="appendix-A.2.6-4.1.1">The data type is identified by the OID id-TcgCsrCertify contained in the <code>EvidenceStatement.type</code> field.<a href="#appendix-A.2.6-4.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.6-4.2">
+              <p id="appendix-A.2.6-4.2.1">The signed evidence is carried in the <code>EvidenceStatement.stmt</code> field.<a href="#appendix-A.2.6-4.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.6-4.3">
+              <p id="appendix-A.2.6-4.3.1">The <code>EvidenceStatement.hint</code> provides information to the Relying Party about which Verifier (software) will be able to correctly parse this data. Note that the <code>type</code> OID indicates the format of the data, but that may itself be a wrapper format that contains further data in a proprietary format. In this example, the hint says that software from the package <code>"tpmverifier.example.com"</code> will be able to parse this data.<a href="#appendix-A.2.6-4.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.6-4.4">
+              <p id="appendix-A.2.6-4.4.1">The evidence statement is accompanied by a certificate chain in the <code>EvidenceBundle.certs</code> field which can be used to verify the signature on the evidence statement. How the Verifier establishes trust in the provided certificates is outside the scope of this specification.<a href="#appendix-A.2.6-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="appendix-A.2.6-5">Features of this specification that are not demonstrated by this example are:<a href="#appendix-A.2.6-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.6-6.1">
+              <p id="appendix-A.2.6-6.1.1">An EvidenceBundle containing multiple EvidenceStatements that share a certificate chain.<a href="#appendix-A.2.6-6.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-A.2.6-6.2">
+              <p id="appendix-A.2.6-6.2.1">Multiple EvidenceBundles that each have their own certificate chain.<a href="#appendix-A.2.6-6.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<div class="alignLeft art-text artwork" id="appendix-A.2.6-7">
+<pre>
+-----BEGIN CERTIFICATE REQUEST-----
+MIIMmjCCC4QCAQAwcjELMAkGA1UEBhMCQVUxDDAKBgNVBAgMA1FMRDERMA8GA1UE
+BwwIQnJpc2JhbmUxGzAZBgNVBAoMEmlldGYtMTE5LWhhY2thdGhvbjEWMBQGA1UE
+CwwNaWV0Zi1jc3ItdGVzdDENMAsGA1UEAwwEa2V5MTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAM3AeVGnRgRMijvkuKreB+B6vWEi7QXRANIhvvkcHH3h
+Jg0y//13XTQjUC0/pj5Hi66ILSxMru5j2aNZ7n5THEK2dMqrjjLokcfojdAoErK6
+BmGHSCB8US41tb7qurneJzRCO0VGExpAKI1Ps05j0HHtYvwqHTlikWCpIOiDkNQt
+gz7sgr3z3aE2OKqsXfYehnBIJbqdClOMz7C23V/XcjEi/WF0vGTboHYmLHNwkTr5
+VrFhDqKFxQUx4+neqSJGeo30USno6Lr8hFAufxQzzoiFx571C4Wad+J1chCKORb/
+5Kbu4O7wu9doOsFK+I2anUHFEJS5wowVfcWuyjcIZ/0CAwEAAaCCCeMwggnfBgsq
+hkiG9w0BCRACOzGCCc4wggnKMIIJxjCCAtwwggLYBgVngQUUATCCArQEgZH/VENH
+gBcAIgALgSWffuitIOAJ6HaGbtjgb5HYkvYKKPpxeBsZOS8nnxgABAD/VaoAAAAA
+Nc8rIAAAAAcAAAAAASAZECMAFjY2ACIACwIYIzzfD3YNj+9DpDfm6cw/eyH2BuNJ
+me/FQlkl1WnlACIAC66AuFfCBmj8QrwfqOSqNt/dUwtgVMSh+iaYiSJslGTiBIIB
+ADLHaelFw/JTKhJbwi0tz5zkzJVyfo1nHER2s1YWZj/7GNcNZ5uvtcYgK65XIyMw
+LjIA0AncNhOVAJhJm0uRkbjUmvtW5kGpDtepFqQj394N4XiXulGIXimwVKkc9lqS
+kkRcfmzqomSaMmafVwXBAQ1NGrHV/PaX7IUlW5Hqo3Ja++sYro8y/hEQL3ILXdEG
+lQEj/wB9NhiuVqW/SpT0iIs+E1MD2uJRICxCw21F352BGiAda0pmvr7nknJhv5kM
+gWKInhonhLfLXlWVmvI+pf/z4QHXSWNZoibiihRcP7Eruq1X+VMx2T+Au2Q2O8zz
+9omo9Ktyq/cZDUGsLcs5E0UEggEYARYAAQALAAYAcgAAABAAEAgAAAAAAAEAzcB5
+UadGBEyKO+S4qt4H4Hq9YSLtBdEA0iG++RwcfeEmDTL//XddNCNQLT+mPkeLrogt
+LEyu7mPZo1nuflMcQrZ0yquOMuiRx+iN0CgSsroGYYdIIHxRLjW1vuq6ud4nNEI7
+RUYTGkAojU+zTmPQce1i/CodOWKRYKkg6IOQ1C2DPuyCvfPdoTY4qqxd9h6GcEgl
+up0KU4zPsLbdX9dyMSL9YXS8ZNugdiYsc3CROvlWsWEOooXFBTHj6d6pIkZ6jfRR
+KejouvyEUC5/FDPOiIXHnvULhZp34nVyEIo5Fv/kpu7g7vC712g6wUr4jZqdQcUQ
+lLnCjBV9xa7KNwhn/QwXdHBtdmVyaWZpZXIuZXhhbXBsZS5jb20wggbiMIIDazCC
+AlMCFD+SFCWsL2qqj29Qjboa1MYhl3spMA0GCSqGSIb3DQEBCwUAMHQxCzAJBgNV
+BAYTAkFVMQwwCgYDVQQIDANRTEQxETAPBgNVBAcMCEJyaXNiYW5lMRswGQYDVQQK
+DBJpZXRmLTExOS1oYWNrYXRob24xFjAUBgNVBAsMDWlldGYtY3NyLXRlc3QxDzAN
+BgNVBAMMBnJvb3RDQTAeFw0yNDA1MDUwMDMyMjhaFw0yNDA2MDQwMDMyMjhaMHAx
+CzAJBgNVBAYTAkFVMQwwCgYDVQQIDANRTEQxETAPBgNVBAcMCEJyaXNiYW5lMRsw
+GQYDVQQKDBJpZXRmLTExOS1oYWNrYXRob24xFjAUBgNVBAsMDWlldGYtY3NyLXRl
+c3QxCzAJBgNVBAMMAmFrMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+rJwY3dhpjd5Mm4r8Gcjx6qympTD8J+ldfUVglCFXxVpmZmX7Bec6fPcARLBR4jte
+/Y/UGszreRv8WQ2O6J85XMPiJvYeWQExVL3NU5izX7+DVqX0is3HARUfkyXgF8zL
+2BkSgQcuYqAR2riG6YH+waE44qCVAi/k9nni25CtsHzyD6twWvvE3BdhzBt8j1eA
+1qWgOvVebVmMuN53caNkeAMb6a+OIirsU/eCbP0mycDfwabHg1DNCVio3pgQWJeW
+uNsYWcCNDZ0yYOKKGzN4tmu1se3NyZRPPU1H6SGlgqLPlJce1KDnLc9E1hBX8gCJ
+Aw7kzR66MXSNW9j9rHnYOQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCSNgvEgZju
+zRqBiwVfe7Jy3ZfNwacVinS38SlKdaZsfeh+qpR6YCyeumS2Is8Ei70OzSr8QuN5
+NYQamDSnbjsJoCoWLk3O4S/JAXHXdKesBNGY8/wG3nxMSjzoaQ6UXOrsXWtgPKUg
+0/3bWN8JYrQPp2Ieggi/pE0DRE0vvO2LfA3L19la7mVYv0SWk/vEj5rVrqOWAHYu
+4TUC+9lm3k6QmGgf6MTC3tPgE3/Xi/tIKOlf0McdNfVNRA4tlhKb+jZaUC5AeNfp
+d74RTjICwRjQct3yS+GdtShiXUdyu04kgkruQTf2RBZ+QxFaYS0cVqfiYRRE5CZO
+oMnqMV0Ezwu/MIIDbzCCAlcCFAUfP4YmjszQY/Vtn/04g5htsJN7MA0GCSqGSIb3
+DQEBCwUAMHQxCzAJBgNVBAYTAkFVMQwwCgYDVQQIDANRTEQxETAPBgNVBAcMCEJy
+aXNiYW5lMRswGQYDVQQKDBJpZXRmLTExOS1oYWNrYXRob24xFjAUBgNVBAsMDWll
+dGYtY3NyLXRlc3QxDzANBgNVBAMMBnJvb3RDQTAeFw0yNDA1MDUwMDMyMjBaFw0z
+NDA1MDMwMDMyMjBaMHQxCzAJBgNVBAYTAkFVMQwwCgYDVQQIDANRTEQxETAPBgNV
+BAcMCEJyaXNiYW5lMRswGQYDVQQKDBJpZXRmLTExOS1oYWNrYXRob24xFjAUBgNV
+BAsMDWlldGYtY3NyLXRlc3QxDzANBgNVBAMMBnJvb3RDQTCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBAJ7JEtP/VDfRndsRmNqCs3iD/oLVSX2LSrkV2cb4
+Cj9P5qwarxdBMuQocKyY/WZ3kL3iLXJfo3jzLQ90cMkoJ88swcY94I4d/SLE9E7s
+X8+CTeyVfuvZ40dbrbxifNDRZWpdBCEt0J/kYtwEJMNqwGrPsYsZoQh3Ge9IMiPo
+GiQSFHFiosl59xCf4Fp7HLAzASQTzRgAJg7T24djiV9G8lnR+pDKRKaMiwbhaUyv
+rYV+9Ogs5QLmQRD3kutPNs/57imqb2JMypF2JdDZ8fOj1D8AIQJDxOQSpzqJq5Oo
+d0OMPEsH9ZiliMOjzCKU2P5cnEeVoWzraiY7Is6z2/8/LQkCAwEAATANBgkqhkiG
+9w0BAQsFAAOCAQEAjv0pbXilgnaD9xJLwn60uO/RQY4Npxclf5FiWIqeHQ12ssKE
+sAqodmRzo8xz3/y+Zk5BYMfXDtB4SG/XIZ/Xuo1Jc7GYrUJg5oXYRxsejjdb0z6K
+WzIe5l5hFkbSJnLfWNx/DcGyeOXDRfRTwOAuC4i2IMQBHOMCVq3btQXuKW8foEDF
+u85w7fT0YbiXdgRyU6LROxy8odMDqgDqTh9PS2adqlF2N/A3NNV2bK5ae0zldniN
+e8zqFpIKrNjGv81svpUCh+YgQK/LBU0W0Mi70nrp8uFWN88vv/Pl+CVX5zJIEHM6
+Mzil8NgCaWeRXg0d9RHn8z0JwuEZXThJtpv7JTALBgkqhkiG9w0BAQsDggEBAF9Q
+3g8tC87eaabivJ8kU10vA6EhAA3aSC7iqOqQxgrc80g5jn+y8mZUE8WhEeS+SN2W
+ewSEr3L+LQdftCtWETKreJXVfqqwDh5UkmB5R7tds+HLrNUy9cVT4K/PvhS/yhMa
+qLtl2DuXHfDtdRgn4O4vOAJqyHm3CKm2tIlr22vG3tRH1kRjnZLUvtsIN2uzLbC3
+vQXFf0dKOw3U2bhVywyj6RF9bXObFTzUPArfHm+bSTtKmUJxBnApn8uBw4eLapAc
+Aor2874rll5Ey3pSng9lCgKE2nn8Xuw3ZGys894nOJc15Uwr/QP2aKHnv/MzdXwU
+mBFIOcV149HcobQM974=
+-----END CERTIFICATE REQUEST-----
+</pre><a href="#appendix-A.2.6-7" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 </section>
@@ -2998,6 +3132,8 @@ id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 CertificateAlternatives ::=
    CHOICE {
       cert              Certificate,
+                           -- Using the Certificate ASN.1
+                           -- structure as defined in RFC 5280.
       typedCert     [0] TypedCert,
       typedFlatCert [1] TypedFlatCert,
       ...
@@ -3099,11 +3235,12 @@ Couillard, John Gray, Eric Amador, Johnson Darren, Herman Slatman, Tiru Reddy,
 Corey Bonnell, Argenius Kushner, James Hagborg, Monty Wiseman, John Kemp,
 Ned Smith.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <p id="appendix-C-2">We would like to specifically thank Mike StJohns for his work on an earlier
-version of this draft. Monty Wiseman contributed TPM 2.0 Attestation in the
-specification and wrote the necessary scripts with the help from Corey Bonnell.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
-<p id="appendix-C-3">Finally, we would like to thank Andreas Kretschmer and Thomas Fossati for their
+version of this draft.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">We would also like to specifically thank Monty Wiseman for providing the
+appendix showing how to carry a TPM 2.0 Attestation, and to Corey Bonell for helping with the hackathon scripts to bundle it into a CSR.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-4">Finally, we would like to thank Andreas Kretschmer and Thomas Fossati for their
 feedback based on implementation experience, and Daniel Migault and Russ Housley
-for their review comments.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+for their review comments.<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
