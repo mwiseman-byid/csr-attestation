@@ -1917,7 +1917,7 @@ EvidenceBundle ::= SEQUENCE
   certs SEQUENCE SIZE (1..MAX) OF CertificateAlternatives OPTIONAL
 }
 
-id-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }
+id-aa-evidence OBJECT IDENTIFIER ::= { id-aa 59 }
 
 -- For PKCS#10
 attr-evidence ATTRIBUTE ::= {
@@ -2047,7 +2047,7 @@ S/MIME Attributes" to identify two Attributes defined within.<a href="#section-6
             <p id="section-6.2-1.1.1">Evidence Statement<a href="#section-6.2-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2-1.1.2.1">
-                <p id="section-6.2-1.1.2.1.1">Decimal: IANA Assigned - Replace <strong>TBDAA</strong><a href="#section-6.2-1.1.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-6.2-1.1.2.1.1">Decimal: IANA Assigned - This was early-allocated as <code>59</code> so that we could generate the sample data.<a href="#section-6.2-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-6.2-1.1.2.2">
                 <p id="section-6.2-1.1.2.2.1">Description: id-aa-evidence<a href="#section-6.2-1.1.2.2.1" class="pilcrow">¶</a></p>
@@ -3180,7 +3180,7 @@ EvidenceStatement ::= SEQUENCE {
    hint   UTF8String OPTIONAL
 }
 
-id-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }
+id-aa-evidence OBJECT IDENTIFIER ::= { id-aa 59 }
 
 -- For PKCS#10
 attr-evidence ATTRIBUTE ::= {
