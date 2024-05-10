@@ -2519,6 +2519,10 @@ Implementers should also be cautious around <code>type</code> OID or <code>hint<
         <dd>
 <span class="refAuthor">Saint-Andre, P.</span> and <span class="refAuthor">J. Klensin</span>, <span class="refTitle">"Uniform Resource Names (URNs)"</span>, <span class="seriesInfo">RFC 8141</span>, <span class="seriesInfo">DOI 10.17487/RFC8141</span>, <time datetime="2017-04" class="refDate">April 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8141">https://www.rfc-editor.org/rfc/rfc8141</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="SampleData">[SampleData]</dt>
+        <dd>
+<span class="refTitle">"CSR Attestation Sample Data"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/lamps-wg/csr-attestation-examples">https://github.com/lamps-wg/csr-attestation-examples</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TCGDICE1.1">[TCGDICE1.1]</dt>
         <dd>
 <span class="refAuthor">Trusted Computing Group</span>, <span class="refTitle">"DICE Attestation Architecture"</span>, <time datetime="2024-01" class="refDate">January 2024</time>, <span>&lt;<a href="https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-18_pub.pdf">https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-Version-1.1-Revision-18_pub.pdf</a>&gt;</span>. </dd>
@@ -2536,13 +2540,14 @@ Implementers should also be cautious around <code>type</code> OID or <code>hint<
       <h2 id="name-examples">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
-<p id="appendix-A-1">This section provides two non-normative examples for embedding Evidence
+<p id="appendix-A-1">This section provides several examples and sample data for embedding Evidence
 in CSRs. The first example embeds Evidence produced by a TPM in the CSR.
 The second example conveys an Arm Platform Security Architecture token,
 which provides claims about the used hardware and software platform,
 into the CSR.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">At the time of writing, the authors are not aware of registered OIDs for
-these evidence formats, and so we leave the OIDs as TBD1 / TBD2.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">After publicatian of this document, additional examples and sample data will
+be collected at the following GitHub repository <span>[<a href="#SampleData" class="cite xref">SampleData</a>]</span>:<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-3">https://github.com/lamps-wg/csr-attestation-examples<a href="#appendix-A-3" class="pilcrow">¶</a></p>
 <div id="extending-evidencestatementset">
 <section id="appendix-A.1">
         <h3 id="name-extending-evidencestatement">
