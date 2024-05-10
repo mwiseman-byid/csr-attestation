@@ -795,6 +795,10 @@ Table of Contents
    | 133 5 |                              |              |            |
    | 4 9   |                              |              |            |
    +-------+------------------------------+--------------+------------+
+   | 2 23  | tcg-attest-tpm-certify       | Private      | TCG        |
+   | 133   |                              | Registry     |            |
+   | 20 1  |                              |              |            |
+   +-------+------------------------------+--------------+------------+
 
     Table 1: Initial Contents of the Attestation Evidence OID Registry
 
