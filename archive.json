@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-19T00:52:47.341045+00:00",
+  "timestamp": "2024-05-21T00:49:13.892832+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -5747,6 +5747,34 @@
       "headRepository": "mwiseman-byid/csr-attestation",
       "headRefName": "patch-2",
       "headRefOid": "8ff4e8bc0d3a10e1103cbb91e3276f2943ff76a0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 125,
+      "id": "PR_kwDOJ3IIN85v_YWI",
+      "title": "Dice tcb info example",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/125",
+      "state": "OPEN",
+      "author": "nedmsmith",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "nedmsmith"
+      ],
+      "labels": [],
+      "body": "PR to add DiceTcbInfo example to main",
+      "createdAt": "2024-05-20T18:48:05Z",
+      "updatedAt": "2024-05-20T23:00:18Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "dice-tcb-info-example",
+      "headRefOid": "0cef464001ea84a1644291a2e11d1e5a2bc63c3f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
