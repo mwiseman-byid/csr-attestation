@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-23T00:48:55.576710+00:00",
+  "timestamp": "2024-05-26T00:53:25.788571+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1492,6 +1492,22 @@
       "body": "The filename for the tcg-attest-tpm-certify example is currently \"tcgCsrCertify_csr.pem\". To be consistent with the schema for the tcg OIDs I recommend renaming this to \"tcgAttestTpmCertify.pem\". As the text refers to this, the text will also need to change. ",
       "createdAt": "2024-05-10T20:18:22Z",
       "updatedAt": "2024-05-10T20:18:22Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 126,
+      "id": "I_kwDOJ3IIN86J3sCo",
+      "title": "Address Carl's review feedback",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/126",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/spasm/UVQ0yXAEqsm9snJIOcelFQoYyEA/",
+      "createdAt": "2024-05-23T14:28:22Z",
+      "updatedAt": "2024-05-23T14:28:22Z",
       "closedAt": null,
       "comments": []
     }
