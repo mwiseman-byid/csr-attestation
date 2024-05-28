@@ -5,12 +5,12 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 27 October 2024                                         Siemens
+Expires: 29 November 2024                                        Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
                                                               M. Wiseman
                                                          Beyond Identity
-                                                           25 April 2024
+                                                             28 May 2024
 
 
      Use of Remote Attestation with Certification Signing Requests
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 October 2024.
+   This Internet-Draft will expire on 29 November 2024.
 
 Copyright Notice
 
@@ -118,7 +118,7 @@ Table of Contents
        A.2.3.  TPM2 AttestationStatement
        A.2.4.  Introduction to TPM2 concepts
        A.2.5.  TCG Objects and Key Attestation
-       A.2.6.  Example Structures
+       A.2.6.  Sample CSR
      A.3.  PSA Attestation Token in CSR
    Appendix B.  ASN.1 Module
      B.1.  TCG DICE ConceptualMessageWrapper in CSR
@@ -151,9 +151,9 @@ Table of Contents
 
    As outlined in the RATS Architecture [RFC9334], an Attester
    (typically a device) produces a signed collection of Claims that
-   constitutes Evidence about its running environment.  While the term
-   "attestation" is not defined in RFC 9334, it was later defined in
-   [I-D.ietf-rats-tpm-based-network-device-attest], it refers to the
+   constitutes Evidence about its running environment(s).  While the
+   term "attestation" is not defined in RFC 9334, it was later defined
+   in [I-D.ietf-rats-tpm-based-network-device-attest], it refers to the
    activity of producing and appraising remote attestation Evidence.  A
    Relying Party may consult an Attestation Result produced by a
    Verifier that has appraised the Evidence in making policy decisions
@@ -163,35 +163,38 @@ Table of Contents
    architecture map to a certificate requester and a CA/RA.
 
    At the time of writing, several standard and several proprietary
-   attestation technologies are in use.  This specification thereby is
-   intended to be as technology-agnostic as it is feasible with respect
-   to implemented remote attestation technologies.  Instead, it focuses
-   on (1) the conveyance of Evidence via CSRs while making minimal
-   assumptions about content or format of the transported Evidence and
-   (2) the conveyance of sets of certificates used for validation of
-   Evidence.  The certificates typically contain one or more
-   certification paths rooted in a device manufacture trust anchor and
-   the leaf certificate being on the device in question; the latter is
-   the Attestation Key that signs the Evidence statement.
+   remote attestation technologies are in use.  This specification
+   thereby is intended to be as technology-agnostic as it is feasible
+   with respect to implemented remote attestation technologies.  Hence,
+   this specification focuses on (1) the conveyance of Evidence via CSRs
+   while making minimal assumptions about content or format of the
+   transported Evidence and (2) the conveyance of sets of certificates
+   used for validation of Evidence.  The certificates typically contain
+   one or more certification paths rooted in a device manufacture trust
+   anchor and the leaf certificate being on the device in question.  The
+   leaf certificate is associated with key material that takes on the
+   role of an Attestation Key and is used to Evidence originating from
+   the Attester.
 
    This document specifies a CSR Attribute (or Extension for Certificate
    Request Message Format (CRMF) CSRs) for carrying Evidence.  Evidence
    can be placed into an EvidenceStatement along with an OID to identify
-   its type and optionally a hint to the Relying Party about how to
-   verify it.  A set of EvidenceStatements may be grouped together along
-   with the set of CertificateAlternatives needed to validate them to
-   form a EvidenceBundle.  One or more EvidenceBundles may be placed
-   into the id-aa-evidence CSR Attribute (or CRFM Extension).
+   its type and optionally a hint to the Relying Party about which
+   Verifier (software package) will be capable of parsing it.  A set of
+   EvidenceStatements may be grouped together along with the set of
+   CertificateAlternatives needed to validate them to form a
+   EvidenceBundle.  One or more EvidenceBundles may be placed into the
+   id-aa-evidence CSR Attribute (or CRFM Extension).
 
    A CSR may contain one or more Evidence payloads, for example Evidence
-   asserting the storage properties of a private key as well Evidence
-   asserting firmware version and other general properties of the
-   device, or Evidence signed using different cryptographic algorithms.
+   asserting the storage properties of a private key, Evidence asserting
+   firmware version and other general properties of the device, or
+   Evidence signed using different cryptographic algorithms.
 
    With these attributes, additional information information is
-   available to an RA or CA which may be used to decide whether to issue
-   a certificate and what certificate profile to apply.  The scope of
-   this document is, however, limited to the conveyance of Evidence
+   available to an RA or CA, which may be used to decide whether to
+   issue a certificate and what certificate profile to apply.  The scope
+   of this document is, however, limited to the conveyance of Evidence
    within CSR.  The exact format of the Evidence being conveyed is
    defined in various standard and proprietary specifications.
 
@@ -217,8 +220,9 @@ Table of Contents
    CSR is an abbreviation used beyond PKCS#10.  Hence, it is equally
    applicable to other protocols that use a different syntax and even a
    different encoding, in particular this document also considers
-   Certificate Request Message Format (CRMF) [RFC4211] to be "CSRs".  We
-   use the terms "CSR" and Certificate Request message interchangeably.
+   messages in the Certificate Request Message Format (CRMF) [RFC4211]
+   to be "CSRs".  In this document, the terms "CSR" and Certificate
+   Request message are used interchangeably.
 
 3.  Architecture
 
@@ -229,7 +233,7 @@ Table of Contents
    an Attestation Result, which is then processed by the RA/CA prior to
    the certificate issuance.
 
-   In addition to the background check model the RATS architecture also
+   In addition to the background check model, the RATS architecture also
    specifies the passport model and combinations.  See Section 5.2 of
    [RFC9334] for a description of the passport model.  The passport
    model requires the Attester to transmit Evidence to the Verifier
@@ -240,15 +244,15 @@ Table of Contents
    is possible.
 
    Note that the Verifier is a logical role that may be included in the
-   RA/CA product.  In this case the Relying Party and Verifier collapse
-   into a single entity.  The Verifier functionality can, however, also
-   be kept separate from the RA/CA functionality, such as a utility or
-   library provided by the device manufacturer.  For example, security
-   concerns may require parsers of Evidence formats to be logically or
-   physically separated from the core CA functionality.  The interface
-   by which the Relying Party passes Evidence to the Verifier and
-   receives back Attestation Results may be proprietary or standardized,
-   but in any case is out-of-scope for this document.
+   RA/CA product.  In this case, the Relying Party role and Verifier
+   role collapse into a single entity.  The Verifier functionality can,
+   however, also be kept separate from the RA/CA functionality, such as
+   a utility or library provided by the device manufacturer.  For
+   example, security concerns may require parsers of Evidence formats to
+   be logically or physically separated from the core CA functionality.
+   The interface by which the Relying Party passes Evidence to the
+   Verifier and receives back Attestation Results may be proprietary or
+   standardized, but in any case is out-of-scope for this document.
 
                                  .-------------.
                                  |             | Compare Evidence
@@ -285,24 +289,24 @@ Table of Contents
 
 4.1.  Interaction with an HSM
 
-   This specification is intended to be applicable both in cases where
-   the CSR is constructed internally or externally to the attesting
-   environment, from the point of view of the calling application.
+   This specification is applicable both in cases where a CSR is
+   constructed internally or externally to the Attesting Environment,
+   from the point of view of the calling application.
 
-   Cases where the CSR is generated internally to the attesting
-   environment are straightforward: the HSM generates and embeds the
+   Cases where the CSR is generated internally to the Attesting
+   Environment are straightforward: the HSM generates and embeds the
    Evidence and the corresponding certification paths when constructing
    the CSR.
 
    Cases where the CSR is generated externally may require extra round-
-   trips of communication between the CSR generator and the attesting
-   environment, first to obtain the necessary Evidence about the subject
-   key, and then to use the subject key to sign the CSR.  For example,
-   consider a CSR generated by a popular crypto library about a subject
-   key stored on a PKCS#11 [PKCS11] device.
+   trips of communication between the CSR generator and the Attesting
+   Environment, first to obtain the necessary Evidence about the subject
+   key, and then to use the subject key to sign the CSR; for example, a
+   CSR generated by a popular crypto library about a subject key stored
+   on a PKCS#11 [PKCS11] device.
 
-   As an example, assuming that the HSM is, or contains, the attesting
-   environment, and some cryptographic library is assembling a CSR by
+   As an example, assuming that the HSM is, or contains, the Attesting
+   Environment and some cryptographic library is assembling a CSR by
    interacting with the HSM over some network protocol, then the
    interaction would conceptually be:
 
@@ -333,7 +337,7 @@ Table of Contents
    Evidence in a CSR (together with certification paths) the structure
    shown in Figure 3 is used.
 
-   On a high-level, the structure can be explained as follows: A PKCS#10
+   On a high-level, the structure is composed as follows: A PKCS#10
    attribute or a CRMF extension contains one or more EvidenceBundle
    structures.  Each EvidenceBundle contains one or more
    EvidenceStatement structures as well as one or more
@@ -365,13 +369,13 @@ Table of Contents
 
    The following use cases are supported:
 
-   Single Attester, which only distributes Evidence without any
-   certification paths, i.e. the Verifier is assumed to be in possession
-   of the certification paths already or there is no certification paths
-   because the Verifier directly trusts the Attester key.  As a result a
-   single EvidenceBundle is included in a CSR that contains a single
-   EvidenceStatement without the CertificateAlternatives structure.
-   Figure 4 shows this use case.
+   A single Attester, which only distributes Evidence without any
+   certification paths.  In the use case, the Verifier is assumed to be
+   in possession of the certification paths already or there is no
+   certification paths because the Verifier directly trusts the Attester
+   key.  As a result, a single EvidenceBundle is included in a CSR that
+   contains a single EvidenceStatement without the
+   CertificateAlternatives structure.  Figure 4 shows this use case.
 
      +--------------------+
      |  EvidenceBundle    |
@@ -396,10 +400,10 @@ Table of Contents
        Figure 5: Use Case 2: Single Attester with Certification Path.
 
    In a Composite Device, which contains multiple Attesters, a
-   collection of Evidence statements is obtained.  Imagine that each
-   Attester returns its Evidence together with a certification path.  As
-   a result, multiple EvidenceBundle structures, each carrying an
-   EvidenceStatement and the corresponding CertificateAlternative
+   collection of Evidence statements is obtained.  In this scenario,
+   each Attester returns its Evidence together with a certification
+   path.  As a result, multiple EvidenceBundle structures, each carrying
+   an EvidenceStatement and the corresponding CertificateAlternative
    structure with the certification path as provided by each Attester,
    are included in the CSR.  This may result in certificates being
    duplicated across multiple EvidenceBundles.  This approach does not
@@ -420,12 +424,12 @@ Table of Contents
 
        Figure 6: Use Case 3: Multiple Attesters in Composite Device.
 
-   In the last scenario, we also assume a Composite Device with
-   additional processing capabilities of the Leader Attester, which
-   parses the certification path provided by all Attesters in the device
-   and removes redundant certificate information.  The benefit of this
-   approach is the reduced transmission overhead.  There are several
-   implementation strategies and we show two in Figure 7.
+   In the last use case, a Composite Device with additional processing
+   capabilities of the Leader Attester parses the certification path
+   provided by all Attesters in the device and removes redundant
+   certificate information.  The benefit of this approach is the reduced
+   transmission overhead.  There are several implementation strategies
+   and we show two in Figure 7.
 
    Implementation strategy (4a)
 
@@ -463,13 +467,12 @@ Table of Contents
      Figure 7: Use Case 4: Multiple Attesters in Composite Device (with
                                Optimization).
 
-   In implementation strategy (4a) we assume that each Attester is
-   provisioned with a unique end-entity certificate.  Hence, the
-   certification path will at least differ with respect to the end-
-   entity certificates.  The Lead Attester will therefore create
-   multiple EvidenceBundle structures, each will carry an
-   EvidenceStatement followed by a certification path in the
-   CertificateAlternative structures containing most likely only the
+   In implementation strategy (4a), each Attester is provisioned with a
+   unique end-entity certificate.  Hence, the certification path at
+   least differs with respect to the end-entity certificates.  The lead
+   Attester therefore creates multiple EvidenceBundle structures, where
+   each carries an EvidenceStatement followed by a certification path in
+   the CertificateAlternative structures containing most likely only the
    end-entity certificate.  The shared certification path is carried in
    the first entry of the EvidenceBundle sequence to allow path
    validation to take place immediately after processing the first
@@ -478,7 +481,7 @@ Table of Contents
    certification path if the Verifier requires each EvidenceStatement to
    be accompanied with a complete certification path.
 
-   Implementation strategy (4b), as an alternative, requires the Lead
+   Implementation strategy (4b), as an alternative, requires the lead
    Attester to merge all certification paths into a single
    EvidenceBundle containing a single de-duplicated sequence of
    CertificateAlternatives structures.  This means that each
@@ -502,19 +505,22 @@ Table of Contents
 
 5.1.  Object Identifiers
 
-   We reference id-pkix and id-aa, both defined in [RFC5912].
+   This document references id-pkix and id-aa, both defined in
+   [RFC5912].
 
-   We define:
+   This document defines the arc depicted in Figure 8
 
    -- Arc for Evidence types
    id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 
+                        Figure 8: Figure Name FixMe1
+
 5.2.  Evidence Attribute and Extension
 
-   By definition, Attributes within a PKCS#10 CSR are typed as ATTRIBUTE
+   By definition, attributes within a PKCS#10 CSR are typed as ATTRIBUTE
    and within a CRMF CSR are typed as EXTENSION.  This attribute
    definition contains one or more Evidence bundles of type
-   EvidenceBundle which each contain one or more Evidence statements of
+   EvidenceBundle where each contain one or more Evidence statements of
    a type EvidenceStatement along with an optional certification path.
    This structure allows for grouping Evidence statements that share a
    certification path.
@@ -525,49 +531,60 @@ Table of Contents
       ... -- None defined in this document --
    }
 
-   This is a mapping and ASN.1 Types for Evidence Statements to the OIDs
-   that identify them.  These mappings are are used to construct or
-   parse EvidenceStatements.  These would typically be Evidence
-   Statement formats defined in other IETF standards, defined by other
-   standards bodies, or vendor proprietary formats along with the OIDs
-   that identify them.
+                        Figure 9: Figure Name FixMe2
 
-   This list is left empty in this document.  However, implementers
-   should populate it with the formats that they wish to support.
+   The expression illustrated in Figure 9 maps ASN.1 Types for Evidence
+   Statements to the OIDs that identify them.  These mappings are are
+   used to construct or parse EvidenceStatements.  Evidence Statement
+   formats are typically defined in other IETF standards, other
+   standards bodies, or vendor proprietary formats along with
+   corresponding OIDs that identify them.
 
-   EvidenceHint ::= CHOICE {
-        rfc822Name [0] IA5String,
-        dNSName    [1] IA5String,
-        uri        [2] IA5String,
-        text       [3] UTF8String
-   }
+   This list is left undfined in this document.  However, implementers
+   can populate it with the formats that they wish to support.
 
    EvidenceStatements ::= SEQUENCE SIZE (1..MAX) OF EvidenceStatement
 
    EvidenceStatement ::= SEQUENCE {
       type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
       stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type}),
-      hint   EvidenceHint OPTIONAL
+      hint   UTF8String OPTIONAL
    }
 
-   The type is on OID indicating the format of the data contained in
-   stmt.
+                       Figure 10: Figure Name FixMe3
 
-   The hint is intended for an Attester to indicate to the Relying Party
-   (RP) which Verifier should be invoked to parse this statement.  In
-   many cases, the type OID will already uniquely indicate which
-   Verifier to invoke; for example because the OID indicates a
-   proprietary Evidence format for which the RP has corresponding
-   proprietary Verifier.  However, in some cases it may still be
-   ambiguous, or the type may indicate another layer of conceptual
-   message wrapping in which case it is helpful to the RP to bring this
-   hint outside of the statement.  It is assumed that the RP must be
-   pre-configured with a list of trusted Verifiers and that the contents
-   of this hint can be used to look up the correct Verifier.  Under no
-   circumstances must the RP be tricked into contacting an unknown and
-   untrusted Verifier since the returned Attestation Result must not be
-   relied on.  The format and contents of the hint are out of scope of
-   this document.
+   In Figure Figure 10, type is an OID that indicates the format of the
+   value of stmt.
+
+   The Attester MAY populate the hint with the name of a Verifier
+   software package which will be capable of parsing the data contained
+   in EvidenceStatement.stmt; this is to help the Relying Party select
+   the correct Verifier without requiring the Relying Party to perform
+   any parsing of the data in EvidenceStatement.stmt.  The type OID,
+   which identifies the format of the data found in the Evidence
+   statement, typically suffices for a Relying Party to select the
+   correct Verifier (software) to invoke.  However, in some cases the
+   Relying Party may have more than one Verifier capable of parsing a
+   given type OID -- for example if the OID indicates a wrapper format
+   such as DICE ConceptualMessageWrapper that can contain further
+   proprietary data.  A design goal of this specification is to enable
+   Relying Parties to select an appropriate Verifier (software) without
+   the need to perform any parsing of the EvidenceStatement.stmt data.
+   To help with this, the Attester MAY populate the hint with a name of
+   a software package that will be capable of parsing this data.  The
+   hint SHOULD contain a value that is unique to this Verifier, for
+   example, a fully qualified domain name (FQDN), a uniform resource
+   name (URN) [RFC8141], or a registered value corresponding to this
+   Evidence format.  In a typical usage scenario, the RP is pre-
+   configured with a list of trusted Verifiers and the corresponding
+   hint values can be used to look up appropriate Verifier.  Tricking an
+   RP into interacting with an unknown and untrusted Verifier has to be
+   avoided as the retrieved Attestation Result must be reliable.
+
+   Usage of the hint field can be seen in the TPM2_attest example in
+   Appendix A.2 where the type OID indicates the OID id-TcgAttestCertify
+   and the corresponding hint indicates the Verifier software
+   "tpmverifier.example.com" should be invoked for parsing it.
 
    EvidenceBundles ::= SEQUENCE SIZE (1..MAX) OF EvidenceBundle
 
@@ -577,7 +594,7 @@ Table of Contents
      certs SEQUENCE SIZE (1..MAX) OF CertificateAlternatives OPTIONAL
    }
 
-   id-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }
+   id-aa-evidence OBJECT IDENTIFIER ::= { id-aa 59 }
 
    -- For PKCS#10
    attr-evidence ATTRIBUTE ::= {
@@ -591,19 +608,21 @@ Table of Contents
      IDENTIFIED BY id-aa-evidence
    }
 
-   The Extension variant is intended only for use within CRMF CSRs and
-   MUST NOT be used within X.509 certificates due to the privacy
-   implications of publishing Evidence about the end entity's hardware
-   environment.  See Section 7 for more discussion.
+                       Figure 11: Figure Name FixMe4
 
-   The certs contains a set of certificates that may be needed to
-   validate the contents of an Evidence statement contained in evidence.
-   The set of certificates should contain the object that contains the
-   public key needed to directly validate the evidence.  The remaining
-   elements should chain that data back to an agreed upon trust anchor
-   used for attestation.  No order is implied, it is up to the Attester
-   and its Verifier to agree on both the order and format of
-   certificates contained in certs.
+   The Extension variant illustrated in Figure 11 is intended only for
+   use within CRMF CSRs and MUST NOT be used within X.509 certificates
+   due to the privacy implications of publishing Evidence about the end
+   entity's hardware environment.  See Section 7 for more discussion.
+
+   The certs contains a set of certificates that is intended to validate
+   the contents of an Evidence statement contained in evidence, if
+   required.  The set of certificates should contain the object that
+   contains the public key needed to directly validate the evidence.
+   The remaining elements should chain that data back to an agreed upon
+   trust anchor used for attestation.  No order is implied, it is up to
+   the Attester and its Verifier to agree on both the order and format
+   of certificates contained in certs.
 
    A CSR MAY contain one or more instances of attr-evidence or ext-
    evidence.  This means that the SEQUENCE OF EvidenceBundle is
@@ -613,27 +632,31 @@ Table of Contents
 
 5.3.  CertificateAlternatives
 
-   This is an ASN.1 CHOICE construct used to represent an encoding of a
-   broad variety of certificate types.
+   Figure Figure 12 shows an ASN.1 CHOICE construct used to represent an
+   encoding of a broad variety of certificate types.
 
    CertificateAlternatives ::=
       CHOICE {
          cert              Certificate,
+                              -- Using the Certificate ASN.1
+                              -- structure as defined in RFC 5280.
          typedCert     [0] TypedCert,
          typedFlatCert [1] TypedFlatCert,
          ...
       }
 
+                       Figure 12: Figure Name FixMe5
+
    "Certificate" is a standard X.509 certificate that MUST be compliant
-   with RFC 5280.  Enforcement of this constraint is left to the relying
-   parties.
+   with RFC 5280.  Enforcement of this constraint is left to Relying
+   Parties.
 
    "TypedCert" is an ASN.1 construct that has the characteristics of a
    certificate, but is not encoded as an X.509 certificate.  The
    certType Field (below) indicates how to interpret the certBody field.
-   While it is possible to carry any type of data in this structure,
-   it's intended the content field include data for at least one public
-   key formatted as a SubjectPublicKeyInfo (see [RFC5912]).
+   While it is possible to carry any type of data in this structure, the
+   intend of the content field is to include data for at least one
+   public key formatted as a SubjectPublicKeyInfo (see [RFC5912]).
 
   TYPED-CERT ::= TYPE-IDENTIFIER
 
@@ -648,22 +671,28 @@ Table of Contents
      ... -- None defined in this document --
         }
 
-   "TypedFlatCert" is a certificate that does not have a valid ASN.1
-   encoding.  These are often compact or implicit certificates used by
-   smart cards. certType indicates the format of the data in the
-   certBody field, and ideally refers to a published specification.
+                      Figure 13: Figure Name FixMe6
+
+   Figure Figure 13 illustrates "TypedFlatCert" representing a
+   certificate that does not have a valid ASN.1 encoding.  Certificates
+   that are not ASN.1 compliant are often compact or implicit
+   certificates used by smart cards. certType as shown in
+   Figure Figure 14 indicates the format of the data in the certBody
+   field and ideally refers to an appropriate published specification.
 
    TypedFlatCert ::= SEQUENCE {
        certType OBJECT IDENTIFIER,
        certBody OCTET STRING
    }
 
+                       Figure 14: Figure Name FixMe7
+
 6.  IANA Considerations
 
    IANA is requested to open two new registries, allocate a value from
    the "SMI Security for PKIX Module Identifier" registry for the
    included ASN.1 module, and allocate values from "SMI Security for S/
-   MIME Attributes" to identify two Attributes defined within.
+   MIME Attributes" to identify two attributes defined within.
 
 6.1.  Module Registration - SMI Security for PKIX Module Identifier
 
@@ -678,7 +707,8 @@ Table of Contents
 
    *  Evidence Statement
 
-      -  Decimal: IANA Assigned - Replace *TBDAA*
+      -  Decimal: IANA Assigned - This was early-allocated as 59 so that
+         we could generate the sample data.
 
       -  Description: id-aa-evidence
 
@@ -785,6 +815,10 @@ Table of Contents
    | 133 5 |                              |              |            |
    | 4 9   |                              |              |            |
    +-------+------------------------------+--------------+------------+
+   | 2 23  | tcg-attest-tpm-certify       | Private      | TCG        |
+   | 133   |                              | Registry     |            |
+   | 20 1  |                              |              |            |
+   +-------+------------------------------+--------------+------------+
 
     Table 1: Initial Contents of the Attestation Evidence OID Registry
 
@@ -808,9 +842,9 @@ Table of Contents
    prevent theft or misuse (including being non-exportable / non-
    recoverable), the Attesting Environment has to collect claims about
    this secure environment (or Target Environment, as shown in
-   Figure 8).
+   Figure 15).
 
-   Figure 8 shows the interaction inside an Attester.  The Attesting
+   Figure 15 shows the interaction inside an Attester.  The Attesting
    Environment, which is provisioned with an Attestation Key, retrieves
    claims about the Target Environment.  The Target Environment offers
    key generation, storage and usage, which it makes available to
@@ -852,9 +886,9 @@ Table of Contents
     |                                    |
     '------------------------------------'
 
-       Figure 8: Interaction between Attesting and Target Environment
+      Figure 15: Interaction between Attesting and Target Environment
 
-   Figure 8 places the CSR library outside the Attester, which is a
+   Figure 15 places the CSR library outside the Attester, which is a
    valid architecture for certificate enrollment.  The CSR library may
    also be located inside the trusted computing base.  Regardless of the
    placement of the CSR library, an Attesting Environment MUST be able
@@ -1050,6 +1084,14 @@ Table of Contents
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/rfc/rfc8126>.
 
+   [RFC8141]  Saint-Andre, P. and J. Klensin, "Uniform Resource Names
+              (URNs)", RFC 8141, DOI 10.17487/RFC8141, April 2017,
+              <https://www.rfc-editor.org/rfc/rfc8141>.
+
+   [SampleData]
+              "CSR Attestation Sample Data", n.d.,
+              <https://github.com/lamps-wg/csr-attestation-examples>.
+
    [TCGDICE1.1]
               Trusted Computing Group, "DICE Attestation Architecture",
               January 2024, <https://trustedcomputinggroup.org/wp-
@@ -1064,14 +1106,17 @@ Table of Contents
 
 Appendix A.  Examples
 
-   This section provides two non-normative examples for embedding
+   This section provides several examples and sample data for embedding
    Evidence in CSRs.  The first example embeds Evidence produced by a
    TPM in the CSR.  The second example conveys an Arm Platform Security
    Architecture token, which provides claims about the used hardware and
    software platform, into the CSR.
 
-   At the time of writing, the authors are not aware of registered OIDs
-   for these evidence formats, and so we leave the OIDs as TBD1 / TBD2.
+   After publicatian of this document, additional examples and sample
+   data will be collected at the following GitHub repository
+   [SampleData]:
+
+   https://github.com/lamps-wg/csr-attestation-examples
 
 A.1.  Extending EvidenceStatementSet
 
@@ -1106,6 +1151,12 @@ A.2.  TPM V2.0 Evidence in CSR
 
    This section describes TPM2 key attestation for use in a CSR.
 
+   This is a complete and canonical example that can be used to test
+   parsers implemented against this specification.  Readers who wish the
+   sample data may skip to Appendix A.2.6; the following sections
+   explain the TPM-specific data structures needed to fully parse the
+   contents of the evidence statement.
+
 A.2.1.  TCG Key Attestation Certify
 
    There are several ways in TPM2 to provide proof of a key's
@@ -1118,13 +1169,13 @@ A.2.2.  TCG OIDs
    The OIDs in this section are defined by TCG TCG has a registered arc
    of 2.23.133
 
-   id-tcg OBJECT IDENTIFIER ::= { 2 23 133 }
+   tcg OBJECT IDENTIFIER ::= { 2 23 133 }
 
-   id-tcg-kp-AIKCertificate OBJECT IDENTIFIER ::= { id-tcg 8 3 }
+   tcg-kp-AIKCertificate OBJECT IDENTIFIER ::= { id-tcg 8 3 }
 
-   id-tcg-attest OBJECT IDENTIFIER ::= { id-tcg TBD }
+   tcg-attest OBJECT IDENTIFIER ::= { id-tcg 20 }
 
-   id-tcg-attest-certify OBJECT IDENTIFIER ::= { id-tcg-attest 1 }
+   tcg-attest-tpm-certify OBJECT IDENTIFIER ::= { id-tcg-attest 1 }
 
 A.2.3.  TPM2 AttestationStatement
 
@@ -1135,7 +1186,7 @@ A.2.3.  TPM2 AttestationStatement
    concatenation of existing TPM2 structures.  These structures will be
    explained in the rest of this section.
 
-   Tcg-attest-certify ::= SEQUENCE {
+   Tcg-csr-certify ::= SEQUENCE {
      tpmSAttest       OCTET STRING,
      signature        OCTET STRING,
      tpmTPublic       OCTET STRING OPTIONAL
@@ -1358,9 +1409,135 @@ A.2.5.6.  Verifier Processing
       TPM2B_ATTEST->attestationData then returned TPM2B_PUBLIC is the
       verified.
 
-A.2.6.  Example Structures
+A.2.6.  Sample CSR
 
-   TODO -- a full CSR would be great.
+   This CSR demonstrates a certification request for a key stored in a
+   TPM using the following structure:
+
+   CSR {
+     attributes {
+       id-aa-evidence {
+         EvidenceBundles {
+           EvidenceBundle {
+             EvidenceStatements {
+               EvidenceStatement {
+                 type: tcg-attest-tpm-certify,
+                 stmt: <TcgAttestTpmCertify_data>
+                 hint: "tpmverifier.example.com"
+               }
+             },
+             certs {
+               akCertificate,
+               caCertificate
+             }
+           }
+         }
+       }
+     }
+   }
+
+   Note that this example demonstrates most of the features of this
+   specification:
+
+   *  The data type is identified by the OID id-TcgCsrCertify contained
+      in the EvidenceStatement.type field.
+
+   *  The signed evidence is carried in the EvidenceStatement.stmt
+      field.
+
+   *  The EvidenceStatement.hint provides information to the Relying
+      Party about which Verifier (software) will be able to correctly
+      parse this data.  Note that the type OID indicates the format of
+      the data, but that may itself be a wrapper format that contains
+      further data in a proprietary format.  In this example, the hint
+      says that software from the package "tpmverifier.example.com" will
+      be able to parse this data.
+
+   *  The evidence statement is accompanied by a certificate chain in
+      the EvidenceBundle.certs field which can be used to verify the
+      signature on the evidence statement.  How the Verifier establishes
+      trust in the provided certificates is outside the scope of this
+      specification.
+
+   Features of this specification that are not demonstrated by this
+   example are:
+
+   *  An EvidenceBundle containing multiple EvidenceStatements that
+      share a certificate chain.
+
+   *  Multiple EvidenceBundles that each have their own certificate
+      chain.
+
+   -----BEGIN CERTIFICATE REQUEST-----
+   MIIMmjCCC4QCAQAwcjELMAkGA1UEBhMCQVUxDDAKBgNVBAgMA1FMRDERMA8GA1UE
+   BwwIQnJpc2JhbmUxGzAZBgNVBAoMEmlldGYtMTE5LWhhY2thdGhvbjEWMBQGA1UE
+   CwwNaWV0Zi1jc3ItdGVzdDENMAsGA1UEAwwEa2V5MTCCASIwDQYJKoZIhvcNAQEB
+   BQADggEPADCCAQoCggEBAM3AeVGnRgRMijvkuKreB+B6vWEi7QXRANIhvvkcHH3h
+   Jg0y//13XTQjUC0/pj5Hi66ILSxMru5j2aNZ7n5THEK2dMqrjjLokcfojdAoErK6
+   BmGHSCB8US41tb7qurneJzRCO0VGExpAKI1Ps05j0HHtYvwqHTlikWCpIOiDkNQt
+   gz7sgr3z3aE2OKqsXfYehnBIJbqdClOMz7C23V/XcjEi/WF0vGTboHYmLHNwkTr5
+   VrFhDqKFxQUx4+neqSJGeo30USno6Lr8hFAufxQzzoiFx571C4Wad+J1chCKORb/
+   5Kbu4O7wu9doOsFK+I2anUHFEJS5wowVfcWuyjcIZ/0CAwEAAaCCCeMwggnfBgsq
+   hkiG9w0BCRACOzGCCc4wggnKMIIJxjCCAtwwggLYBgVngQUUATCCArQEgZH/VENH
+   gBcAIgALgSWffuitIOAJ6HaGbtjgb5HYkvYKKPpxeBsZOS8nnxgABAD/VaoAAAAA
+   Nc8rIAAAAAcAAAAAASAZECMAFjY2ACIACwIYIzzfD3YNj+9DpDfm6cw/eyH2BuNJ
+   me/FQlkl1WnlACIAC66AuFfCBmj8QrwfqOSqNt/dUwtgVMSh+iaYiSJslGTiBIIB
+   ADLHaelFw/JTKhJbwi0tz5zkzJVyfo1nHER2s1YWZj/7GNcNZ5uvtcYgK65XIyMw
+   LjIA0AncNhOVAJhJm0uRkbjUmvtW5kGpDtepFqQj394N4XiXulGIXimwVKkc9lqS
+   kkRcfmzqomSaMmafVwXBAQ1NGrHV/PaX7IUlW5Hqo3Ja++sYro8y/hEQL3ILXdEG
+   lQEj/wB9NhiuVqW/SpT0iIs+E1MD2uJRICxCw21F352BGiAda0pmvr7nknJhv5kM
+   gWKInhonhLfLXlWVmvI+pf/z4QHXSWNZoibiihRcP7Eruq1X+VMx2T+Au2Q2O8zz
+   9omo9Ktyq/cZDUGsLcs5E0UEggEYARYAAQALAAYAcgAAABAAEAgAAAAAAAEAzcB5
+   UadGBEyKO+S4qt4H4Hq9YSLtBdEA0iG++RwcfeEmDTL//XddNCNQLT+mPkeLrogt
+   LEyu7mPZo1nuflMcQrZ0yquOMuiRx+iN0CgSsroGYYdIIHxRLjW1vuq6ud4nNEI7
+   RUYTGkAojU+zTmPQce1i/CodOWKRYKkg6IOQ1C2DPuyCvfPdoTY4qqxd9h6GcEgl
+   up0KU4zPsLbdX9dyMSL9YXS8ZNugdiYsc3CROvlWsWEOooXFBTHj6d6pIkZ6jfRR
+   KejouvyEUC5/FDPOiIXHnvULhZp34nVyEIo5Fv/kpu7g7vC712g6wUr4jZqdQcUQ
+   lLnCjBV9xa7KNwhn/QwXdHBtdmVyaWZpZXIuZXhhbXBsZS5jb20wggbiMIIDazCC
+   AlMCFD+SFCWsL2qqj29Qjboa1MYhl3spMA0GCSqGSIb3DQEBCwUAMHQxCzAJBgNV
+   BAYTAkFVMQwwCgYDVQQIDANRTEQxETAPBgNVBAcMCEJyaXNiYW5lMRswGQYDVQQK
+   DBJpZXRmLTExOS1oYWNrYXRob24xFjAUBgNVBAsMDWlldGYtY3NyLXRlc3QxDzAN
+   BgNVBAMMBnJvb3RDQTAeFw0yNDA1MDUwMDMyMjhaFw0yNDA2MDQwMDMyMjhaMHAx
+   CzAJBgNVBAYTAkFVMQwwCgYDVQQIDANRTEQxETAPBgNVBAcMCEJyaXNiYW5lMRsw
+   GQYDVQQKDBJpZXRmLTExOS1oYWNrYXRob24xFjAUBgNVBAsMDWlldGYtY3NyLXRl
+   c3QxCzAJBgNVBAMMAmFrMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+   rJwY3dhpjd5Mm4r8Gcjx6qympTD8J+ldfUVglCFXxVpmZmX7Bec6fPcARLBR4jte
+   /Y/UGszreRv8WQ2O6J85XMPiJvYeWQExVL3NU5izX7+DVqX0is3HARUfkyXgF8zL
+   2BkSgQcuYqAR2riG6YH+waE44qCVAi/k9nni25CtsHzyD6twWvvE3BdhzBt8j1eA
+   1qWgOvVebVmMuN53caNkeAMb6a+OIirsU/eCbP0mycDfwabHg1DNCVio3pgQWJeW
+   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
+   mBFIOcV149HcobQM974=
+   -----END CERTIFICATE REQUEST-----
 
 A.3.  PSA Attestation Token in CSR
 
@@ -1454,6 +1631,8 @@ id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 CertificateAlternatives ::=
    CHOICE {
       cert              Certificate,
+                           -- Using the Certificate ASN.1
+                           -- structure as defined in RFC 5280.
       typedCert     [0] TypedCert,
       typedFlatCert [1] TypedFlatCert,
       ...
@@ -1481,22 +1660,15 @@ EvidenceStatementSet EVIDENCE-STATEMENT ::= {
    ... -- None defined in this document --
 }
 
-EvidenceHint ::= CHOICE {
-     rfc822Name [0] IA5String,
-     dNSName    [1] IA5String,
-     uri        [2] IA5String,
-     text       [3] UTF8String
-}
-
 EvidenceStatements ::= SEQUENCE SIZE (1..MAX) OF EvidenceStatement
 
 EvidenceStatement ::= SEQUENCE {
    type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),
    stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type}),
-   hint   EvidenceHint OPTIONAL
+   hint   UTF8String OPTIONAL
 }
 
-id-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }
+id-aa-evidence OBJECT IDENTIFIER ::= { id-aa 59 }
 
 -- For PKCS#10
 attr-evidence ATTRIBUTE ::= {
@@ -1553,9 +1725,12 @@ Appendix C.  Acknowledgments
    Ned Smith.
 
    We would like to specifically thank Mike StJohns for his work on an
-   earlier version of this draft.  Monty Wiseman contributed TPM 2.0
-   Attestation in the specification and wrote the necessary scripts with
-   the help from Corey Bonnell.
+   earlier version of this draft.
+
+   We would also like to specifically thank Monty Wiseman for providing
+   the appendix showing how to carry a TPM 2.0 Attestation, and to Corey
+   Bonell for helping with the hackathon scripts to bundle it into a
+   CSR.
 
    Finally, we would like to thank Andreas Kretschmer and Thomas Fossati
    for their feedback based on implementation experience, and Daniel
