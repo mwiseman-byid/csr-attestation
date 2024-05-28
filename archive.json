@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-26T00:53:25.788571+00:00",
+  "timestamp": "2024-05-28T00:49:50.523813+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1510,6 +1510,30 @@
       "updatedAt": "2024-05-23T14:28:22Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 127,
+      "id": "I_kwDOJ3IIN86KQFen",
+      "title": "Replace TypedCert with RFC 6268 CertificateChoices",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/127",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From Russ:\r\n\r\n\r\nAfter looking at this for the past few days, I am not convinced that the separation of non-ASN.1 and non-X.509 ASN.1 provides any value to the implementer.  At some point, the implementation must look up the OID to detimen how to fully parse the certificate.  Mike has shown some tricks to detect errors early with the current syntax.  To that end, I suggest that the module IMPORT CertificateChoices from RFC 6268.\r\n\r\nThe resulting ASN.1 for EvidenceBundle would be:\r\n\r\nEvidenceBundle ::= SEQUENCE {\r\n    evidence  EvidenceStatements,\r\n    certs SEQUENCE SIZE (1..MAX) OF CertificateChoices OPTIONAL\r\n    -- CertificateChoices MUST only contain certificate or other\r\n}\r\n\r\nIn addition, the text should say:\r\n\r\nCertificateChoices MUST only contain certificate or other.  CertificateChoices MUST NOT contain extendedCertificate, v1AttrCert, or v2AttrCert.\r\n\r\nRuss\r\n\r\n\r\nP.S.  If the WG likes this suggestion, then the full ASN.1 module for this Internet-Draft follows.\r\n\r\nCSR-ATTESTATION-2024\r\n    {iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n     mechanisms(5) pkix(7) id-mod(0) id-mod-pkix-attest-01(TBDMOD)}\r\n\r\nDEFINITIONS IMPLICIT TAGS ::= BEGIN\r\n\r\nEXPORTS ALL;\r\n\r\nIMPORTS\r\n\r\nCertificate, id-pkix\r\n  FROM PKIX1Explicit-2009\r\n    { iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n      mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-explicit-02(51)}\r\n\r\nCertificateChoices\r\n  FROM CryptographicMessageSyntax-2010\r\n    { iso(1) member-body(2) us(840) rsadsi(113549)\r\n      pkcs(1) pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) }\r\n\r\nEXTENSION, ATTRIBUTE, AttributeSet{}, SingleAttribute{}\r\n  FROM PKIX-CommonTypes-2009 -- from [RFC5912]\r\n    { iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n      mechanisms(5) pkix(7) id-mod(0) id-mod-pkixCommon-02(57) }\r\n\r\nid-aa\r\n  FROM SecureMimeMessageV3dot1\r\n    { iso(1) member-body(2) us(840) rsadsi(113549)\r\n        pkcs(1) pkcs-9(9) smime(16) modules(0) msg-v3dot1(21) }\r\n  ;\r\n  \r\n\r\n-- OID Arc for attestation statement types\r\nid-ata OBJECT IDENTIFIER ::= { id-pkix TBD1 }\r\n\r\nEVIDENCE-STATEMENT ::= TYPE-IDENTIFIER\r\n\r\nEvidenceStatementSet EVIDENCE-STATEMENT ::= {\r\n   ... -- None defined in this document --\r\n}\r\n\r\nEvidenceHint ::= CHOICE {\r\n  rfc822Name [0] IA5String,\r\n  dNSName    [1] IA5String,\r\n  uri        [2] IA5String,\r\n  text       [3] UTF8String\r\n}\r\n\r\nEvidenceStatements ::= SEQUENCE SIZE (1..MAX) OF EvidenceStatement\r\n\r\nEvidenceStatement ::= SEQUENCE {\r\n   type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),\r\n   stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type}),\r\n   hint   EvidenceHint OPTIONAL\r\n}\r\n\r\nid-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }\r\n\r\n-- For PKCS#10\r\nattr-evidence ATTRIBUTE ::= {\r\n  TYPE SEQUENCE OF EvidenceBundles\r\n  IDENTIFIED BY id-aa-evidence\r\n}\r\n\r\n\r\n-- For CRMF\r\next-evidence EXTENSION ::= {\r\n  SYNTAX EvidenceBundles\r\n  IDENTIFIED BY id-aa-evidence\r\n}\r\n\r\n\r\nEvidenceBundles ::= SEQUENCE SIZE (1..MAX) OF EvidenceBundle\r\n\r\nEvidenceBundle ::= SEQUENCE {\r\n    evidence  EvidenceStatements,\r\n    certs SEQUENCE SIZE (1..MAX) OF CertificateChoices OPTIONAL\r\n    -- CertificateChoices MUST only contain certificate or other\r\n}\r\n\r\nEND\r\n",
+      "createdAt": "2024-05-27T16:13:52Z",
+      "updatedAt": "2024-05-27T16:16:51Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Does this affect the wire encoding of the examples in the appendix?",
+          "createdAt": "2024-05-27T16:16:50Z",
+          "updatedAt": "2024-05-27T16:16:50Z"
+        }
+      ]
     }
   ],
   "pulls": [
