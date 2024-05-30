@@ -632,7 +632,7 @@ Table of Contents
 
 5.3.  CertificateAlternatives
 
-   Figure Figure 12 shows an ASN.1 CHOICE construct used to represent an
+   Figure 12 shows an ASN.1 CHOICE construct used to represent an
    encoding of a broad variety of certificate types.
 
    CertificateAlternatives ::=
