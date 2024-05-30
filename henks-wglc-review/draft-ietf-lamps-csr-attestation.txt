@@ -676,9 +676,9 @@ Table of Contents
    Figure Figure 13 illustrates "TypedFlatCert" representing a
    certificate that does not have a valid ASN.1 encoding.  Certificates
    that are not ASN.1 compliant are often compact or implicit
-   certificates used by smart cards. certType as shown in
-   Figure Figure 14 indicates the format of the data in the certBody
-   field and ideally refers to an appropriate published specification.
+   certificates used by smart cards. certType as shown in Figure 14
+   indicates the format of the data in the certBody field and ideally
+   refers to an appropriate published specification.
 
    TypedFlatCert ::= SEQUENCE {
        certType OBJECT IDENTIFIER,
