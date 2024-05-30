@@ -553,8 +553,8 @@ Table of Contents
 
                        Figure 10: Figure Name FixMe3
 
-   In Figure Figure 10, type is an OID that indicates the format of the
-   value of stmt.
+   In Figure 10, type is an OID that indicates the format of the value
+   of stmt.
 
    The Attester MAY populate the hint with the name of a Verifier
    software package which will be capable of parsing the data contained
