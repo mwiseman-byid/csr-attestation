@@ -171,10 +171,10 @@ Table of Contents
    transported Evidence and (2) the conveyance of sets of certificates
    used for validation of Evidence.  The certificates typically contain
    one or more certification paths rooted in a device manufacture trust
-   anchor and the leaf certificate being on the device in question.  The
-   leaf certificate is associated with key material that takes on the
-   role of an Attestation Key and is used to Evidence originating from
-   the Attester.
+   anchor and the end-entity certificate being on the device in
+   question.  The end-entity certificate is associated with key material
+   that takes on the role of an Attestation Key and is used to Evidence
+   originating from the Attester.
 
    This document specifies a CSR Attribute (or Extension for Certificate
    Request Message Format (CRMF) CSRs) for carrying Evidence.  Evidence
