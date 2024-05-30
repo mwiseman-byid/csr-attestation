@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-28T00:49:50.523813+00:00",
+  "timestamp": "2024-05-30T00:50:04.462424+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1532,6 +1532,30 @@
           "body": "Does this affect the wire encoding of the examples in the appendix?",
           "createdAt": "2024-05-27T16:16:50Z",
           "updatedAt": "2024-05-27T16:16:50Z"
+        }
+      ]
+    },
+    {
+      "number": 128,
+      "id": "I_kwDOJ3IIN86KV1G8",
+      "title": "Comments from MSJ",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/128",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "1) \"Lead Attester\" is not defined anywhere, but used in multiple places.   A paragraph on that role and its responsibilities appears to be necessary.\r\n2) Section 4.2 needs subsections for each of the cases.   At least one diagram has both a caption and free floating identifiers (e.g. \"Implementation strategy 4b\" vs \"Figure 7....\") that are indistinguishable from body text. There needs to be a way to differentiate between body text and a title for the various cases and objects.     So a) split Figure 7 into two different figures, b) have a section on \"Case 4\" with subsections on \"Implementation Strategy 4a\" and \"Implementation Strategy 4b\" with the appropriate figures from Figure 7 within the section boundaries.  This is mostly editorial, but needs cleanup for figuring out which text paragraph belongs with which diagram.\r\n4.2 - How to encode\r\n4.2.1 - Case 1 - Single Evidence Bundle\r\n4.2.2 - Case 2 - Single Evidence Bundle with Certificates\r\n4.2.3 - Case 3 - Multiple Evidence Bundles each with complete Paths\r\n4.2.4 - Case 4 - Multiple Evidence Bundles with Certificate Transmission Optimization\r\n4.2.4.1 - Strategy 4a\r\n4.2.4.2 - Strategy 4b.\r\n\r\n3) Can Case 1 (where the validator is thought to know some of Case 1's certificates) be encoded as part of Case 4?  I.e., is it legal to have an EvidenceBundle with no certificates as part of any of Case 4?  Or for that matter Case 3?  \r\n4) What knowledge must a \"Leader Attester\" have to select between each of the cases for encoding?   I.e., pre-configured?, some policy object they got?  Specific guidance from each of the possible validators each wanting the same data formatted in a specific way to make their lives easier?\r\n5) Must a validator that can handle Case 3, must also be able to go looking for certs in other bundles if the chain for a given bundle can't be built for validation?  Or must that be treated as a non-validation error by the validator?\r\n6) May a 4B output contain multiple EvidenceBundles each looking like 4B but with a partially disjoint set of certificates?  The description for 4b looks more like case 3 than a special case of 4.\r\n7) May you mix and match the various cases?  And must a Validator be required to riffle through all the various bundles to find the right mix of certificates to validate a given evidence statement?\r\nText needs to be written to cover answers for each of these I believe.\r\n8) Evidence Hint appears to be a way to convey type data that's otherwise buried inside of an Evidence Object of identical top-level types.  This seems to be laziness to not require different OIDs for different pseudo-wrapped and typed evidence statements from DICE ConceptualMessageWrapper (the example, but also handwaving other possibilities).  Recommend elimination of this and putting the onus on the post-processing software to do the differentiation if the proponents of these types of objects don't want to request multiple OIDs.  I don't find the arguments for inclusion convincing.  \r\n9) The TPM example needs work, A2.3\r\n9a)  \r\nThe structure here needs to be de-OCTET STRING'd.\r\nE.g. \r\nTpmV2Attest ::= OCTET STRING -- This is formatted as the encoding of <tpmv2 structures, TPMS_ATTEST>.  \r\n                                                        -- This may be any of the valid attestation structures. For a signature over a public key, only a hash of related public key data is included under the signature.\r\nTpm2InternalSig ::= OCTET STRING -- This is formatted as the encoding of <tpmv2 structures TPMT_SIGNATURE>.  This structure includes the type of signature as well as the actual signature bytes/bits \r\nTpm2Public ::= OCTET STRING -- This is formatted as <tpmv2 structures TPMT_PUBLIC>.  This structure includes the type of key as well as the key bytes.  This is the key being signed.\r\n\r\nTcg-csr-certify ::= SEQUENCE {\r\n   tpmSAttest ::= TpmV2Attest,\r\n   tpmSignature :: = Tpm2InternalSig, -- This is the signature returned by a call to TPM2_Certify over the tpmSAttest object.\r\n   tpmTPublic ::= Tpm2Public OPTIONAL -- This is REQUIRED if the attestation is over a public key  (e.g. if TPMS_ATTEST.type == ???) as it's the only way to map from the key being attested to the attestation.\r\n}\r\n9b) tcg-kp-AIKCertificateField????   This is an extended key purpose OID.  There is no field that contains the AIK certificate.  \r\n9c) A2.5.1 - the TPMU_ATTEST field is a Union identified by .type.  The TPMS_CERTIFY_INFO is union value of what's certified for a public key\r\n9d) If you've got TPMU_ATTEST, you need to explain how to get from Tpm2Public (TPMT_PUBLIC) to the value of the attested field.\r\n9e) Sample CSR - how does the lead attester know what software is installed on the validator's side (e.g. package tpmverifier.example.com)?   This implies there needs to be a registry mapping \"hints\" to something global.  In any event, if you have the OID and you have the structure definitions pointed to that OID, then the Hint is extraneous.  If the validator has multiple ways of resolving a TPMv2 attestation, they're doing it wrong.  Repeat my recommendation to remove hints.\r\n10) Should additional CMS error codes be added for this new extension?  E.g. RFC5272, section 6.1.1 - ExtendedFailInfo.  I don't see how CMCStatus or CMCFailInfo can be extended to cover the possible chaining errors and evidence/validator mismatches.  Ditto for CMP?\r\nLater, Mike\r\n",
+      "createdAt": "2024-05-28T12:45:24Z",
+      "updatedAt": "2024-05-28T19:58:21Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "nedmsmith",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> 1. \"Lead Attester\" is not defined anywhere,\r\n\r\n9334 quasi defines and uses it in examples. The use here is intended to align with 9334 use. Is that not the case / should this reference 9334?\r\n\r\n>4. ... \"Leader Attester\"\r\n\r\nI assume this is a typo.\r\n\r\n> 8. Evidence Hint appears to be a way to convey type data that's otherwise buried inside of an Evidence Object\r\n\r\nThe PR #125 defines the `type` and `hint` objects. The type is an OID from the table of OIDs further in the I-D. e.g.: type: OBJECT IDENTIFIER tcg-dice-TcbInfo (2.23.133.5.4.1)\r\nHint is a quasi URI that describes the same object e.g. \"DiceTcbInfo.example.com\" \r\n\r\nPossibly, the CSR example should be defined to the same level of detail as the DiceTcbInfo example. Then type would be `type: OBJECT IDENTIFIER tcg-dice-DiceConceptualMessageWrapper (2.23.133.5.4.9)` and hint would be `\"DiceConceptualMessageWrapper.example.com\"`.\r\n\r\nOtherwise, the feedback is unclear about what `laziness` means. Possibly, `type` is sufficient and `hint` has no value?",
+          "createdAt": "2024-05-28T19:41:39Z",
+          "updatedAt": "2024-05-28T19:58:21Z"
         }
       ]
     }
@@ -5815,6 +5839,32 @@
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "dice-tcb-info-example",
       "headRefOid": "0cef464001ea84a1644291a2e11d1e5a2bc63c3f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 129,
+      "id": "PR_kwDOJ3IIN85ww6N7",
+      "title": "Editorial Review up to IANA ConSec",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/129",
+      "state": "OPEN",
+      "author": "henkbirkholz",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "All changes are intended to be editorial in nature:\r\n* removing narrative voice\r\n* capitalization\r\n* concretization: removing (abstract referrals to previous sentences, such as 'this')\r\n* added a ton of `fixme` Figure labels and incorporated them into text\r\n  those labels till need fixing!\r\n* nits",
+      "createdAt": "2024-05-28T13:15:31Z",
+      "updatedAt": "2024-05-28T13:15:52Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "henks-wglc-review",
+      "headRefOid": "e41d160131e229c7e33ab9c5107331805adfd7a5",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
