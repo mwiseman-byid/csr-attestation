@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-30T00:50:04.462424+00:00",
+  "timestamp": "2024-06-02T00:53:49.326172+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -5662,7 +5662,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-03-26T18:28:59Z",
-      "updatedAt": "2024-04-22T21:47:49Z",
+      "updatedAt": "2024-05-30T14:15:10Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "mike_ra_pic",
       "baseRefOid": "921d5b60e652637fc23268a47c34231ee62a2362",
@@ -5856,21 +5856,283 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "All changes are intended to be editorial in nature:\r\n* removing narrative voice\r\n* capitalization\r\n* concretization: removing (abstract referrals to previous sentences, such as 'this')\r\n* added a ton of `fixme` Figure labels and incorporated them into text\r\n  those labels till need fixing!\r\n* nits",
+      "body": "All changes are intended to be editorial in nature:\r\n* removing narrative voice\r\n* capitalization\r\n* concretization: removing (abstract) referrals to previous sentences, such as 'this'\r\n* added a ton of `fixme` Figure labels and incorporated them into text\r\n  those labels till need fixing!\r\n* nits",
       "createdAt": "2024-05-28T13:15:31Z",
-      "updatedAt": "2024-05-28T13:15:52Z",
+      "updatedAt": "2024-05-30T16:47:10Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "henks-wglc-review",
-      "headRefOid": "e41d160131e229c7e33ab9c5107331805adfd7a5",
+      "headRefOid": "e46ca1c9552e3104a69c51a9ccff7ad693080a92",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Are you incorporating the editorial review comments from Carl with this PR or are these your own editorial comments?",
+          "createdAt": "2024-05-30T15:04:44Z",
+          "updatedAt": "2024-05-30T15:04:44Z"
+        },
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Are you incorporating the editorial review comments from Carl with this PR or are these your own editorial comments?\r\n\r\nThese are my own. We went to WGLC before I found the time. So now they are review feedback to the WGLC.\r\nI will not be able to address Carl's comments in-text, but am composing a reply to his email day per day.",
+          "createdAt": "2024-05-30T16:11:16Z",
+          "updatedAt": "2024-05-30T16:11:16Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN858fGRN",
+          "commit": {
+            "abbreviatedOid": "e41d160"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:01:12Z",
+          "updatedAt": "2024-05-30T15:01:12Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "Should it be \"end-entity certificate\" rather \"leaf certificate\"?",
+              "createdAt": "2024-05-30T15:01:12Z",
+              "updatedAt": "2024-05-30T15:01:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858fGoB",
+          "commit": {
+            "abbreviatedOid": "e41d160"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:01:51Z",
+          "updatedAt": "2024-05-30T15:01:51Z",
+          "comments": [
+            {
+              "originalPosition": 209,
+              "body": "```suggestion\r\nThis list is left undefined in this document. However, implementers can\r\n```",
+              "createdAt": "2024-05-30T15:01:51Z",
+              "updatedAt": "2024-05-30T15:01:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858fG47",
+          "commit": {
+            "abbreviatedOid": "e41d160"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:02:17Z",
+          "updatedAt": "2024-05-30T15:02:18Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "```suggestion\r\nIn {{sequence-fixme}}, type is an OID that indicates the format of the value of stmt.\r\n```",
+              "createdAt": "2024-05-30T15:02:18Z",
+              "updatedAt": "2024-05-30T15:02:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858fHXM",
+          "commit": {
+            "abbreviatedOid": "e41d160"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:03:02Z",
+          "updatedAt": "2024-05-30T15:03:02Z",
+          "comments": [
+            {
+              "originalPosition": 291,
+              "body": "```suggestion\r\n{{choice-fixme}} shows an ASN.1 CHOICE construct used to represent an encoding of a\r\n```",
+              "createdAt": "2024-05-30T15:03:02Z",
+              "updatedAt": "2024-05-30T15:03:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858fH1O",
+          "commit": {
+            "abbreviatedOid": "e41d160"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:03:51Z",
+          "updatedAt": "2024-05-30T15:03:51Z",
+          "comments": [
+            {
+              "originalPosition": 331,
+              "body": "```suggestion\r\ncertType as shown in {{flat-fixme}} indicates the format of the data in the\r\n```",
+              "createdAt": "2024-05-30T15:03:51Z",
+              "updatedAt": "2024-05-30T15:03:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858f0WZ",
+          "commit": {
+            "abbreviatedOid": "e41d160"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:52:36Z",
+          "updatedAt": "2024-05-30T15:52:36Z",
+          "comments": [
+            {
+              "originalPosition": 209,
+              "body": "Thanks!",
+              "createdAt": "2024-05-30T15:52:36Z",
+              "updatedAt": "2024-05-30T15:52:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858f1RF",
+          "commit": {
+            "abbreviatedOid": "a7d6685"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:54:29Z",
+          "updatedAt": "2024-05-30T15:54:30Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "After refreshing my memory on context I'd recommend end-entity certificate. Thank you!",
+              "createdAt": "2024-05-30T15:54:29Z",
+              "updatedAt": "2024-05-30T15:54:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858f2po",
+          "commit": {
+            "abbreviatedOid": "374d650"
+          },
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-30T15:57:09Z",
+          "updatedAt": "2024-05-30T15:57:09Z",
+          "comments": [
+            {
+              "originalPosition": 220,
+              "body": "Thanks. Should have re-checked the rendering",
+              "createdAt": "2024-05-30T15:57:09Z",
+              "updatedAt": "2024-05-30T15:57:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858gBzw",
+          "commit": {
+            "abbreviatedOid": "505ee10"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-30T16:14:02Z",
+          "updatedAt": "2024-05-30T16:16:55Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\non the device in question. The end-entity certificate is associated with key material that takes on the role of an Attestation Key and is used as Evidence originating from the Attester.\r\n```",
+              "createdAt": "2024-05-30T16:14:03Z",
+              "updatedAt": "2024-05-30T16:16:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858gDld",
+          "commit": {
+            "abbreviatedOid": "feadb32"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-30T16:17:56Z",
+          "updatedAt": "2024-05-30T16:17:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 130,
+      "id": "PR_kwDOJ3IIN85xBK9K",
+      "title": "Re-merging the updated image",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/130",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-30T14:16:20Z",
+      "updatedAt": "2024-05-30T18:38:47Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "22649629dfd214d85e7a7b40fdc8dab2fc8dee40",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJ3IIN858gX_J",
+          "commit": {
+            "abbreviatedOid": "2264962"
+          },
+          "author": "nedmsmith",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-05-30T16:58:03Z",
+          "updatedAt": "2024-05-30T16:58:03Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJ3IIN858hXxU",
+          "commit": {
+            "abbreviatedOid": "2264962"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-30T18:38:46Z",
+          "updatedAt": "2024-05-30T18:38:46Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
