@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-02T00:53:49.326172+00:00",
+  "timestamp": "2024-06-04T00:51:07.307943+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1484,15 +1484,15 @@
       "id": "I_kwDOJ3IIN86IhCLH",
       "title": "Change filename for tcg example",
       "url": "https://github.com/lamps-wg/csr-attestation/issues/124",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mwiseman-byid",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The filename for the tcg-attest-tpm-certify example is currently \"tcgCsrCertify_csr.pem\". To be consistent with the schema for the tcg OIDs I recommend renaming this to \"tcgAttestTpmCertify.pem\". As the text refers to this, the text will also need to change. ",
       "createdAt": "2024-05-10T20:18:22Z",
-      "updatedAt": "2024-05-10T20:18:22Z",
-      "closedAt": null,
+      "updatedAt": "2024-06-03T18:11:32Z",
+      "closedAt": "2024-06-03T18:11:32Z",
       "comments": []
     },
     {
@@ -1523,15 +1523,15 @@
       "labels": [],
       "body": "From Russ:\r\n\r\n\r\nAfter looking at this for the past few days, I am not convinced that the separation of non-ASN.1 and non-X.509 ASN.1 provides any value to the implementer.  At some point, the implementation must look up the OID to detimen how to fully parse the certificate.  Mike has shown some tricks to detect errors early with the current syntax.  To that end, I suggest that the module IMPORT CertificateChoices from RFC 6268.\r\n\r\nThe resulting ASN.1 for EvidenceBundle would be:\r\n\r\nEvidenceBundle ::= SEQUENCE {\r\n    evidence  EvidenceStatements,\r\n    certs SEQUENCE SIZE (1..MAX) OF CertificateChoices OPTIONAL\r\n    -- CertificateChoices MUST only contain certificate or other\r\n}\r\n\r\nIn addition, the text should say:\r\n\r\nCertificateChoices MUST only contain certificate or other.  CertificateChoices MUST NOT contain extendedCertificate, v1AttrCert, or v2AttrCert.\r\n\r\nRuss\r\n\r\n\r\nP.S.  If the WG likes this suggestion, then the full ASN.1 module for this Internet-Draft follows.\r\n\r\nCSR-ATTESTATION-2024\r\n    {iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n     mechanisms(5) pkix(7) id-mod(0) id-mod-pkix-attest-01(TBDMOD)}\r\n\r\nDEFINITIONS IMPLICIT TAGS ::= BEGIN\r\n\r\nEXPORTS ALL;\r\n\r\nIMPORTS\r\n\r\nCertificate, id-pkix\r\n  FROM PKIX1Explicit-2009\r\n    { iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n      mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-explicit-02(51)}\r\n\r\nCertificateChoices\r\n  FROM CryptographicMessageSyntax-2010\r\n    { iso(1) member-body(2) us(840) rsadsi(113549)\r\n      pkcs(1) pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) }\r\n\r\nEXTENSION, ATTRIBUTE, AttributeSet{}, SingleAttribute{}\r\n  FROM PKIX-CommonTypes-2009 -- from [RFC5912]\r\n    { iso(1) identified-organization(3) dod(6) internet(1) security(5)\r\n      mechanisms(5) pkix(7) id-mod(0) id-mod-pkixCommon-02(57) }\r\n\r\nid-aa\r\n  FROM SecureMimeMessageV3dot1\r\n    { iso(1) member-body(2) us(840) rsadsi(113549)\r\n        pkcs(1) pkcs-9(9) smime(16) modules(0) msg-v3dot1(21) }\r\n  ;\r\n  \r\n\r\n-- OID Arc for attestation statement types\r\nid-ata OBJECT IDENTIFIER ::= { id-pkix TBD1 }\r\n\r\nEVIDENCE-STATEMENT ::= TYPE-IDENTIFIER\r\n\r\nEvidenceStatementSet EVIDENCE-STATEMENT ::= {\r\n   ... -- None defined in this document --\r\n}\r\n\r\nEvidenceHint ::= CHOICE {\r\n  rfc822Name [0] IA5String,\r\n  dNSName    [1] IA5String,\r\n  uri        [2] IA5String,\r\n  text       [3] UTF8String\r\n}\r\n\r\nEvidenceStatements ::= SEQUENCE SIZE (1..MAX) OF EvidenceStatement\r\n\r\nEvidenceStatement ::= SEQUENCE {\r\n   type   EVIDENCE-STATEMENT.&id({EvidenceStatementSet}),\r\n   stmt   EVIDENCE-STATEMENT.&Type({EvidenceStatementSet}{@type}),\r\n   hint   EvidenceHint OPTIONAL\r\n}\r\n\r\nid-aa-evidence OBJECT IDENTIFIER ::= { id-aa TBDAA }\r\n\r\n-- For PKCS#10\r\nattr-evidence ATTRIBUTE ::= {\r\n  TYPE SEQUENCE OF EvidenceBundles\r\n  IDENTIFIED BY id-aa-evidence\r\n}\r\n\r\n\r\n-- For CRMF\r\next-evidence EXTENSION ::= {\r\n  SYNTAX EvidenceBundles\r\n  IDENTIFIED BY id-aa-evidence\r\n}\r\n\r\n\r\nEvidenceBundles ::= SEQUENCE SIZE (1..MAX) OF EvidenceBundle\r\n\r\nEvidenceBundle ::= SEQUENCE {\r\n    evidence  EvidenceStatements,\r\n    certs SEQUENCE SIZE (1..MAX) OF CertificateChoices OPTIONAL\r\n    -- CertificateChoices MUST only contain certificate or other\r\n}\r\n\r\nEND\r\n",
       "createdAt": "2024-05-27T16:13:52Z",
-      "updatedAt": "2024-05-27T16:16:51Z",
+      "updatedAt": "2024-06-03T18:56:33Z",
       "closedAt": null,
       "comments": [
         {
           "author": "ounsworth",
           "authorAssociation": "CONTRIBUTOR",
-          "body": "Does this affect the wire encoding of the examples in the appendix?",
+          "body": "Does this affect the wire encoding of the examples in the appendix?\r\nI think not because both are a CHOICE with the default option (which the TCG example uses) being untagged. IE this is an ASN.1 change but does not affect the wire encoding.",
           "createdAt": "2024-05-27T16:16:50Z",
-          "updatedAt": "2024-05-27T16:16:50Z"
+          "updatedAt": "2024-06-03T18:56:33Z"
         }
       ]
     },
@@ -1556,6 +1556,30 @@
           "body": "> 1. \"Lead Attester\" is not defined anywhere,\r\n\r\n9334 quasi defines and uses it in examples. The use here is intended to align with 9334 use. Is that not the case / should this reference 9334?\r\n\r\n>4. ... \"Leader Attester\"\r\n\r\nI assume this is a typo.\r\n\r\n> 8. Evidence Hint appears to be a way to convey type data that's otherwise buried inside of an Evidence Object\r\n\r\nThe PR #125 defines the `type` and `hint` objects. The type is an OID from the table of OIDs further in the I-D. e.g.: type: OBJECT IDENTIFIER tcg-dice-TcbInfo (2.23.133.5.4.1)\r\nHint is a quasi URI that describes the same object e.g. \"DiceTcbInfo.example.com\" \r\n\r\nPossibly, the CSR example should be defined to the same level of detail as the DiceTcbInfo example. Then type would be `type: OBJECT IDENTIFIER tcg-dice-DiceConceptualMessageWrapper (2.23.133.5.4.9)` and hint would be `\"DiceConceptualMessageWrapper.example.com\"`.\r\n\r\nOtherwise, the feedback is unclear about what `laziness` means. Possibly, `type` is sufficient and `hint` has no value?",
           "createdAt": "2024-05-28T19:41:39Z",
           "updatedAt": "2024-05-28T19:58:21Z"
+        }
+      ]
+    },
+    {
+      "number": 131,
+      "id": "I_kwDOJ3IIN86K8cmk",
+      "title": "Remove hint",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/131",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See LAMPS mail lint discussion.",
+      "createdAt": "2024-06-03T13:01:18Z",
+      "updatedAt": "2024-06-03T16:14:44Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Maybe take out the Hint and replace it with an extension marker `...`",
+          "createdAt": "2024-06-03T16:14:43Z",
+          "updatedAt": "2024-06-03T16:14:43Z"
         }
       ]
     }
@@ -5662,7 +5686,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-03-26T18:28:59Z",
-      "updatedAt": "2024-05-30T14:15:10Z",
+      "updatedAt": "2024-06-03T18:13:57Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "mike_ra_pic",
       "baseRefOid": "921d5b60e652637fc23268a47c34231ee62a2362",
@@ -6086,24 +6110,26 @@
       "id": "PR_kwDOJ3IIN85xBK9K",
       "title": "Re-merging the updated image",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/130",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ounsworth",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-05-30T14:16:20Z",
-      "updatedAt": "2024-05-30T18:38:47Z",
+      "updatedAt": "2024-06-03T18:13:56Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "hannestschofenig-patch-2",
       "headRefOid": "22649629dfd214d85e7a7b40fdc8dab2fc8dee40",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-03T18:13:49Z",
+      "mergedAt": "2024-06-03T18:13:49Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "d446ab7af757c10c021373d7a038e8817ccc0f97"
+      },
       "comments": [],
       "reviews": [
         {
@@ -6133,6 +6159,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 132,
+      "id": "PR_kwDOJ3IIN85xViW-",
+      "title": "Replaced TypedCert with CertificateChoices from RFC6268",
+      "url": "https://github.com/lamps-wg/csr-attestation/pull/132",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #127 \r\n\r\nWe need to convince ourselves that this change does not affect the wire format ... ie that none of the appendices need to change.",
+      "createdAt": "2024-06-03T18:55:08Z",
+      "updatedAt": "2024-06-03T18:58:33Z",
+      "baseRepository": "lamps-wg/csr-attestation",
+      "baseRefName": "main",
+      "baseRefOid": "d446ab7af757c10c021373d7a038e8817ccc0f97",
+      "headRepository": "lamps-wg/csr-attestation",
+      "headRefName": "mikeo_removeTypedCert",
+      "headRefOid": "fe6a38f7a75fe818299cc8b3a9b9f56873422029",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
