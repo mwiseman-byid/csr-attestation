@@ -5,12 +5,12 @@
 Network Working Group                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           H. Tschofenig
-Expires: 1 December 2024                                         Siemens
+Expires: 10 December 2024                                        Siemens
                                                              H. Birkholz
                                                           Fraunhofer SIT
                                                               M. Wiseman
                                                          Beyond Identity
-                                                             30 May 2024
+                                                             8 June 2024
 
 
      Use of Remote Attestation with Certification Signing Requests
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 December 2024.
+   This Internet-Draft will expire on 10 December 2024.
 
 Copyright Notice
 
@@ -173,7 +173,7 @@ Table of Contents
    one or more certification paths rooted in a device manufacture trust
    anchor and the end-entity certificate being on the device in
    question.  The end-entity certificate is associated with key material
-   that takes on the role of an Attestation Key and is used to Evidence
+   that takes on the role of an Attestation Key and is used as Evidence
    originating from the Attester.
 
    This document specifies a CSR Attribute (or Extension for Certificate
@@ -400,7 +400,7 @@ Table of Contents
        Figure 5: Use Case 2: Single Attester with Certification Path.
 
    In a Composite Device, which contains multiple Attesters, a
-   collection of Evidence statements is obtained.  In this scenario,
+   collection of Evidence statements is obtained.  In this use case,
    each Attester returns its Evidence together with a certification
    path.  As a result, multiple EvidenceBundle structures, each carrying
    an EvidenceStatement and the corresponding CertificateAlternative
@@ -513,7 +513,7 @@ Table of Contents
    -- Arc for Evidence types
    id-ata OBJECT IDENTIFIER ::= { id-pkix (TBD1) }
 
-                        Figure 8: Figure Name FixMe1
+         Figure 8: New OID Arc for PKIX Evidence Statement Formats
 
 5.2.  Evidence Attribute and Extension
 
@@ -531,7 +531,7 @@ Table of Contents
       ... -- None defined in this document --
    }
 
-                        Figure 9: Figure Name FixMe2
+                Figure 9: Definition of EvidenceStatementSet
 
    The expression illustrated in Figure 9 maps ASN.1 Types for Evidence
    Statements to the OIDs that identify them.  These mappings are are
@@ -551,7 +551,7 @@ Table of Contents
       hint   UTF8String OPTIONAL
    }
 
-                       Figure 10: Figure Name FixMe3
+                 Figure 10: Definition of EvidenceStatement
 
    In Figure 10, type is an OID that indicates the format of the value
    of stmt.
@@ -608,7 +608,7 @@ Table of Contents
      IDENTIFIED BY id-aa-evidence
    }
 
-                       Figure 11: Figure Name FixMe4
+           Figure 11: Definitions of CSR attribute and extension
 
    The Extension variant illustrated in Figure 11 is intended only for
    use within CRMF CSRs and MUST NOT be used within X.509 certificates
@@ -631,6 +631,9 @@ Table of Contents
    multiple Evidence bundles.
 
 5.3.  CertificateAlternatives
+
+   fixme: I am not fixing this because another PR fully removed this
+   section, so in the merge, this should go away.
 
    Figure 12 shows an ASN.1 CHOICE construct used to represent an
    encoding of a broad variety of certificate types.
@@ -672,6 +675,9 @@ Table of Contents
         }
 
                       Figure 13: Figure Name FixMe6
+
+   fixme: I am not fixing this because another PR fully removed this
+   section, so in the merge, this should go away.
 
    Figure Figure 13 illustrates "TypedFlatCert" representing a
    certificate that does not have a valid ASN.1 encoding.  Certificates
