@@ -132,6 +132,8 @@ Table of Contents
 
    Addressing comments from WGLC.
 
+   *  Editorial and grammar.
+
    *  Updated name and value of OID tcg-attest-tpm-certify, as per TCG
       request.
 
