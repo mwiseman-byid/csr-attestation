@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-06T00:50:19.314094+00:00",
+  "timestamp": "2024-06-09T00:55:35.040530+00:00",
   "repo": "lamps-wg/csr-attestation",
   "labels": [
     {
@@ -1363,9 +1363,17 @@
       "labels": [],
       "body": "https://datatracker.ietf.org/doc/html/draft-ietf-rats-msg-wrap-04#name-transporting-cmw-in-x509-me\r\n\r\nComplication is that the OID for that is not yet allocated, so in order to not slow down the CSR Attest draft, CMW would need to ask for early allocation in order to produce a complete example containing the final OID.\r\n\r\nDiscussion is needed about whether the CMW OID should be allocated within the new registry created by the CSR Attest draft \"SMI Security for PKIX Evidence Statement Formats\" Registry. That would require requesting early allocation of both the registry and the CMW OID within it. Possibly we should also re-name it to be broader than just Evidence.\r\n\r\nFYI @thomas-fossati , @hannestschofenig ",
       "createdAt": "2024-03-19T00:14:23Z",
-      "updatedAt": "2024-03-19T00:17:32Z",
+      "updatedAt": "2024-06-08T13:12:10Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@nedmsmith is this issue closed by PR #125 ?",
+          "createdAt": "2024-06-08T13:12:09Z",
+          "updatedAt": "2024-06-08T13:12:09Z"
+        }
+      ]
     },
     {
       "number": 110,
@@ -1589,6 +1597,22 @@
           "updatedAt": "2024-06-04T12:52:53Z"
         }
       ]
+    },
+    {
+      "number": 134,
+      "id": "I_kwDOJ3IIN86Lksxv",
+      "title": "Look at the diff from last version and make sure the changelog is complete",
+      "url": "https://github.com/lamps-wg/csr-attestation/issues/134",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-06-08T13:18:12Z",
+      "updatedAt": "2024-06-08T13:18:12Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -5828,24 +5852,26 @@
       "id": "PR_kwDOJ3IIN85vIc8w",
       "title": "Update draft-ietf-lamps-csr-attestation.md",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/123",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mwiseman-byid",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Make tcg OIDs consistent with TCG approved name. Removed EDNOTE indicating this is TBD. Still need to provide link to document but waiting on TCG process to publish document to provide the link.",
       "createdAt": "2024-05-10T20:13:45Z",
-      "updatedAt": "2024-05-10T20:13:45Z",
+      "updatedAt": "2024-06-08T13:06:36Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "8b313c6b644641df3ce70cea75f129807bc063fc",
       "headRepository": "mwiseman-byid/csr-attestation",
       "headRefName": "patch-2",
       "headRefOid": "8ff4e8bc0d3a10e1103cbb91e3276f2943ff76a0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-08T13:06:36Z",
+      "mergedAt": "2024-06-08T13:06:36Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "5f83bb1fb7023b5253ef05cf15b922d337c17216"
+      },
       "comments": [],
       "reviews": []
     },
@@ -5854,7 +5880,7 @@
       "id": "PR_kwDOJ3IIN85v_YWI",
       "title": "Dice tcb info example",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/125",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "nedmsmith",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -5863,18 +5889,35 @@
       "labels": [],
       "body": "PR to add DiceTcbInfo example to main",
       "createdAt": "2024-05-20T18:48:05Z",
-      "updatedAt": "2024-05-20T23:00:18Z",
+      "updatedAt": "2024-06-08T13:14:21Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "dice-tcb-info-example",
       "headRefOid": "0cef464001ea84a1644291a2e11d1e5a2bc63c3f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2024-06-08T13:14:21Z",
+      "mergedAt": "2024-06-08T13:14:21Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "b89d58bc4920ebc05b87667737aac97f663f7173"
+      },
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks Ned.\r\n\r\nI didn't know that kramdown had a formal `contributors` block. The more you know!",
+          "createdAt": "2024-06-08T13:10:20Z",
+          "updatedAt": "2024-06-08T13:10:20Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@nedmsmith Is this actually a CMW? Does this PR close #109?",
+          "createdAt": "2024-06-08T13:11:39Z",
+          "updatedAt": "2024-06-08T13:11:39Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -5882,24 +5925,26 @@
       "id": "PR_kwDOJ3IIN85ww6N7",
       "title": "Editorial Review up to IANA ConSec",
       "url": "https://github.com/lamps-wg/csr-attestation/pull/129",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "henkbirkholz",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "All changes are intended to be editorial in nature:\r\n* removing narrative voice\r\n* capitalization\r\n* concretization: removing (abstract) referrals to previous sentences, such as 'this'\r\n* added a ton of `fixme` Figure labels and incorporated them into text\r\n  those labels till need fixing!\r\n* nits",
       "createdAt": "2024-05-28T13:15:31Z",
-      "updatedAt": "2024-05-30T16:47:10Z",
+      "updatedAt": "2024-06-08T13:56:44Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
       "baseRefOid": "07af57b6beda82aba8a77e5ef1ec273494a8ad20",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "henks-wglc-review",
-      "headRefOid": "e46ca1c9552e3104a69c51a9ccff7ad693080a92",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "9a0422eb58a3929780f298c0f1a1bc054efcff14",
+      "closedAt": "2024-06-08T13:56:44Z",
+      "mergedAt": "2024-06-08T13:56:44Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "5b3c711ac1fa95822f5aa5d90096ee2cd70d7194"
+      },
       "comments": [
         {
           "author": "hannestschofenig",
@@ -5914,6 +5959,20 @@
           "body": "> Are you incorporating the editorial review comments from Carl with this PR or are these your own editorial comments?\r\n\r\nThese are my own. We went to WGLC before I found the time. So now they are review feedback to the WGLC.\r\nI will not be able to address Carl's comments in-text, but am composing a reply to his email day per day.",
           "createdAt": "2024-05-30T16:11:16Z",
           "updatedAt": "2024-05-30T16:11:16Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I see that you decided to keep the convention of capitalized words that refer to a RATS Architecture term; \"Evidence\", \"Attester\", etc.",
+          "createdAt": "2024-06-08T13:33:38Z",
+          "updatedAt": "2024-06-08T13:33:38Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I know that @henkbirkholz 's review is not complete, but I am merging this to `main` so that I can proceed with merging other PRs on top of it.",
+          "createdAt": "2024-06-08T13:56:19Z",
+          "updatedAt": "2024-06-08T13:56:36Z"
         }
       ],
       "reviews": [
@@ -6109,6 +6168,26 @@
           "createdAt": "2024-05-30T16:17:56Z",
           "updatedAt": "2024-05-30T16:17:56Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJ3IIN859hLEO",
+          "commit": {
+            "abbreviatedOid": "9a0422e"
+          },
+          "author": "ounsworth",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-08T13:28:11Z",
+          "updatedAt": "2024-06-08T13:44:52Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "Interesting. You're phrasing this as if the Evidence-signer cert is itself also evidence. Is that the intention here?",
+              "createdAt": "2024-06-08T13:28:11Z",
+              "updatedAt": "2024-06-08T13:44:52Z"
+            }
+          ]
         }
       ]
     },
@@ -6179,13 +6258,13 @@
       "labels": [],
       "body": "Closes #127 \r\n\r\nWe need to convince ourselves that this change does not affect the wire format ... ie that none of the appendices need to change.",
       "createdAt": "2024-06-03T18:55:08Z",
-      "updatedAt": "2024-06-03T18:58:33Z",
+      "updatedAt": "2024-06-08T14:12:22Z",
       "baseRepository": "lamps-wg/csr-attestation",
       "baseRefName": "main",
-      "baseRefOid": "d446ab7af757c10c021373d7a038e8817ccc0f97",
+      "baseRefOid": "5b3c711ac1fa95822f5aa5d90096ee2cd70d7194",
       "headRepository": "lamps-wg/csr-attestation",
       "headRefName": "mikeo_removeTypedCert",
-      "headRefOid": "fe6a38f7a75fe818299cc8b3a9b9f56873422029",
+      "headRefOid": "d2964292f2dbe3388bf568b24ef205420dc2587f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
